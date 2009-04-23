@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="test/java"/>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/hibernate3.jar" sourcepath="/home/bruce/lib/hibernate-distribution-3.3.1.GA/project/core/src/main/java">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/bruce/lib/hibernate-distribution-3.3.1.GA/project/core/src/main/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
