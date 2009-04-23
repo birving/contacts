@@ -59,4 +59,12 @@ public class Company extends AbstractAuditedBean {
     public void setContacts(Set<Person> contacts) {
         this.contacts = contacts;
     }
+
+    public Set<CompanyAssociation> getAssociations() {
+        return associations;
+    }
+
+    public void setAssociations(Set<CompanyAssociation> associations) {
+        this.associations = associations;
+    }
 }
