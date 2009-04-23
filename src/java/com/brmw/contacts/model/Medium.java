@@ -11,8 +11,17 @@ package com.brmw.contacts.model;
  * 
  */
 public class Medium extends AbstractAuditedBean {
+    private String type;
     private String name;
-    private String qualifier;
+    private String notes;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String types) {
+        this.type = types;
+    }
 
     public String getName() {
         return name;
@@ -22,11 +31,11 @@ public class Medium extends AbstractAuditedBean {
         this.name = name;
     }
 
-    public String getQualifier() {
-        return qualifier;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setQualifier(String qualifier) {
-        this.qualifier = qualifier;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

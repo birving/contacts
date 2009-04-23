@@ -14,8 +14,10 @@ public class Person extends AbstractAuditedBean {
     private String lastName;
     private String firstName;
     private Company company;
+    private String position;
     private Set<Locator> locators;
     private Set<Communication> communications;
+    private String notes;
 
     public String getLastName() {
         return lastName;
@@ -41,6 +43,14 @@ public class Person extends AbstractAuditedBean {
         this.company = company;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     public Set<Locator> getLocators() {
         return locators;
     }
@@ -57,4 +67,11 @@ public class Person extends AbstractAuditedBean {
         this.communications = communications;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

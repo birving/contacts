@@ -3,6 +3,7 @@
  */
 package com.brmw.contacts.model;
 
+import java.net.URL;
 import java.util.Set;
 
 /**
@@ -13,9 +14,11 @@ import java.util.Set;
  */
 public class Company extends AbstractAuditedBean {
     private String name;
+    private URL webpage;
     private String notes;
     private Set<Position> positions;
     private Set<Person> contacts;
+    private Set<CompanyAssociation> associations;
 
     public String getName() {
         return name;
@@ -23,6 +26,14 @@ public class Company extends AbstractAuditedBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public URL getWebpage() {
+        return webpage;
+    }
+
+    public void setWebpage(URL webpage) {
+        this.webpage = webpage;
     }
 
     public String getNotes() {

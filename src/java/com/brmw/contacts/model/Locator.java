@@ -11,9 +11,18 @@ package com.brmw.contacts.model;
  * 
  */
 public class Locator extends AbstractAuditedBean {
+    private Person person;
     private Medium medium;
     private String value;
     private String notes;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public Medium getMedium() {
         return medium;
