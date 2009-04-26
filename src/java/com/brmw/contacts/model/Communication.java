@@ -1,5 +1,5 @@
 /**
- * 
+ * First Javadoc comment.
  */
 package com.brmw.contacts.model;
 
@@ -8,9 +8,11 @@ import java.util.Set;
 
 /**
  * @author Bruce Irving
- * 
+ *         <p/>
  *         This class represents an instance of communication between two or
  *         more people.
+ *         <p/>
+ * @Copyright 2009 Bruce Irving. All rights reserved.
  */
 public class Communication extends AbstractAuditedBean {
     private Date time;

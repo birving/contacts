@@ -2,7 +2,7 @@ package com.brmw.contacts.model;
 
 /**
  * @author Bruce Irving
- * 
+ * <p/>
  *         Base class for audited model beans.
  */
 public abstract class AbstractAuditedBean extends AbstractBean {
