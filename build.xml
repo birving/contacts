@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Project: contacts    
+                   
+     Copyright 2009 Bruce Irving. All rights reserved.                                                                
+     ====================================================================== -->
+<project name="contacts" default="about">
+    <description>
+            Contacts application build file. 
+    </description>
+
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	      Define project properties
+         =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <property name="wrk.root" location="${basedir}/../.." />
+    <property name="prj.root" location="${basedir}" />
+    <property name="prj.gen.root" value="${wrk.root}/workspace_gen/${ant.project.name}" />
+    <property name="prj.javadoc.dir" location="${prj.gen.root}/javadoc" />
+    <property name="prj.java.dir" location="${prj.root}/src/java" />
+    <property name="prj.test.root" location="${prj.root}/test" />
+    <property name="prj.test.dir" location="${prj.test.root}/java" />
+    <property name="prj.lib" location="${wrk.root}/lib" />
+    <path id="prj.classpath">
+        <pathelement path="${prj.lib}/hibernate-distribution-3.3.1.GA/hibernate3.jar" />
+        <pathelement path="${prj.lib}/mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar" />
+    </path>
+
+    <!-- ================================= 
+          target: about              
+         ================================= -->
+    <target name="about" description="Ant script documentation.">
+        <echo level="info">This is the Ant build script for project: Contacts</echo>
+        <echo level="info">Public targets:</echo>
+        <echo level="info">    about      - (Default) Display this message.</echo>
+        <echo level="info">    javadoc    - Generate project Javadocs.</echo>
+        <echo level="info">    showprops  - Display ant properties. Useful for debugging.</echo>
+        <echo level="info">    ... more to come ...</echo>
+    </target>
+
+    <!-- ================================= 
+          target: showprops              
+         ================================= -->
+    <target name="showprops" description="Display ant properties.">
+        <echoproperties>
+        </echoproperties>
+    </target>
+
+    <!-- ================================= 
+          target: javadoc              
+         ================================= -->
+    <target name="javadoc" description="Generate javadocs" depends="clean.javadoc">
+        <javadoc destdir="${prj.javadoc.dir}"
+                 sourcepath="${prj.java.dir}"
+                 classpathref="prj.classpath"
+                 overview="${prj.java.dir}/overview.html">
+            <bottom>Copyright &amp;copy; 2009 Bruce Irving. All rights reserved.</bottom>
+        </javadoc>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: cleanjavadoc                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean.javadoc">
+        <delete dir="${prj.javadoc.dir}" />
+        <mkdir dir="${prj.javadoc.dir}" />
+    </target>
+
+    <target name="oldjavadoc" description="Generate javadocs">
+        <javadoc access="public" source="1.6" splitindex="true" use="true" version="true" />
+    </target>
+
+</project>

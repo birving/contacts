@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+	<property name="project.gen">../../workspace_gen/contacts/</property>
+	<target name="showProperties">
+		<echo level="info">Properties ...</echo>
+
+	</target>
+
+	<target name="javadoc">
+		<javadoc access="public" author="true" classpath="/home/bruce/lib/hibernate-distribution-3.3.1.GA/hibernate3.jar:/home/bruce/lib/mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar" destdir="javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.brmw.contacts.model,com.brmw.contacts.test" source="1.6" sourcepath="test/java:src/java" splitindex="true" use="true" version="true" />
+	</target>
+</project>

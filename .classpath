@@ -8,5 +8,6 @@
 			<attribute name="javadoc_location" value="file:/home/bruce/lib/hibernate-distribution-3.3.1.GA/project/core/src/main/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/bruce/lib/mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar" sourcepath="/home/bruce/lib/mysql-connector-java-3.1.14/src"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

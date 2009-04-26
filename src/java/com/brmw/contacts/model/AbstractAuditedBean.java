@@ -2,13 +2,22 @@ package com.brmw.contacts.model;
 
 /**
  * @author Bruce Irving
- * <p/>
+ *         <p/>
  *         Base class for audited model beans.
  */
 public abstract class AbstractAuditedBean extends AbstractBean {
 
+    private Long version;
     private Audit created;
     private Audit updated;
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     public Audit getCreated() {
         return created;

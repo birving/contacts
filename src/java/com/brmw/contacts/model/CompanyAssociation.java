@@ -5,9 +5,9 @@ package com.brmw.contacts.model;
 
 /**
  * @author Bruce Irving
- * 
+ * <p/>
  *         Companies may be associated as parent/subsidiary, employer/recruiter,
- *         etc.
+ *         etc. as specified by <code>Associationtype</code>
  */
 public class CompanyAssociation extends AbstractAuditedBean {
     private Company company1;

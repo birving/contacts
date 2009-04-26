@@ -1,11 +1,12 @@
 package com.brmw.contacts.test;
 // import com.mysql.jdbc.Driver;
+import org.hibernate.id.enhanced.TableGenerator;
 
 /**
- * Copyright 2009, All rights reserved.
  * @author Bruce Irving
  * 
- * This 
+ * <p/>
+ * This is a a scratch class. Probably will be deleted at some point...  
  */
 public class ContactsScratch {
     

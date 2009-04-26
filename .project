@@ -20,5 +20,10 @@
 			<type>2</type>
 			<location>/home/bruce/workspace_gen/contacts/classes</location>
 		</link>
+		<link>
+			<name>javadoc</name>
+			<type>2</type>
+			<location>/home/bruce/workspace_gen/contacts/javadoc</location>
+		</link>
 	</linkedResources>
 </projectDescription>

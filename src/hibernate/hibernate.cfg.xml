@@ -30,7 +30,6 @@
 
         <!-- Mapping files -->
 		<mapping resource="com/brmw/contacts/model/AssociationType.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/AssociationType.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Audit.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Communication.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/CompanyAssociation.hbm.xml" />
