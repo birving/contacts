@@ -4,6 +4,7 @@
 package com.brmw.contacts.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class Communication extends AbstractAuditedBean {
     private Date time;
     private Medium medium;
     private Person initiator;
-    private Set<Person> participants;
+    private Set<Person> participants = new HashSet<Person>();
     private String content;
     private String notes;
 
@@ -50,7 +51,7 @@ public class Communication extends AbstractAuditedBean {
         return participants;
     }
 
-    public void setParticipants(Set<Person> participants) {
+    void setParticipants(Set<Person> participants) {
         this.participants = participants;
     }
 

@@ -8,18 +8,18 @@ package com.brmw.contacts.model;
  */
 public abstract class AbstractBean {
 
-    private Long ident;
+    private Long id;
 
     public AbstractBean() {
         super();
     }
 
-    public Long getIdent() {
-        return ident;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdent(Long ident) {
-        this.ident = ident;
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

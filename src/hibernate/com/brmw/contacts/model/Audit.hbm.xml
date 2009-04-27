@@ -5,10 +5,10 @@
 
 <hibernate-mapping package="com.brmw.contacts.model">
 	<class name="Audit" mutable="false">
-		<id name="ident" type="long" column="AuditID">
+		<id name="id" type="long" column="id">
 			<generator class="org.hibernate.id.enhanced.TableGenerator">
 				<param name="table_name">sequence</param>
-				<param name="value_column_name">nextIdent</param>
+				<param name="value_column_name">nextId</param>
 				<param name="segment_column_name">tableName</param>
 				<param name="segment_value">Audit</param>
 				<param name="increment_size">10</param>

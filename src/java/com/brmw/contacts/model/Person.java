@@ -3,6 +3,7 @@
  */
 package com.brmw.contacts.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,8 +16,8 @@ public class Person extends AbstractAuditedBean {
     private String firstName;
     private Company company;
     private String position;
-    private Set<Locator> locators;
-    private Set<Communication> communications;
+    private Set<Locator> locators = new HashSet<Locator>();
+    private Set<Communication> communications = new HashSet<Communication>();
     private String notes;
 
     public String getLastName() {
@@ -55,7 +56,7 @@ public class Person extends AbstractAuditedBean {
         return locators;
     }
 
-    public void setLocators(Set<Locator> locators) {
+    void setLocators(Set<Locator> locators) {
         this.locators = locators;
     }
 
@@ -63,7 +64,7 @@ public class Person extends AbstractAuditedBean {
         return communications;
     }
 
-    public void setCommunications(Set<Communication> communications) {
+    void setCommunications(Set<Communication> communications) {
         this.communications = communications;
     }
 

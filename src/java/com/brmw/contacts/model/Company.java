@@ -67,4 +67,26 @@ public class Company extends AbstractAuditedBean {
     public void setAssociations(Set<CompanyAssociation> associations) {
         this.associations = associations;
     }
+
+    @Override
+    public int hashCode() {
+        return (name == null) ? 0 : name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Company other = (Company) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
 }

@@ -1,0 +1,36 @@
+
+===
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+       "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.brmw.contacts.model">
+	<class name="Person">
+		<id name="id" type="long" column="id">
+			<generator class="org.hibernate.id.enhanced.TableGenerator">
+				<param name="table_name">sequence</param>
+				<param name="value_column_name">nextId</param>
+				<param name="segment_column_name">tableName</param>
+				<param name="segment_value">Person</param>
+				<param name="increment_size">10</param>
+				<param name="optimizer">pooled</param>
+			</generator>
+		</id>
+		<natural-id>
+			<property name="lastName" type="string" />
+			<property name="firstName" type="string" />
+			<many-to-one name="company" column="companyID" class="Company" />
+		</natural-id>
+		<version name="version" column="version" type="long" />
+
+		<many-to-one name="created" column="createdID" class="Audit" />
+		<many-to-one name="updated" column="updatedID" class="Audit" />
+
+		<set name="communications" table="communication">
+			<key></key>
+		</set>
+		<property name="content" type="text" />
+		<property name="notes" type="string" length="1000" />
+	</class>
+</hibernate-mapping>
