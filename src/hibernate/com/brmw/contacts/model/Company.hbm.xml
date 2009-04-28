@@ -10,7 +10,7 @@
 				<param name="table_name">sequence</param>
 				<param name="value_column_name">nextId</param>
 				<param name="segment_column_name">tableName</param>
-				<param name="segment_value">company</param>
+				<param name="segment_value">Company</param>
 				<param name="increment_size">10</param>
 				<param name="optimizer">pooled</param>
 			</generator>
@@ -36,17 +36,9 @@
 			<one-to-many class="Person" />
 		</set>
 
-		<!--
-			This is using two separate sets for opposite sides of the
-			association. There must be a better way !!!!!
-		-->
-		<set name="associations1" table="companyAssociation">
-			<key column="CompanyId1" not-null="true" />
-			<one-to-many class="CompanyAssociation" />
-		</set>
-		<set name="associations2" table="companyAssociation">
-			<key column="CompanyId2" not-null="true" />
-			<one-to-many class="CompanyAssociation" />
+		<set name="associations" table="company_association">
+			<key column="companyId" not-null="true" />
+			<many-to-many column="associationId" class="Association" />
 		</set>
 	</class>
 </hibernate-mapping>

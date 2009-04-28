@@ -1,10 +1,11 @@
 /* 
     Schema for the Contact database. 
 ## Tables -
+    association
 	associationType
 	communication
 	company
-	companyAssociation
+	company_association
 	locator
 	medium
 	person
@@ -14,6 +15,25 @@
 #### OBSOLETE - 
 	companyType
 /*
+
+/* 
+Table 'Association' represenst the association between two companies. Association could be parent-subsidiary, employer-recruiter, etc.
+*/
+CREATE
+    TABLE Association
+    (
+        id INT NOT NULL,
+        version INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
+        company1ID INT NOT NULL,
+        company2ID INT NOT NULL,
+        associationTypeID INT NOT NULL,
+        notes VARCHAR(1000),
+        PRIMARY KEY (id),
+        CONSTRAINT company_index UNIQUE (company1ID, company2ID),
+        CONSTRAINT reverse_index UNIQUE (company2ID, company1ID)
+    )
 
 /* Table 'associationType' represents the types of relationships between two entities (companies). e.g. Parent-Subsidiary, Recruiter-Employer */
 CREATE
@@ -68,22 +88,15 @@ CREATE
     )
 
 /* 
-Table 'companyAssociation' represenst the association between two companies. Association could be parent-subsidiary, employer-recruiter, etc.
+Table 'company_association' links the Company and Association tables.
 */
 CREATE
-    TABLE companyAssociation
+    TABLE company_association
     (
-        id INT NOT NULL,
-        version INT NOT NULL,
-        created INT NOT NULL,
-        updated INT NOT NULL,
-        company1ID INT NOT NULL,
-        company2ID INT NOT NULL,
-        associationTypeID INT NOT NULL,
-        notes VARCHAR(1000),
-        PRIMARY KEY (id),
-        CONSTRAINT company_index UNIQUE (company1ID, company2ID),
-        CONSTRAINT reverse_index UNIQUE (company2ID, company1ID)
+        companyId INT NOT NULL,
+        associationId, INT NOT NULL,
+        primary key (companyId, associationId),
+        CONSTRAINT reverse_index UNIQUE (associationId, companyId)
     )
 
 /* Locator stores a person's email addresses, phone numbers, etc. */

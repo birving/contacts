@@ -3,32 +3,30 @@
  */
 package com.brmw.contacts.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Bruce Irving
  * <p/>
  *         Companies may be associated as parent/subsidiary, employer/recruiter,
- *         etc. as specified by <code>Associationtype</code>
+ *         etc. as specified by <code>AssociationType</code>
  */
-public class CompanyAssociation extends AbstractAuditedBean {
-    private Company company1;
-    private Company company2;
+public class Association extends AbstractAuditedBean {
+    private Set<Company> companies = new HashSet<Company>();
     private AssociationType associationType;
     private String notes;
 
-    public Company getCompany1() {
-        return company1;
+    public Set<Company> getCompanies() {
+        return companies;
     }
 
-    public void setCompany1(Company company1) {
-        this.company1 = company1;
+    void setCompanies(Set<Company> companies) {
+        this.companies = companies;
     }
-
-    public Company getCompany2() {
-        return company2;
-    }
-
-    public void setCompany2(Company company2) {
-        this.company2 = company2;
+    
+    public void addCompany(Company company) {
+        companies.add(company);
     }
 
     public AssociationType getAssociationType() {

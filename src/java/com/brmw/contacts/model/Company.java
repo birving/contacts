@@ -4,6 +4,7 @@
 package com.brmw.contacts.model;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,9 +17,9 @@ public class Company extends AbstractAuditedBean {
     private String name;
     private URL webpage;
     private String notes;
-    private Set<Position> positions;
-    private Set<Person> contacts;
-    private Set<CompanyAssociation> associations;
+    private Set<Position> positions = new HashSet<Position>();
+    private Set<Person> contacts = new HashSet<Person>();
+    private Set<Association> associations = new HashSet<Association>();
 
     public String getName() {
         return name;
@@ -60,12 +61,16 @@ public class Company extends AbstractAuditedBean {
         this.contacts = contacts;
     }
 
-    public Set<CompanyAssociation> getAssociations() {
+    public Set<Association> getAssociations() {
         return associations;
     }
 
-    public void setAssociations(Set<CompanyAssociation> associations) {
+    void setAssociations(Set<Association> associations) {
         this.associations = associations;
+    }
+    
+    public void addAddociation(Association association) {
+        associations.add(association);
     }
 
     @Override

@@ -1,0 +1,41 @@
+Project: Contacts - Contact management application for job hunting.
+
+This document provides some thoughts and guidelines on the naming of classes, 
+variables, tables, etc. in the Contacts application. 
+
+Words should be used in a consistent and unambiguous way throughout the 
+application. Words can have multiple meanings; concepts can be expressed 
+by several different words. The goal is not to find the best possible word 
+for a given concept, but rather to find a good word and use it consistently.
+
+The chosen words need not align with the app's gui wording, but they can.
+
+==================================================
+
+Some basic rules -
+    Java classes, variables, constants should follow the usual conventions.
+        e.g. UpperCamelCase, lowerCamelCase, ALL_UPPER respectively.
+    Database tables & columns should generally follow Java class & variable 
+        conventions, e.g. UpperCamelCase.lowerCamelCase
+    Database association tables should use table1_table2 format.
+    Names should be meaningful
+    Names should not be too long 
+    Abbreviations should generally be avoided.
+    When using abbreviations or acronyms, treat them like words 
+        e.g. WbezNpr rather than WBEZNPR    
+    
+==================================================
+
+Here are some names chosen for the application ...
+
+Each of these is used for a db table and an object -
+    Company - a company with a role in the app.
+    Person - a person with a role in the app.
+    Medium - a communications medium, e.g. email, telephone.
+    Locator - a means to contact a Person, e.g. email address, phone number.
+    Communication - One instance of contact between two or more people, 
+        e.g an email message, a phone call, etc,
+    Position - a job opportunity.
+    CompanyAssociation - some connection between two companies.
+    AssociationType - describes the particular
+    Audit - internal application audit information. 
