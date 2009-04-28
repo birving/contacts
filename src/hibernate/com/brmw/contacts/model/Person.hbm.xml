@@ -1,5 +1,3 @@
-
-===
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC
        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
@@ -12,7 +10,7 @@
 				<param name="table_name">sequence</param>
 				<param name="value_column_name">nextId</param>
 				<param name="segment_column_name">tableName</param>
-				<param name="segment_value">Person</param>
+				<param name="segment_value">person</param>
 				<param name="increment_size">10</param>
 				<param name="optimizer">pooled</param>
 			</generator>
@@ -27,10 +25,17 @@
 		<many-to-one name="created" column="createdID" class="Audit" />
 		<many-to-one name="updated" column="updatedID" class="Audit" />
 
-		<set name="communications" table="communication">
-			<key></key>
+		<property name="role" type="string" />
+        <property name="notes" type="string" length="1000" />
+
+		<set name="locators" table="locator" inverse="true" cascade="all-delete-orphan">
+			<key column="personId" />
+			<one-to-many class="Locator" />
 		</set>
-		<property name="content" type="text" />
-		<property name="notes" type="string" length="1000" />
+
+		<set name="communications" table="person_communication" >
+			<key column="personId" not-null="true" />
+			<many-to-many column="communicationId" class="Communication" />
+		</set>
 	</class>
 </hibernate-mapping>

@@ -15,7 +15,7 @@ public class Person extends AbstractAuditedBean {
     private String lastName;
     private String firstName;
     private Company company;
-    private String position;
+    private String role;
     private Set<Locator> locators = new HashSet<Locator>();
     private Set<Communication> communications = new HashSet<Communication>();
     private String notes;
@@ -44,12 +44,12 @@ public class Person extends AbstractAuditedBean {
         this.company = company;
     }
 
-    public String getPosition() {
-        return position;
+    public String getRole() {
+        return role;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Set<Locator> getLocators() {
@@ -58,6 +58,11 @@ public class Person extends AbstractAuditedBean {
 
     void setLocators(Set<Locator> locators) {
         this.locators = locators;
+    }
+
+    public void addLocator(Locator locator) {
+        locator.setPerson(this);
+        locators.add(locator);
     }
 
     public Set<Communication> getCommunications() {

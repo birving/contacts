@@ -21,8 +21,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         name VARCHAR(50) NOT NULL,
         description VARCHAR(100),
         PRIMARY KEY (associationTypeID),
@@ -40,8 +40,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         mediumID INT,
         initiatorPersonID INT,
         time DATETIME,
@@ -56,8 +56,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         -- companyTypeID INT NOT NULL, (OBSOLETE)
         -- parentCompanyID INT, (OBSOLETE)
         name VARCHAR(100) NOT NULL,
@@ -75,13 +75,13 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         company1ID INT NOT NULL,
         company2ID INT NOT NULL,
         associationTypeID INT NOT NULL,
         notes VARCHAR(1000),
-        PRIMARY KEY (companyAssociationID),
+        PRIMARY KEY (id),
         CONSTRAINT company_index UNIQUE (company1ID, company2ID),
         CONSTRAINT reverse_index UNIQUE (company2ID, company1ID)
     )
@@ -92,8 +92,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         personID INT NOT NULL,
         mediumID INT NOT NULL,
         value VARCHAR(100) NOT NULL,
@@ -108,8 +108,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         type VARCHAR(20) NOT NULL,
         name VARCHAR(20) NOT NULL,
         notes VARCHAR(1000),
@@ -123,8 +123,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         companyID INT,
         lastName VARCHAR(50) NOT NULL,
         firstName VARCHAR(50) NOT NULL,
@@ -141,8 +141,8 @@ CREATE
     (
         --id INT NOT NULL,
         --version INT NOT NULL,
-	--created INT NOT NULL,
-	--updated INT NOT NULL,
+        --created INT NOT NULL,
+        --updated INT NOT NULL,
         personID INT NOT NULL,
         communicationID INT NOT NULL,
         PRIMARY KEY (personID, communicationID),
@@ -157,8 +157,8 @@ CREATE
     (
         id INT NOT NULL,
         version INT NOT NULL,
-	created INT NOT NULL,
-	updated INT NOT NULL,
+        created INT NOT NULL,
+        updated INT NOT NULL,
         companyID INT NOT NULL,
         recruiterCompanyID INT,
         identifier VARCHAR(100),
