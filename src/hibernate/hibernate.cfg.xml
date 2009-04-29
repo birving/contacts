@@ -5,8 +5,9 @@
 	<session-factory>
 
 		<!-- Database connection settings -->
-		<property name="connection.driver">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://copeland:3306/contact</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.driver">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://copeland:3306/contacts</property>
 		<property name="connection.username">contactsAdmin</property>
 		<property name="connection.password">p4ssw0rd</property>
 
@@ -29,14 +30,13 @@
 		<property name="hbm2ddl.auto">create</property>
 
         <!-- Mapping files -->
+        <mapping resource="com/brmw/contacts/model/Association.hbm.xml" />
 		<mapping resource="com/brmw/contacts/model/AssociationType.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Audit.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Communication.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/CompanyAssociation.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Company.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Locator.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Medium.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/package-info.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Person.hbm.xml" />
         <mapping resource="com/brmw/contacts/model/Position.hbm.xml" />
 

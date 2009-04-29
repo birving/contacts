@@ -1,12 +1,14 @@
 package com.brmw.contacts.model;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Bruce Irving
  * 
  *         Base class for persisted beans.
  */
-public abstract class AbstractBean {
+public abstract class AbstractBean implements Serializable {
 
     private Long id;
 

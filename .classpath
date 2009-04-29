@@ -8,6 +8,12 @@
 			<attribute name="javadoc_location" value="file:/home/bruce/lib/hibernate-distribution-3.3.1.GA/project/core/src/main/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/bruce/lib/mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar" sourcepath="/home/bruce/lib/mysql-connector-java-3.1.14/src"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/javassist-3.4.GA.jar"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/slf4j-api-1.5.2.jar"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/mysql-connector-java-5.1.7/mysql-connector-java-5.1.7-bin.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

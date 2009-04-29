@@ -25,5 +25,20 @@
 			<type>2</type>
 			<location>/home/bruce/workspace_gen/contacts/javadoc</location>
 		</link>
+		<link>
+			<name>lib/dom4j-1.6.1.jar</name>
+			<type>1</type>
+			<location>/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/dom4j-1.6.1.jar</location>
+		</link>
+		<link>
+			<name>lib/hibernate3.jar</name>
+			<type>1</type>
+			<location>/home/bruce/lib/hibernate-distribution-3.3.1.GA/hibernate3.jar</location>
+		</link>
+		<link>
+			<name>lib/mysql-connector-java-3.1.14-bin.jar</name>
+			<type>1</type>
+			<location>/home/bruce/lib/mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar</location>
+		</link>
 	</linkedResources>
 </projectDescription>

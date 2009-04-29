@@ -15,14 +15,24 @@
     <property name="wrk.root" location="${basedir}/../.." />
     <property name="prj.root" location="${basedir}" />
     <property name="prj.gen.root" value="${wrk.root}/workspace_gen/${ant.project.name}" />
+    <property name="prj.classes.dir" value="${prj.gen.root}/classes" />
     <property name="prj.javadoc.dir" location="${prj.gen.root}/javadoc" />
     <property name="prj.java.dir" location="${prj.root}/src/java" />
+    <property name="prj.hibernate.dir" location="${prj.root}/src/hibernate" />
     <property name="prj.test.root" location="${prj.root}/test" />
     <property name="prj.test.dir" location="${prj.test.root}/java" />
-    <property name="prj.lib" location="${wrk.root}/lib" />
-    <path id="prj.classpath">
-        <pathelement path="${prj.lib}/hibernate-distribution-3.3.1.GA/hibernate3.jar" />
-        <pathelement path="${prj.lib}/mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar" />
+    <property name="prj.lib" location="${prj.root}/lib" />
+    <property name="wrk.lib" location="${wrk.root}/lib" />
+
+    <path id="prj.build.classpath">
+        <pathelement location="${wrk.lib}/slf4j-1.5.6/slf4j-api-1.5.6.jar" />
+        <pathelement location="${wrk.lib}/slf4j-1.5.6/slf4j-jdk14-1.5.6.jar" />
+        <pathelement location="${wrk.lib}/mysql-connector-java-5.1.7/mysql-connector-java-5.1.7-bin.jar" />
+        <fileset dir="${wrk.lib}">
+            <include name="**/*.jar" />
+        </fileset>
+        <pathelement location="${prj.hibernate.dir}" />
+        <pathelement location="${prj.classes.dir}" />
     </path>
 
     <!-- ================================= 
@@ -41,8 +51,9 @@
           target: showprops              
          ================================= -->
     <target name="showprops" description="Display ant properties.">
-        <echoproperties>
-        </echoproperties>
+        <echoproperties />
+        <classfileset>
+        </classfileset>
     </target>
 
     <!-- ================================= 
@@ -51,7 +62,7 @@
     <target name="javadoc" description="Generate javadocs" depends="clean.javadoc">
         <javadoc destdir="${prj.javadoc.dir}"
                  sourcepath="${prj.java.dir}"
-                 classpathref="prj.classpath"
+                 classpathref="prj.build.classpath"
                  overview="${prj.java.dir}/overview.html">
             <bottom>Copyright &amp;copy; 2009 Bruce Irving. All rights reserved.</bottom>
         </javadoc>
@@ -65,8 +76,29 @@
         <mkdir dir="${prj.javadoc.dir}" />
     </target>
 
-    <target name="oldjavadoc" description="Generate javadocs">
-        <javadoc access="public" source="1.6" splitindex="true" use="true" version="true" />
+    <!-- ================================= 
+          target: db.schema.script - generate script to create schema.
+         ================================= -->
+
+    <target name="db.schema.script" description="Build database schema">
+        <taskdef name="schemaexport" classname="org.hibernate.tool.hbm2ddl.SchemaExportTask" classpathref="prj.build.classpath" />
+        <schemaexport config="${prj.hibernate.dir}/hibernate.cfg.xml"
+                      quiet="no"
+                      text="yes"
+                      drop="no"
+                      delimiter=";"
+                      output="${prj.gen.root}/db-schema.sql" />
+    </target>
+
+    <!-- ================================= 
+          target: db.schema.validate - Make sure the database structure is up to date.
+         ================================= -->
+
+    <target name="db.schema.validate" description="Build database schema">
+        <taskdef name="schemavalidator"
+                 classname="org.hibernate.tool.hbm2ddl.SchemaValidatorTask"
+                 classpathref="prj.build.classpath" />
+        <schemavalidator config="${prj.hibernate.dir}/hibernate.cfg.xml" />
     </target>
 
 </project>

@@ -13,7 +13,6 @@ import java.util.Set;
  *         This class represents an instance of communication between two or
  *         more people.
  *         <p/>
- * @Copyright 2009 Bruce Irving. All rights reserved.
  */
 public class Communication extends AbstractAuditedBean {
     private Date time;

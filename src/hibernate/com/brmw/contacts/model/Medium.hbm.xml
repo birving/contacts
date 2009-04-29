@@ -21,8 +21,10 @@
 		</natural-id>
 		<version name="version" column="version" type="long" />
 
-		<many-to-one name="created" column="createdID" class="Audit" />
-		<many-to-one name="updated" column="updatedID" class="Audit" />
+        <many-to-one name="created" column="createdID" class="Audit"
+            foreign-key="fkCreated" update="false" />
+        <many-to-one name="updated" column="updatedID" class="Audit"
+            foreign-key="fkUpdated" />
 
         <property name="notes" type="string" />
 	</class>

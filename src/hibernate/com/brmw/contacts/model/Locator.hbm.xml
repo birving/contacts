@@ -20,10 +20,14 @@
 		</natural-id>
 		<version name="version" column="version" type="long" />
 
-		<many-to-one name="created" column="createdID" class="Audit" />
-		<many-to-one name="updated" column="updatedID" class="Audit" />
+		<many-to-one name="created" column="createdID" class="Audit"
+			foreign-key="fkCreated" update="false" />
+		<many-to-one name="updated" column="updatedID" class="Audit"
+			foreign-key="fkUpdated" />
 
-        <many-to-one name="person" column="personID" class="Person" not-null="true" />
-        <many-to-one name="medium" column="mediumID" class="Medium" not-null="true" />
+		<many-to-one name="person" column="personID" class="Person"
+			not-null="true" foreign-key="fkPerson" />
+		<many-to-one name="medium" column="mediumID" class="Medium"
+			not-null="true" foreign-key="fkMedium" />
 	</class>
 </hibernate-mapping>

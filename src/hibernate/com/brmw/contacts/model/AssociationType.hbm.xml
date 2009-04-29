@@ -4,30 +4,28 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.brmw.contacts.model">
-    <class name="AssociationType">
-        <id name="id" type="long" column="id">
-            <generator class="org.hibernate.id.enhanced.TableGenerator">
-                <param name="table_name">sequence</param>
-                <param name="value_column_name">nextId</param>
-                <param name="segment_column_name">tableName</param>
-                <param name="segment_value">associationType</param>
-                <param name="increment_size">10</param>
-                <param name="optimizer">pooled</param>
-            </generator>
-        </id>
+	<class name="AssociationType">
+		<id name="id" type="long" column="id">
+			<generator class="org.hibernate.id.enhanced.TableGenerator">
+				<param name="table_name">sequence</param>
+				<param name="value_column_name">nextId</param>
+				<param name="segment_column_name">tableName</param>
+				<param name="segment_value">associationType</param>
+				<param name="increment_size">10</param>
+				<param name="optimizer">pooled</param>
+			</generator>
+		</id>
 
-        <natural-id mutable="true">
-            <property name="name" type="string" unique="true" not-null="true"
-                length="50" />
-        </natural-id>
+		<natural-id mutable="true">
+			<property name="name" type="string" not-null="true" length="50" />
+		</natural-id>
 
-        <version name="version" column="version" type="long" />
+		<version name="version" column="version" type="long" />
+		<many-to-one name="created" column="createdID" class="Audit"
+			foreign-key="fkCreated" />
+		<many-to-one name="updated" column="updatedID" class="Audit"
+			foreign-key="fkUpdated" />
 
-        <many-to-one name="created" column="createdID" class="Audit" />
-        <!--Should created have: cascade="create" update="false"? -->
-
-        <many-to-one name="updated" column="updatedID" class="Audit" />
-
-        <property name="description" type="string" length="100" />
-    </class>
+		<property name="description" type="string" length="100" />
+	</class>
 </hibernate-mapping>

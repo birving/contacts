@@ -16,14 +16,18 @@
 			</generator>
 		</id>
 		<version name="version" column="version" type="long" />
-		<many-to-one name="created" column="createdID" class="Audit" />
-		<many-to-one name="updated" column="updatedID" class="Audit" />
+		<many-to-one name="created" column="createdID" class="Audit"
+			foreign-key="fkCreated" update="false" />
+		<many-to-one name="updated" column="updatedID" class="Audit"
+			foreign-key="fkUpdated" />
 
-		<many-to-one name="medium" column="mediumID" class="Medium" />
-		<many-to-one name="initiator" column="initiatorID" class="Person" />
+		<many-to-one name="medium" column="mediumID" class="Medium"
+			foreign-key="fkMedium" />
+		<many-to-one name="initiator" column="initiatorID" class="Person"
+			foreign-key="fkInitiator" />
 		<set name="participants" table="person_communication">
-			<key column="communicationId" not-null="true" />
-			<many-to-many column="personId" class="Person"/>
+			<key column="communicationId" not-null="true" foreign-key="fkCommunication" />
+			<many-to-many column="personId" class="Person" />
 		</set>
 
 		<property name="content" type="text" />

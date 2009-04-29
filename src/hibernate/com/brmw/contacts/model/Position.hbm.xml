@@ -16,14 +16,18 @@
 			</generator>
 		</id>
 		<version name="version" column="version" type="long" />
-		<many-to-one name="created" column="createdID" class="Audit" />
-		<many-to-one name="updated" column="updatedID" class="Audit" />
+		<many-to-one name="created" column="createdID" class="Audit"
+			foreign-key="fkCreated" update="false" />
+		<many-to-one name="updated" column="updatedID" class="Audit"
+			foreign-key="fkUpdated" />
 
-		<many-to-one name="employer" column="employerID" class="Company" />
+		<many-to-one name="employer" column="employerID" class="Company"
+			foreign-key="fkEmployer" />
 		<property name="identifier" type="string" />
 		<property name="description" type="string" />
 		<property name="status" type="string" />
-        <many-to-one name="recruiterCompany" column="recruiterCompanyId" class="Company" />
+		<many-to-one name="recruiterCompany" column="recruiterCompanyId"
+			class="Company" foreign-key="fkrecruiterCompany" />
 		<property name="notes" type="string" length="1000" />
 
 	</class>
