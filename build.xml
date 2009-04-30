@@ -42,6 +42,8 @@
         <echo level="info">This is the Ant build script for project: Contacts</echo>
         <echo level="info">Public targets:</echo>
         <echo level="info">    about      - (Default) Display this message.</echo>
+        <echo level="info">    db.schema.script - Generate database schema script from Hibernate configuration.</echo>
+        <echo level="info">    db.schema.validate - Validate database schema against Hibernate configuration.</echo>
         <echo level="info">    javadoc    - Generate project Javadocs.</echo>
         <echo level="info">    showprops  - Display ant properties. Useful for debugging.</echo>
         <echo level="info">    ... more to come ...</echo>
@@ -52,14 +54,12 @@
          ================================= -->
     <target name="showprops" description="Display ant properties.">
         <echoproperties />
-        <classfileset>
-        </classfileset>
     </target>
 
     <!-- ================================= 
           target: javadoc              
          ================================= -->
-    <target name="javadoc" description="Generate javadocs" depends="clean.javadoc">
+    <target name="javadoc" description="Generate javadocs" depends="javadoc.clean">
         <javadoc destdir="${prj.javadoc.dir}"
                  sourcepath="${prj.java.dir}"
                  classpathref="prj.build.classpath"
@@ -71,7 +71,7 @@
     <!-- - - - - - - - - - - - - - - - - - 
           target: cleanjavadoc                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="clean.javadoc">
+    <target name="javadoc.clean">
         <delete dir="${prj.javadoc.dir}" />
         <mkdir dir="${prj.javadoc.dir}" />
     </target>
