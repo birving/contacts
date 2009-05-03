@@ -21,13 +21,13 @@
 		<version name="version" column="version" type="long" />
 
 		<many-to-one name="created" column="createdID" class="Audit"
-			foreign-key="fkCreated" update="false" />
+			foreign-key="fkLocatorCreated" update="false" />
 		<many-to-one name="updated" column="updatedID" class="Audit"
-			foreign-key="fkUpdated" />
+			foreign-key="fkLocatorUpdated" />
 
 		<many-to-one name="person" column="personID" class="Person"
-			not-null="true" foreign-key="fkPerson" />
+			not-null="true" foreign-key="fkLocatorPerson" />
 		<many-to-one name="medium" column="mediumID" class="Medium"
-			not-null="true" foreign-key="fkMedium" />
+			not-null="true" foreign-key="fkLocatorMedium" />
 	</class>
 </hibernate-mapping>

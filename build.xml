@@ -84,7 +84,7 @@
         <taskdef name="schemaexport" classname="org.hibernate.tool.hbm2ddl.SchemaExportTask" classpathref="prj.build.classpath" />
         <schemaexport config="${prj.hibernate.dir}/hibernate.cfg.xml"
                       quiet="no"
-                      text="yes"
+                      text="no"
                       drop="no"
                       delimiter=";"
                       output="${prj.gen.root}/db-schema.sql" />

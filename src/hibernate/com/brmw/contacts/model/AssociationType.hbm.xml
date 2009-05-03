@@ -22,9 +22,9 @@
 
 		<version name="version" column="version" type="long" />
 		<many-to-one name="created" column="createdID" class="Audit"
-			foreign-key="fkCreated" />
+			foreign-key="fkAssociationTypeCreated" />
 		<many-to-one name="updated" column="updatedID" class="Audit"
-			foreign-key="fkUpdated" />
+			foreign-key="fkAssociationTypeUpdated" />
 
 		<property name="description" type="string" length="100" />
 	</class>

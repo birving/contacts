@@ -8,12 +8,12 @@ import java.util.Set;
 
 /**
  * @author Bruce Irving
- * 
+ *         <p/>
  *         This class represents a person with whom there may be contact.
  */
 public class Person extends AbstractAuditedBean {
-    private String lastName;
-    private String firstName;
+    private String lastName;     // Natural key
+    private String firstName;    // Natural key
     private Company company;
     private String role;
     private Set<Locator> locators = new HashSet<Locator>();
@@ -40,8 +40,12 @@ public class Person extends AbstractAuditedBean {
         return company;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompany(Company newCompany) {
+        if (company != null) {
+            company.getContacts().remove(this);
+        }
+        company = newCompany;
+        newCompany.getContacts().add(this);
     }
 
     public String getRole() {
@@ -56,6 +60,7 @@ public class Person extends AbstractAuditedBean {
         return locators;
     }
 
+    /* package access - only used by Hibernate. */
     void setLocators(Set<Locator> locators) {
         this.locators = locators;
     }
@@ -69,6 +74,7 @@ public class Person extends AbstractAuditedBean {
         return communications;
     }
 
+    /* package access - only used by Hibernate. */
     void setCommunications(Set<Communication> communications) {
         this.communications = communications;
     }
@@ -79,5 +85,36 @@ public class Person extends AbstractAuditedBean {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Person other = (Person) obj;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        return true;
     }
 }

@@ -14,8 +14,8 @@ import java.util.Set;
  *         recruiter.
  */
 public class Company extends AbstractAuditedBean {
-    private String name;
-    private URL webpage;
+    private String name; // Natural key
+    private String webpage;
     private String notes;
     private Set<Position> positions = new HashSet<Position>();
     private Set<Person> contacts = new HashSet<Person>();
@@ -29,11 +29,15 @@ public class Company extends AbstractAuditedBean {
         this.name = name;
     }
 
-    public URL getWebpage() {
+    public String getWebpage() {
         return webpage;
     }
 
-    public void setWebpage(URL webpage) {
+    public void setWebpageUrl(URL webpageUrl) {
+        this.webpage = webpageUrl.toString();
+    }
+
+    public void setWebpage(String webpage) {
         this.webpage = webpage;
     }
 
@@ -49,7 +53,8 @@ public class Company extends AbstractAuditedBean {
         return positions;
     }
 
-    public void setPositions(Set<Position> positions) {
+    /* package access - only used by Hibernate. */
+    void setPositions(Set<Position> positions) {
         this.positions = positions;
     }
 
@@ -57,19 +62,26 @@ public class Company extends AbstractAuditedBean {
         return contacts;
     }
 
-    public void setContacts(Set<Person> contacts) {
+    /* package access - only used by Hibernate. */
+    void setContacts(Set<Person> contacts) {
         this.contacts = contacts;
+    }
+    
+    /* Convenience method */
+    public void addContact(Person contact) {
+        contact.setCompany(this);
     }
 
     public Set<Association> getAssociations() {
         return associations;
     }
 
+    /* package access - only used by Hibernate. */
     void setAssociations(Set<Association> associations) {
         this.associations = associations;
     }
     
-    public void addAddociation(Association association) {
+    public void addAssociation(Association association) {
         associations.add(association);
     }
 

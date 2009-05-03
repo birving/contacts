@@ -1,16 +1,18 @@
 package com.brmw.contacts.util;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class HibernateFactory {
-    private static Logger logger = Logger.getLogger(HibernateFactory.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(HibernateFactory.class);
     private static SessionFactory sessionFactory;
 
     public static SessionFactory buildSessionFactory() throws HibernateException {
@@ -37,7 +39,7 @@ public class HibernateFactory {
             try {
                 sessionFactory.close();
             } catch (HibernateException ignored) {
-                logger.log(Level.WARNING, "Unable to close Hibernate SessionFactory", ignored);
+                logger.warn("Unable to close Hibernate SessionFactory", ignored);
             }
 
         }
@@ -48,7 +50,7 @@ public class HibernateFactory {
             try {
                 session.close();
             } catch (HibernateException ignored) {
-                logger.log(Level.WARNING, "Unable to close Hibernate session", ignored);
+                logger.warn("Unable to close Hibernate session", ignored);
             }
         }
     }
@@ -58,7 +60,7 @@ public class HibernateFactory {
             try {
                 tx.rollback();
             } catch (HibernateException ignored) {
-                logger.log(Level.WARNING, "Unable to rollback Hibernate transaction", ignored);
+                logger.warn("Unable to rollback Hibernate transaction", ignored);
             }
         }
     }

@@ -16,8 +16,6 @@
 			</generator>
 		</id>
 
-		<version name="version" column="version" type="long" />
-
 		<property name="transactionDate" type="timestamp" generated="insert" />
 
 	</class>

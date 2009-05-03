@@ -21,11 +21,11 @@
 		<version name="version" column="version" type="long" />
 
 		<many-to-one name="created" column="createdID" class="Audit"
-			foreign-key="fkCreated" update="false" />
+			foreign-key="fkCompanyCreated" update="false" />
 		<many-to-one name="updated" column="updatedID" class="Audit"
-			foreign-key="fkUpdated" />
+			foreign-key="fkCompanyUpdated" />
 
-		<property name="webpage" type="java.net.URL" />
+		<property name="webpage" type="string" />
 		<property name="notes" type="string" length="1000" />
 
 		<set name="positions" table="position" inverse="true" cascade="all-delete-orphan">
@@ -39,7 +39,7 @@
 		</set>
 
 		<set name="associations" table="company_association">
-			<key column="companyId" not-null="true" foreign-key="fkCompany" />
+			<key column="companyId" not-null="true" foreign-key="fkCompanyAssociation" />
 			<many-to-many column="associationId" class="Association" />
 		</set>
 	</class>

@@ -17,17 +17,17 @@
 		</id>
 		<version name="version" column="version" type="long" />
 		<many-to-one name="created" column="createdID" class="Audit"
-			foreign-key="fkCreated" update="false" />
+			foreign-key="fkPositionCreated" update="false" />
 		<many-to-one name="updated" column="updatedID" class="Audit"
-			foreign-key="fkUpdated" />
+			foreign-key="fkPositionUpdated" />
 
 		<many-to-one name="employer" column="employerID" class="Company"
-			foreign-key="fkEmployer" />
+			foreign-key="fkPositionEmployer" />
 		<property name="identifier" type="string" />
 		<property name="description" type="string" />
 		<property name="status" type="string" />
 		<many-to-one name="recruiterCompany" column="recruiterCompanyId"
-			class="Company" foreign-key="fkrecruiterCompany" />
+			class="Company" foreign-key="fkPositionRecruiterCompany" />
 		<property name="notes" type="string" length="1000" />
 
 	</class>

@@ -15,7 +15,7 @@ package com.brmw.contacts.model;
 public class Locator extends AbstractAuditedBean {
     private Person person;
     private Medium medium;
-    private String value;
+    private String value;    // Natural key
     private String notes;
 
     public Person getPerson() {
@@ -52,5 +52,27 @@ public class Locator extends AbstractAuditedBean {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public int hashCode() {
+        return (value == null) ? 0 : value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Locator other = (Locator) obj;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
+        return true;
     }
 }
