@@ -15,7 +15,7 @@
 				<param name="optimizer">pooled</param>
 			</generator>
 		</id>
-		<natural-id mutable="true">
+		<natural-id>
 			<property name="value" type="string" />
 		</natural-id>
 		<version name="version" column="version" type="long" />

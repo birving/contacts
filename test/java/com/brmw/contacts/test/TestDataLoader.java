@@ -16,7 +16,7 @@ import com.brmw.contacts.model.Person;
 import com.brmw.contacts.util.HibernateFactory;
 
 /**
- * Simple class to stuff some test data imto the database.
+ * Simple class to stuff some test data into the database.
  */
 public class TestDataLoader {
     private static Logger logger = LoggerFactory.getLogger(TestDataLoader.class);
@@ -60,7 +60,7 @@ public class TestDataLoader {
         }
 
         Person person1 = new Person();
-        person1.setFirstName("John");
+        person1.setFirstName("Jim");
         person1.setLastName("Smith");
 
         Locator locator1 = new Locator();
@@ -82,7 +82,7 @@ public class TestDataLoader {
             session.save(company);
             session.flush();
             tx.commit();
-            logger.info("person & company comitted.");
+            logger.info("person & company comm  itted.");
         } catch (HibernateException e1) {
             logger.warn("Unable to commit person & company.");
             HibernateFactory.rollback(tx);

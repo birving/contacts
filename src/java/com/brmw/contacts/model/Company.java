@@ -14,7 +14,7 @@ import java.util.Set;
  *         recruiter.
  */
 public class Company extends AbstractAuditedBean {
-    private String name; // Natural key
+    private String name; // Natural identifier
     private String webpage;
     private String notes;
     private Set<Position> positions = new HashSet<Position>();

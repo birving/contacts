@@ -15,7 +15,7 @@ package com.brmw.contacts.model;
 public class Locator extends AbstractAuditedBean {
     private Person person;
     private Medium medium;
-    private String value;    // Natural key
+    private String value;    // Natural identifier
     private String notes;
 
     public Person getPerson() {
