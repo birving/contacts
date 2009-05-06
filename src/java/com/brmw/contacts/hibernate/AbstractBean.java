@@ -1,4 +1,4 @@
-package com.brmw.contacts.model;
+package com.brmw.contacts.hibernate;
 
 import java.io.Serializable;
 

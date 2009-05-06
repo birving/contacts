@@ -1,5 +1,7 @@
 package com.brmw.contacts.model;
 
+import com.brmw.contacts.hibernate.AbstractBean;
+
 /**
  * @author Bruce Irving
  *         <p/>
