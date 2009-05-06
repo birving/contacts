@@ -2,7 +2,6 @@ package com.brmw.contacts.model;
 
 import java.util.Date;
 
-import com.brmw.contacts.hibernate.AbstractBean;
 
 /**
  * @author Bruce Irving
