@@ -1,4 +1,4 @@
-package com.brmw.contacts.util;
+package com.brmw.contacts.hibernate;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.brmw.contacts.util;
+package com.brmw.contacts.hibernate;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

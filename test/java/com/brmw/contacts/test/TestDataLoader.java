@@ -11,11 +11,11 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.hibernate.HibernateFactory;
 import com.brmw.contacts.model.Company;
 import com.brmw.contacts.model.Locator;
 import com.brmw.contacts.model.Medium;
 import com.brmw.contacts.model.Person;
-import com.brmw.contacts.util.HibernateFactory;
 
 /**
  * Simple class to stuff some test data into the database.
