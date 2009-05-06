@@ -10,7 +10,7 @@
 				<param name="table_name">sequence</param>
 				<param name="value_column_name">nextId</param>
 				<param name="segment_column_name">tableName</param>
-				<param name="segment_value">associationType</param>
+				<param name="segment_value">AssociationType</param>
 				<param name="increment_size">10</param>
 				<param name="optimizer">pooled</param>
 			</generator>

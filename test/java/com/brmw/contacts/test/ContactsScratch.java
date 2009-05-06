@@ -1,6 +1,4 @@
 package com.brmw.contacts.test;
-// import com.mysql.jdbc.Driver;
-import org.hibernate.id.enhanced.TableGenerator;
 
 /**
  * @author Bruce Irving

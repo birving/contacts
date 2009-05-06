@@ -5,7 +5,7 @@ package com.brmw.contacts.model;
  *         <p/>
  *         Base class for audited model beans.
  */
-public abstract class AbstractAuditedBean extends AbstractBean {
+public abstract class AbstractAuditedBean extends AbstractBean implements Auditable {
 
     private Long version;
     private Audit created;
@@ -23,6 +23,9 @@ public abstract class AbstractAuditedBean extends AbstractBean {
         return created;
     }
 
+    /* (non-Javadoc)
+     * @see com.brmw.contacts.model.Auditable#setCreated(com.brmw.contacts.model.Audit)
+     */
     public void setCreated(Audit audit) {
         this.created = audit;
     }
@@ -31,6 +34,9 @@ public abstract class AbstractAuditedBean extends AbstractBean {
         return updated;
     }
 
+    /* (non-Javadoc)
+     * @see com.brmw.contacts.model.Auditable#setUpdated(com.brmw.contacts.model.Audit)
+     */
     public void setUpdated(Audit updated) {
         this.updated = updated;
     }

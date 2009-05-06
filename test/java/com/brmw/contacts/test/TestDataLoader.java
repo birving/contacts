@@ -2,8 +2,10 @@ package com.brmw.contacts.test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
@@ -24,12 +26,12 @@ public class TestDataLoader {
     public static void main(String[] args) {
         // Initial Hibernate startup.
         HibernateFactory.buildSessionFactory();
-        
+
         Medium medium1 = new Medium();
         medium1.setName("Email 1");
         medium1.setType("email");
         Medium medium2 = new Medium();
-        medium2.setName("Email 2");
+        medium2.setName("Email 3");
         medium2.setType("email");
 
         Session session = null;
@@ -37,9 +39,19 @@ public class TestDataLoader {
 
         try {
             session = HibernateFactory.openSession();
+            Query mediumQuery = session.createQuery("from Medium");
+            List<Medium> media = mediumQuery.list();
             tx = session.beginTransaction();
-            session.save(medium1);
-            session.save(medium2);
+            if (media.contains(medium1)) {
+                medium1 = media.get(media.indexOf(medium1));
+            } else {
+                session.save(medium1);
+            }
+            if (media.contains(medium2)) {
+                medium2 = media.get(media.indexOf(medium2));
+            } else {
+                session.save(medium2);
+            }
             session.flush();
             tx.commit();
             logger.info("Medium 1&2 committed.");
