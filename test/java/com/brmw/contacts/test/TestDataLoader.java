@@ -28,10 +28,10 @@ public class TestDataLoader {
         HibernateFactory.buildSessionFactory();
 
         Medium medium1 = new Medium();
-        medium1.setName("Email 1");
+        medium1.setName("Email 6");
         medium1.setType("email");
         Medium medium2 = new Medium();
-        medium2.setName("Email 3");
+        medium2.setName("Email 7");
         medium2.setType("email");
 
         Session session = null;

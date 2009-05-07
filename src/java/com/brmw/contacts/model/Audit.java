@@ -11,9 +11,9 @@ import java.util.Date;
  */
 public class Audit extends AbstractBean {
     private Date transactionDate;
-    private Integer created;
-    private Integer updated;
-    private Integer deleted;
+    private Integer created = 0;
+    private Integer updated = 0;
+    private Integer deleted = 0;
 
     public Date getTransactionDate() {
         return transactionDate;

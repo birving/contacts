@@ -16,7 +16,7 @@
 			</generator>
 		</id>
 
-		<property name="transactionDate" type="timestamp" /> <!-- generated="insert" -->
+		<property name="transactionDate" type="timestamp" generated="never" not-null="true" />
         <property name="created" type="int" />
         <property name="updated" type="int" />
         <property name="deleted" type="int" />
