@@ -1,0 +1,21 @@
+ArchitectureNotes
+=================
+
+The Contacts application may attempt to implement some form of the Presenter-First design pattern. 
+This is a variation of Model-View-Presenter. 
+
+References: 
+    http://www.atomicobject.com/pages/Presenter+First
+    http://en.wikipedia.org/wiki/Model_View_Presenter
+    
+Martin Fowler's take:
+    http://www.martinfowler.com/eaaDev/uiArchs.html
+    http://www.martinfowler.com/eaaDev/PassiveScreen.html
+    http://www.martinfowler.com/eaaDev/SupervisingPresenter.html
+
+
+The classes representing the View should no nothing about the Model or Presenter.
+Likewise, the classes representing the Model should no nothing about the View or Presenter.
+Only the Presenter classes need to know about the others.
+
+Each visible piece of the GUI is represented by a 'triad' of Model-Presenter-View.  
