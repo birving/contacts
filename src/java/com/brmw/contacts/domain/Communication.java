@@ -1,7 +1,7 @@
 /**
  * First Javadoc comment.
  */
-package com.brmw.contacts.model;
+package com.brmw.contacts.domain;
 
 import java.util.Date;
 import java.util.HashSet;

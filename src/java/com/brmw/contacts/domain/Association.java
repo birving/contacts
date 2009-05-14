@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.brmw.contacts.model;
+package com.brmw.contacts.domain;
 
 import java.util.HashSet;
 import java.util.Set;

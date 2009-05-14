@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.brmw.contacts.model;
+package com.brmw.contacts.domain;
 
 /**
  * @author Bruce Irving

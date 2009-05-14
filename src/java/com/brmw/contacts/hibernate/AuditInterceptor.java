@@ -10,8 +10,8 @@ import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brmw.contacts.model.Audit;
-import com.brmw.contacts.model.Auditable;
+import com.brmw.contacts.domain.Audit;
+import com.brmw.contacts.domain.Auditable;
 
 public class AuditInterceptor extends EmptyInterceptor {
     private static Logger logger = LoggerFactory.getLogger(AuditInterceptor.class);

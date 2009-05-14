@@ -1,4 +1,4 @@
-package com.brmw.contacts.model;
+package com.brmw.contacts.domain;
 
 public interface Auditable {
 
