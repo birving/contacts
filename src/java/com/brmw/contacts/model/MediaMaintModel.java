@@ -1,4 +1,4 @@
-package com.brmw.contacts.presenter;
+package com.brmw.contacts.model;
 
 public interface MediaMaintModel {
 

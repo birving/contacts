@@ -3,6 +3,7 @@ package com.brmw.contacts.presenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.model.MediaMaintModel;
 import com.brmw.contacts.view.MediaMaintView;
 
 /**
