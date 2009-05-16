@@ -10,6 +10,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.util.ShutdownHook;
+
 /**
  * Top-level class to invoke Swing interface to Contacts application.
  * 
@@ -28,6 +30,9 @@ public class Contacts {
     Contacts(String[] args) {
         // Initialize look and feel
         initializeLookAndFeel();
+        
+        // Prepare for application's eventual shutdown
+        Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownHook(), "Shutdown"));
 
         window = new MainWindow();
     }

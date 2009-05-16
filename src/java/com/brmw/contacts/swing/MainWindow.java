@@ -7,7 +7,6 @@ import java.util.Collection;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
@@ -32,18 +31,14 @@ public class MainWindow {
     private static final int DEFAULT_HEIGHT = 400;
 
     private JFrame frame;
-    private MainMenu mainMenu;
-    private JMenuBar menuBar;
 
     public MainWindow() {
         // Initialization
         frame = new JFrame("Contacts Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        mainMenu = new MainMenu();
-        menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
-
+        frame.setJMenuBar(new MainMenu().getMenuBar());
+        
         JLabel label = new JLabel("Contacts Management");
         Container contentPane = frame.getContentPane();
         contentPane.add(label, BorderLayout.NORTH);
@@ -65,17 +60,13 @@ public class MainWindow {
 
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
+        table.setAutoCreateRowSorter(true);
 
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
         MediaMaintButton mediaMaintButton = new MediaMaintButton();
-        contentPane.add(mediaMaintButton.getComponent(), BorderLayout.EAST);
+        contentPane.add(mediaMaintButton.getComponent(), BorderLayout.SOUTH);
         new MediaMaintPresenter(mediaMaintButton, new MediaMaintAction());
-
-        MediaMaintButton mediaMaintButton2 = new MediaMaintButton();
-        new MediaMaintPresenter(mediaMaintButton2, new MediaMaintAction());
-        contentPane.add(mediaMaintButton2.getComponent(), BorderLayout.SOUTH);
-        
     }
 
     public void show() {
