@@ -8,6 +8,7 @@ package com.brmw.contacts.domain;
  */
 public abstract class AbstractAuditedBean extends AbstractBean implements Auditable {
 
+    private static final long serialVersionUID = 1446871324207742637L;
     private Long version;
     private Audit created;
     private Audit updated;

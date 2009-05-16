@@ -14,6 +14,8 @@ import com.brmw.contacts.domain.Audit;
 import com.brmw.contacts.domain.Auditable;
 
 public class AuditInterceptor extends EmptyInterceptor {
+    private static final long serialVersionUID = -5071434881441059454L;
+
     private static Logger logger = LoggerFactory.getLogger(AuditInterceptor.class);
     private Audit audit;
 //    private Integer created = 0;
@@ -73,6 +75,7 @@ public class AuditInterceptor extends EmptyInterceptor {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void preFlush(Iterator entities) {
         logger.info("Interceptor: onPreFlush()");

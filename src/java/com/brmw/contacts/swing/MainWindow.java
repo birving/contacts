@@ -1,11 +1,24 @@
 package com.brmw.contacts.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.brmw.contacts.domain.Medium;
+import com.brmw.contacts.model.impl.MediaMaintAction;
+import com.brmw.contacts.presenter.MediaMaintPresenter;
+import com.brmw.contacts.util.MediumMetaData;
 
 /**
  * Main GUI screen for Contacts application.
@@ -13,6 +26,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class MainWindow {
+    @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(MainWindow.class);
     private static final int DEFAULT_WIDTH = 640;
     private static final int DEFAULT_HEIGHT = 400;
@@ -31,7 +45,37 @@ public class MainWindow {
         frame.setJMenuBar(menuBar);
 
         JLabel label = new JLabel("Contacts Management");
-        frame.getContentPane().add(label);
+        Container contentPane = frame.getContentPane();
+        contentPane.add(label, BorderLayout.NORTH);
+
+        Collection<Medium> tableData = new ArrayList<Medium>();
+        Medium medium1 = new Medium();
+        medium1.setName("Primary email");
+        medium1.setType("email");
+        tableData.add(medium1);
+        
+        Medium medium2 = new Medium();
+        medium2.setName("Secondary email");
+        medium2.setType("email");
+        tableData.add(medium2);
+
+        TableModel mediaTableModel = new CollectionTableModel<Medium>(tableData, new MediumMetaData());
+        
+        JTable table = new JTable(mediaTableModel);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+
+        MediaMaintButton mediaMaintButton = new MediaMaintButton();
+        contentPane.add(mediaMaintButton.getComponent(), BorderLayout.EAST);
+        new MediaMaintPresenter(mediaMaintButton, new MediaMaintAction());
+
+        MediaMaintButton mediaMaintButton2 = new MediaMaintButton();
+        new MediaMaintPresenter(mediaMaintButton2, new MediaMaintAction());
+        contentPane.add(mediaMaintButton2.getComponent(), BorderLayout.SOUTH);
+        
     }
 
     public void show() {

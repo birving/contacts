@@ -40,6 +40,7 @@ public class TestDataLoader {
         try {
             session = HibernateFactory.openSession();
             Query mediumQuery = session.createQuery("from Medium");
+            @SuppressWarnings("unchecked")
             List<Medium> media = mediumQuery.list();
             tx = session.beginTransaction();
             if (media.contains(medium1)) {

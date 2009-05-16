@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public abstract class AbstractBean implements Serializable {
 
+    private static final long serialVersionUID = -5626390218300805844L;
     private Long id;
 
     public AbstractBean() {
