@@ -6,19 +6,33 @@
         </layout>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${user.home}/.com.brmw.contacts/contacts_test.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${user.home}/.com.brmw.contacts/contacts_test.log.%d{yyyy-MM-dd}.gz</FileNamePattern>
             <MaxHistory>7</MaxHistory>
-        </rollingPolicy>  
-        <layout class="ch.qos.logback.classic.PatternLayout">  
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</Pattern>  
-        </layout>  
-    </appender> 
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</Pattern>
+        </layout>
+    </appender>
 
+<!-- Uncomment this appender and the corresponding appender-ref below to send logs to database
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <driverClass>com.mysql.jdbc.Driver</driverClass>
+                <jdbcUrl>jdbc:mysql://copeland:3306/contacts</jdbcUrl>
+                <user>contactsAdmin</user>
+                <password>p4ssw0rd</password>
+            </dataSource>
+        </connectionSource>
+    </appender>
+-->
+ 
     <root level="debug">
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
+        <!-- <appender-ref ref="DB" /> -->
     </root>
 </configuration>

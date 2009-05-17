@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="/home/bruce/lib/logback-0.9.15/logback-core-0.9.15.jar" sourcepath="/home/bruce/lib/logback-0.9.15/logback-core-0.9.15-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JMock"/>
+	<classpathentry kind="lib" path="/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/optional/c3p0/c3p0-0.9.1.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
