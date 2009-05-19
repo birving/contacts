@@ -2,7 +2,7 @@ package com.brmw.contacts.swing;
 
 import javax.swing.AbstractButton;
 
-import com.brmw.contacts.model.impl.MediaMaintAction;
+import com.brmw.contacts.model.impl.MediaMaintModelImpl;
 import com.brmw.contacts.presenter.MediaMaintPresenter;
 
 /**
@@ -20,15 +20,6 @@ import com.brmw.contacts.presenter.MediaMaintPresenter;
 public class PresenterFirstSwingRegistry {
 
     protected PresenterFirstSwingRegistry() {
-        assembleTriads();
-    }
-
-    public void assembleTriads() {
-
-        // MediaMaintButton mediaMaintButton = new MediaMaintButton();
-        // contentPane.add(mediaMaintButton.getComponent(), BorderLayout.SOUTH);
-        // new MediaMaintPresenter(mediaMaintButton, new MediaMaintAction());
-
     }
 
     /**
@@ -36,6 +27,6 @@ public class PresenterFirstSwingRegistry {
      * 
      */
     public void registerMediaMaintButton(AbstractButton button) {
-        new MediaMaintPresenter(new MediaMaintButton(button), new MediaMaintAction());
+        new MediaMaintPresenter(new MediaMaintViewImpl(button), new MediaMaintModelImpl());
     }
 }

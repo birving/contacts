@@ -2,23 +2,14 @@ package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
+import javax.swing.JPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.brmw.contacts.domain.Medium;
-import com.brmw.contacts.model.impl.MediaMaintAction;
-import com.brmw.contacts.presenter.MediaMaintPresenter;
-import com.brmw.contacts.util.MediumMetaData;
 
 /**
  * Main GUI screen for Contacts application.
@@ -45,6 +36,16 @@ public class MainWindow {
         JLabel label = new JLabel("Contacts Management - This label has to go!!");
         Container contentPane = frame.getContentPane();
         contentPane.add(label, BorderLayout.NORTH);
+        
+        // Create Center panel and save reference
+        JPanel centerPanel = new JPanel();
+        contentPane.add(label, BorderLayout.CENTER);
+        ComponentRegistry.getInstance().register("CenterPanel", centerPanel);
+
+        // Create South (Status) panel and save reference 
+        JPanel southPanel = new JPanel();
+        contentPane.add(label, BorderLayout.SOUTH);
+        ComponentRegistry.getInstance().register("SouthPanel", southPanel);
 
 //        Collection<Medium> tableData = new ArrayList<Medium>();
 //        Medium medium1 = new Medium();
