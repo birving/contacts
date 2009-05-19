@@ -1,12 +1,15 @@
 package com.brmw.contacts.swing;
 
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.util.Collection;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.table.TableModel;
 
 import com.brmw.contacts.domain.Medium;
+import com.brmw.contacts.util.MediumMetaData;
 import com.brmw.contacts.view.MediaMaintView;
 /**
  * Media Maintenance GUI elements. 
@@ -15,9 +18,13 @@ import com.brmw.contacts.view.MediaMaintView;
  */
 public class MediaMaintButton implements MediaMaintView {
     
-    private JButton allMediaButton;
+    private AbstractButton allMediaButton;
     
     
+    protected MediaMaintButton(AbstractButton allMediaButton) {
+        this.allMediaButton = allMediaButton;
+    }
+
     public MediaMaintButton() {
         allMediaButton = new JButton("Display all media types");
     }
@@ -32,9 +39,9 @@ public class MediaMaintButton implements MediaMaintView {
     }
 
     @Override
-    public void displayMedia(List<Medium> media) {
-        // TODO Auto-generated method stub
-
+    public void displayMedia(Collection<Medium> media) {
+        TableModel mediaTableModel = new CollectionTableModel<Medium>(media, new MediumMetaData());
+        
     }
 
     

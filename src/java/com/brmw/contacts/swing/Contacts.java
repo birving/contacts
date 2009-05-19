@@ -63,10 +63,12 @@ public class Contacts {
      *            Currently not used.
      */
     public static void main(final String[] args) {
+        final Contacts contacts = new Contacts(args);
+
         // Launch GUI on the event-dispatching thread.
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Contacts(args).show();
+                contacts.show();
             }
         });
     }

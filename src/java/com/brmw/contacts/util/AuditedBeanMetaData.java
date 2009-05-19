@@ -13,6 +13,15 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
 
+    private Boolean includeDebugInfo = true;
+
+    private final ColumnData<T> ID_COLUMN = new AbstractColumnData<T>("Id", Long.class) {
+        @Override
+        public Object getValue(T audited) {
+            return audited.getId();
+        }
+    };
+
     private final ColumnData<T> CREATED_COLUMN = new AbstractColumnData<T>("Created date", Date.class) {
         @Override
         public Object getValue(T audited) {
@@ -35,7 +44,7 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     };
 
     @SuppressWarnings("unchecked")
-    private List<ColumnData<T>> columnData = Arrays.asList(CREATED_COLUMN, UPDATED_COLUMN, VERSION_COLUMN);
+    private List<ColumnData<T>> columnData = Arrays.asList(ID_COLUMN, CREATED_COLUMN, UPDATED_COLUMN, VERSION_COLUMN);
     
     public List<ColumnData<T>> getColumnData() {
         return columnData;
@@ -44,8 +53,6 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     public void setColumnData(List<ColumnData<T>> columnData) {
         this.columnData = columnData;
     }
-
-    private Boolean includeDebugInfo = true;
 
     public Boolean getIncludeDebugInfo() {
         return includeDebugInfo;

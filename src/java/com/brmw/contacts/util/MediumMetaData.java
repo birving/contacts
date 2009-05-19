@@ -13,8 +13,6 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(MediumMetaData.class);
 
-    private Boolean includeDebugInfo = true;
-
     private static final ColumnData<Medium> NAME_COLUMN = new AbstractColumnData<Medium>("Name") {
         @Override
         public Object getValue(Medium medium) {
@@ -54,17 +52,9 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     @SuppressWarnings("unchecked")
     private List<ColumnData<Medium>> mediumColumnData = Arrays.asList(NAME_COLUMN, TYPE_COLUMN, NOTES_COLUMN);
 
-    public Boolean getIncludeDebugInfo() {
-        return includeDebugInfo;
-    }
-
-    public void setIncludeDebugInfo(Boolean includeDebugInfo) {
-        this.includeDebugInfo = includeDebugInfo;
-    }
-
     @Override
     public List<ColumnData<Medium>> getColumnData() {
-        if (includeDebugInfo) {
+        if (getIncludeDebugInfo()) {
             List<ColumnData<Medium>> colData = new ArrayList<ColumnData<Medium>>(mediumColumnData);
             colData.addAll(super.getColumnData());
             return colData;
@@ -72,6 +62,4 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
             return mediumColumnData;
         }
     }
-
-    
 }

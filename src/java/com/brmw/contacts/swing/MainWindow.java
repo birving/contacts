@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -33,40 +34,42 @@ public class MainWindow {
     private JFrame frame;
 
     public MainWindow() {
+        PresenterFirstSwingRegistry registry = new PresenterFirstSwingRegistry();
+        
         // Initialization
         frame = new JFrame("Contacts Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setJMenuBar(new MainMenu().getMenuBar());
-        
-        JLabel label = new JLabel("Contacts Management");
+
+        JLabel label = new JLabel("Contacts Management - This label has to go!!");
         Container contentPane = frame.getContentPane();
         contentPane.add(label, BorderLayout.NORTH);
 
-        Collection<Medium> tableData = new ArrayList<Medium>();
-        Medium medium1 = new Medium();
-        medium1.setName("Primary email");
-        medium1.setType("email");
-        tableData.add(medium1);
-        
-        Medium medium2 = new Medium();
-        medium2.setName("Secondary email");
-        medium2.setType("email");
-        tableData.add(medium2);
+//        Collection<Medium> tableData = new ArrayList<Medium>();
+//        Medium medium1 = new Medium();
+//        medium1.setName("Primary email");
+//        medium1.setType("email");
+//        tableData.add(medium1);
+//
+//        Medium medium2 = new Medium();
+//        medium2.setName("Secondary email");
+//        medium2.setType("email");
+//        tableData.add(medium2);
+//
+//        TableModel mediaTableModel = new CollectionTableModel<Medium>(tableData, new MediumMetaData());
+//
+//        JTable table = new JTable(mediaTableModel);
+//
+//        JScrollPane scrollPane = new JScrollPane(table);
+//        table.setFillsViewportHeight(true);
+//        table.setAutoCreateRowSorter(true);
+//
+//        contentPane.add(scrollPane, BorderLayout.CENTER);
 
-        TableModel mediaTableModel = new CollectionTableModel<Medium>(tableData, new MediumMetaData());
-        
-        JTable table = new JTable(mediaTableModel);
-
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        table.setAutoCreateRowSorter(true);
-
-        contentPane.add(scrollPane, BorderLayout.CENTER);
-
-        MediaMaintButton mediaMaintButton = new MediaMaintButton();
-        contentPane.add(mediaMaintButton.getComponent(), BorderLayout.SOUTH);
-        new MediaMaintPresenter(mediaMaintButton, new MediaMaintAction());
+        JButton mediaMaintButton = new JButton("Display all media types");
+        contentPane.add(mediaMaintButton, BorderLayout.SOUTH);
+        registry.registerMediaMaintButton(mediaMaintButton);
     }
 
     public void show() {

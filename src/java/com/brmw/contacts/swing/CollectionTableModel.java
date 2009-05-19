@@ -9,6 +9,19 @@ import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.util.TableMetaData;
 
+/**
+ * This class serves as an adapter from a
+ * <code>java.util.Collection&lt;T&gt;</code> to a
+ * <code>javax.swing.TableModel</code>. Each T object will be used to generate
+ * one row of the table. The table layout parameters are taken from class
+ * <code>TableMetaData&lt;T&gt;</code>
+ * 
+ * @author bruce
+ * 
+ * @param <T>
+ *            Some domain object class which will be displayed as rows in a
+ *            <code>javax.swing.JTable</code>.
+ */
 public class CollectionTableModel<T> extends AbstractTableModel {
     private static final long serialVersionUID = 6619151274626712016L;
     @SuppressWarnings("unused")
@@ -48,7 +61,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         T rowData = getRows()[rowIndex];
         return tableMetaData.getValueAt(columnIndex, rowData);
     }
-    
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return true;
@@ -61,11 +74,10 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         tableMetaData.setValueAt(value, rowData, columnIndex);
     }
 
-
     @SuppressWarnings("unchecked")
     private T[] getRows() {
         if (rows == null) {
-            rows = (T[]) tableData.toArray(); 
+            rows = (T[]) tableData.toArray();
         }
         return rows;
     }

@@ -3,6 +3,7 @@ package com.brmw.contacts.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -10,6 +11,11 @@ import javax.swing.JMenuItem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.brmw.contacts.domain.Medium;
+import com.brmw.contacts.model.impl.MediaMaintAction;
+import com.brmw.contacts.presenter.MediaMaintPresenter;
+import com.brmw.contacts.view.MediaMaintView;
 
 public class MainMenu {
     private static final Logger logger = LoggerFactory.getLogger(MainMenu.class);
@@ -70,11 +76,27 @@ public class MainMenu {
     private void createToolsMenu(JMenu toolsMenu) {
         JMenuItem defineMediaMenuItem = toolsMenu.add(new JMenuItem("Define media"));
         defineMediaMenuItem.setMnemonic(KeyEvent.VK_M);
-//        new MediaMaintPresenter(defineMediaMenuItem, new MediaMaintAction());
+        new PresenterFirstSwingRegistry().registerMediaMaintButton(defineMediaMenuItem);
+//        connectDefineMediaMaintMenu(defineMediaMenuItem);
         
         JMenuItem defineAssociationsMenuItem = toolsMenu.add(new JMenuItem("Define associations"));
         defineAssociationsMenuItem.setMnemonic(KeyEvent.VK_A);
     }
+
+//    private void connectDefineMediaMaintMenu(final JMenuItem defineMediaMenuItem) {
+//        MediaMaintView mediaMaintMenuItem = new MediaMaintView() {
+//            @Override
+//            public void addAllMediaRequestListener(ActionListener actionListener) {
+//                defineMediaMenuItem.addActionListener(actionListener);
+//            }
+//
+//            @Override
+//            public void displayMedia(List<Medium> media) {
+//                // TODO Auto-generated method stub
+//            }            
+//        };
+//        new MediaMaintPresenter(mediaMaintMenuItem, new MediaMaintAction());
+//    }
 
     /**
      * Create Help menu

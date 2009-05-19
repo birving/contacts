@@ -13,7 +13,6 @@ import com.brmw.contacts.view.MediaMaintView;
 
 /**
  *  Maintenance functions for media types.
- *
  */
 public class MediaMaintPresenter {
     private static final Logger logger = LoggerFactory.getLogger(MediaMaintPresenter.class); 
