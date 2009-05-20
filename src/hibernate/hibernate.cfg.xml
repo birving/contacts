@@ -31,15 +31,15 @@
 <!--		<property name="hbm2ddl.auto">create</property>-->
 
         <!-- Mapping files -->
-        <mapping resource="com/brmw/contacts/model/Association.hbm.xml" />
-		<mapping resource="com/brmw/contacts/model/AssociationType.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Audit.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Communication.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Company.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Locator.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Medium.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Person.hbm.xml" />
-        <mapping resource="com/brmw/contacts/model/Position.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Association.hbm.xml" />
+		<mapping resource="com/brmw/contacts/domain/AssociationType.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Audit.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Communication.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Company.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Locator.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Medium.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Person.hbm.xml" />
+        <mapping resource="com/brmw/contacts/domain/Position.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -3,29 +3,34 @@
        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.brmw.contacts.model">
-	<class name="AssociationType">
+<hibernate-mapping package="com.brmw.contacts.domain">
+	<class name="Communication">
 		<id name="id" type="long" column="id">
 			<generator class="org.hibernate.id.enhanced.TableGenerator">
 				<param name="table_name">sequence</param>
 				<param name="value_column_name">nextId</param>
 				<param name="segment_column_name">tableName</param>
-				<param name="segment_value">AssociationType</param>
+				<param name="segment_value">Communication</param>
 				<param name="increment_size">10</param>
 				<param name="optimizer">pooled</param>
 			</generator>
 		</id>
-
-		<natural-id mutable="true">
-			<property name="name" type="string" not-null="true" length="50" />
-		</natural-id>
-
 		<version name="version" column="version" type="long" />
 		<many-to-one name="created" column="createdID" class="Audit"
-			foreign-key="fkAssociationTypeCreated" />
+			foreign-key="fkCommunicationCreated" update="false" />
 		<many-to-one name="updated" column="updatedID" class="Audit"
-			foreign-key="fkAssociationTypeUpdated" />
+			foreign-key="fkCommunicationUpdated" />
 
-		<property name="description" type="string" length="100" />
+		<many-to-one name="medium" column="mediumID" class="Medium"
+			foreign-key="fkMedium" />
+		<many-to-one name="initiator" column="initiatorID" class="Person"
+			foreign-key="fkInitiator" />
+		<set name="participants" table="person_communication">
+			<key column="communicationId" not-null="true" foreign-key="fkCommunicationPerson" />
+			<many-to-many column="personId" class="Person" />
+		</set>
+
+		<property name="content" type="text" />
+		<property name="notes" type="string" length="1000" />
 	</class>
 </hibernate-mapping>
