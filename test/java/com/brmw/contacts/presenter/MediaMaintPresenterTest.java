@@ -1,10 +1,14 @@
 package com.brmw.contacts.presenter;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit3.MockObjectTestCase;
 
+import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.model.MediaMaintModel;
 import com.brmw.contacts.view.MediaMaintView;
 
@@ -19,11 +23,11 @@ public class MediaMaintPresenterTest extends MockObjectTestCase {
     protected void setUp() throws Exception {
         mockView = mock(MediaMaintView.class);
         mockModel = mock(MediaMaintModel.class);
- 
+
         // Expectations
         checking(new Expectations() {
             {
-                oneOf(mockView).addAllMediaRequestListener(with(any(ActionListener.class)));
+                oneOf(mockView).addMediaMaintRequestListener(with(any(ActionListener.class)));
             }
         });
 
@@ -33,8 +37,21 @@ public class MediaMaintPresenterTest extends MockObjectTestCase {
         assertNotNull(actionListener);
     }
 
-    public void testLoadAllMedia() {
-//        actionListener.actionPerformed(new ActionEvent());
+    public void testLoadMediaMaint() {
+
+        Collection<Medium> tableData = new ArrayList<Medium>();
+
+        // Expectations
+        checking(new Expectations() {
+            {
+                oneOf(mockView).displayMedia(with(any(Collection.class)));
+                oneOf(mockModel).getAllMedia();
+            }
+        });
+
+        // Fire event (User just clicked button)
+        actionListener.actionPerformed(new ActionEvent(new Object(), 0, "command"));
+
     }
 
 }

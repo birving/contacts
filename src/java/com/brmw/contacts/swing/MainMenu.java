@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -74,6 +75,17 @@ public class MainMenu {
         
         JMenuItem defineAssociationsMenuItem = toolsMenu.add(new JMenuItem("Define associations"));
         defineAssociationsMenuItem.setMnemonic(KeyEvent.VK_A);
+        
+        toolsMenu.addSeparator();
+
+        final JMenuItem debugModeMenuItem = toolsMenu.add(new JCheckBoxMenuItem("Debug mode"));
+        debugModeMenuItem.setMnemonic(KeyEvent.VK_D);
+        debugModeMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingHelper.setDebugMode(debugModeMenuItem.isSelected());                
+            }
+        });
     }
 
     /**

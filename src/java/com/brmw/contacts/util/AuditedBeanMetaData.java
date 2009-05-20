@@ -8,12 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.AbstractAuditedBean;
+import com.brmw.contacts.swing.SwingHelper;
 
 public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements TableMetaData<T> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
 
-    private Boolean includeDebugInfo = true;
+//    private Boolean includeDebugInfo = true;
 
     private final ColumnData<T> ID_COLUMN = new AbstractColumnData<T>("Id", Long.class) {
         @Override
@@ -55,12 +56,12 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     }
 
     public Boolean getIncludeDebugInfo() {
-        return includeDebugInfo;
+        return SwingHelper.getDebugMode();
     }
 
-    public void setIncludeDebugInfo(Boolean includeDebugInfo) {
-        this.includeDebugInfo = includeDebugInfo;
-    }
+//    public void setIncludeDebugInfo(Boolean includeDebugInfo) {
+//        this.includeDebugInfo = includeDebugInfo;
+//    }
 
     @Override
     public int getColumnCount() {

@@ -10,6 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.hibernate.HibernateFactory;
 import com.brmw.contacts.util.ShutdownHook;
 
 /**
@@ -28,6 +29,9 @@ public class Contacts {
      *            Currently not used.
      */
     Contacts(String[] args) {
+        // Initialize model
+        initializeModel();
+        
         // Initialize look and feel
         initializeLookAndFeel();
         
@@ -37,6 +41,10 @@ public class Contacts {
         window = new MainWindow();
     }
 
+    private void initializeModel() {
+        HibernateFactory.buildSessionFactory();
+    }
+    
     private void initializeLookAndFeel() {
         String lookAndFeelClassName = "Unknown";
         try {

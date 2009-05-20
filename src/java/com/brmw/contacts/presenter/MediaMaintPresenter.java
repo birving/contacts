@@ -27,36 +27,19 @@ public class MediaMaintPresenter {
         addListeners();
     }
 
-    private void handleAllMediaRequest() {
-        logger.debug("Calling handleAllMediaRequest()");
-
-        // Add some test data ...
-        Collection<Medium> tableData = new ArrayList<Medium>();
-        Medium medium1 = new Medium();
-        medium1.setName("Primary email");
-        medium1.setType("email");
-        tableData.add(medium1);
-
-        Medium medium2 = new Medium();
-        medium2.setName("Another email");
-        medium2.setType("email");
-        tableData.add(medium2);
-
-        Medium medium3 = new Medium();
-        medium2.setName("Home phone");
-        medium2.setType("phone");
-        tableData.add(medium3);
-
-        mediaMaintView.displayMedia(tableData);
+    private void handleMediaMaintRequest() {
+        logger.debug("Calling MediaMaintPresenter.handleMediaMaintRequest()");
+        
+        mediaMaintView.displayMedia(mediaMaintModel.getAllMedia());
     }
 
     /**
      * Add required listeners for this presenter.
      */
     private void addListeners() {
-        mediaMaintView.addAllMediaRequestListener(actionListener = new ActionListener() {
+        mediaMaintView.addMediaMaintRequestListener(actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                handleAllMediaRequest();
+                handleMediaMaintRequest();
             }
         });
     }
