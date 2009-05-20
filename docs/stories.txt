@@ -1,5 +1,12 @@
-===== Stories ====
-=====
+============================================== Stories ============================================== 
+2. User modifies Medium data (name, type and/or notes) and saves changes to database. 
+3. User requests addition of new Medium entry and saves changes to database. 
+4. User requests removal of unused Medium entry and saves changes to database.
+5. User requests removal of used Medium entry and attempts to save changes to database. Change is rejected.
+
+
+
+========================================= Completed Stories ========================================= 
 1. User requests full list of communications media (email, phone). List is displayed on screen.
 =====
 
