@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.presenter.PresenterFirstRegistry;
+
 /**
  * Main GUI screen for Contacts application.
  * @author Bruce Irving

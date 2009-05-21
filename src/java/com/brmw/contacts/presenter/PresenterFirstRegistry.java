@@ -1,11 +1,9 @@
-package com.brmw.contacts.swing;
+package com.brmw.contacts.presenter;
 
 import javax.swing.AbstractButton;
 
 import com.brmw.contacts.model.impl.MediaMaintModelImpl;
 import com.brmw.contacts.model.impl.MediaUpdateModelImpl;
-import com.brmw.contacts.presenter.MediaMaintPresenter;
-import com.brmw.contacts.presenter.MediaUpdatePresenter;
 import com.brmw.contacts.swing.impl.MediaMaintViewImpl;
 import com.brmw.contacts.swing.impl.MediaUpdateViewImpl;
 

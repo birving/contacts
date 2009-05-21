@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.presenter.PresenterFirstRegistry;
+
 public class MainMenu {
     private static final Logger logger = LoggerFactory.getLogger(MainMenu.class);
     private JMenuBar menuBar;

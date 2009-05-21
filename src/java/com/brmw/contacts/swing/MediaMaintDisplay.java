@@ -16,6 +16,8 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import com.brmw.contacts.presenter.PresenterFirstRegistry;
+
 /**
  * This class builds the display for the Media Maintenance function.
  * 
