@@ -3,7 +3,9 @@ package com.brmw.contacts.swing;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -27,6 +29,14 @@ public class SwingHelper {
         table.setAutoCreateRowSorter(true);
         JScrollPane scrollPane = new JScrollPane(table);
         container.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+        JButton addButton = new JButton("Add entry");
+        buttonPanel.add(addButton);
+        JButton saveButton = new JButton("Save changes");
+        buttonPanel.add(saveButton);
+        
+        container.add(buttonPanel, BorderLayout.SOUTH);
 
         container.validate();
         container.setVisible(true);

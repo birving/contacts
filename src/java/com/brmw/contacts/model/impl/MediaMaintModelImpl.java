@@ -17,8 +17,14 @@ public class MediaMaintModelImpl implements MediaMaintModel {
         
         @SuppressWarnings("unchecked")
         Collection<Medium> tableData = session.createQuery("from Medium").list();
-        
+        session.close();
+
         return tableData;
     }
 
+//    @Override
+//    public Collection<Medium> updateAllMedia(Collection<Medium> media) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 }

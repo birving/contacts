@@ -7,5 +7,6 @@ import com.brmw.contacts.domain.Medium;
 public interface MediaMaintModel {
 
     public Collection<Medium> getAllMedia();
-
+    
+//    public Collection<Medium> updateAllMedia(Collection<Medium> media);
 }

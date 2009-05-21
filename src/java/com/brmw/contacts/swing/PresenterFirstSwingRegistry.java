@@ -4,6 +4,7 @@ import javax.swing.AbstractButton;
 
 import com.brmw.contacts.model.impl.MediaMaintModelImpl;
 import com.brmw.contacts.presenter.MediaMaintPresenter;
+import com.brmw.contacts.swing.impl.MediaMaintViewImpl;
 
 /**
  * This class wires together the Model-View-Presenter triads. The code in the

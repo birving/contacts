@@ -2,13 +2,10 @@ package com.brmw.contacts.presenter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.model.MediaMaintModel;
 import com.brmw.contacts.view.MediaMaintView;
 
@@ -19,7 +16,6 @@ public class MediaMaintPresenter {
     private static final Logger logger = LoggerFactory.getLogger(MediaMaintPresenter.class);
     private MediaMaintView mediaMaintView;
     private MediaMaintModel mediaMaintModel;
-    protected ActionListener actionListener;
 
     public MediaMaintPresenter(MediaMaintView mediaMaintView, MediaMaintModel mediaMaintModel) {
         this.mediaMaintView = mediaMaintView;
@@ -27,21 +23,41 @@ public class MediaMaintPresenter {
         addListeners();
     }
 
+    /*
+     * TODO: This should be moved off of the event dispatch thread!!!
+     */
     private void handleMediaMaintRequest() {
         logger.debug("Calling MediaMaintPresenter.handleMediaMaintRequest()");
-        
+
         mediaMaintView.displayMedia(mediaMaintModel.getAllMedia());
     }
+
+    // /*
+    // * TODO: This should be moved off of the event dispatch thread!!!
+    // */
+    // private void handleMediaUpdateRequest() {
+    // logger.debug("Calling MediaMaintPresenter.handleMediaUpdateRequest()");
+    // Collection<Medium> media = mediaMaintView.getMedia();
+    // mediaMaintView.displayMedia(mediaMaintModel.updateAllMedia(media));
+    // }
 
     /**
      * Add required listeners for this presenter.
      */
     private void addListeners() {
-        mediaMaintView.addMediaMaintRequestListener(actionListener = new ActionListener() {
+        // Button to go to Media Maintenance screen
+        mediaMaintView.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 handleMediaMaintRequest();
             }
         });
+
+        // // Button to save updates from Media Maintenance screen
+        // mediaMaintView.addMediaUpdateRequestListener(new ActionListener() {
+        // public void actionPerformed(ActionEvent e) {
+        // handleMediaUpdateRequest();
+        // }
+        // });
     }
 
 }
