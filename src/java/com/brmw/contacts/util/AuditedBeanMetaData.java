@@ -7,19 +7,24 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.ContactsState;
 import com.brmw.contacts.domain.AbstractAuditedBean;
-import com.brmw.contacts.swing.MediaMaintDisplay;
 
 public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements TableMetaData<T> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
 
-//    private Boolean includeDebugInfo = true;
-
     private final ColumnData<T> ID_COLUMN = new AbstractColumnData<T>("Id", Long.class) {
         @Override
         public Object getValue(T audited) {
             return audited.getId();
+        }
+    };
+
+    private final ColumnData<T> VERSION_COLUMN = new AbstractColumnData<T>("Version", Long.class) {
+        @Override
+        public Object getValue(T audited) {
+            return audited.getVersion();
         }
     };
 
@@ -37,16 +42,9 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
         }
     };
 
-    private final ColumnData<T> VERSION_COLUMN = new AbstractColumnData<T>("Version", Long.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getVersion();
-        }
-    };
-
     @SuppressWarnings("unchecked")
-    private List<ColumnData<T>> columnData = Arrays.asList(ID_COLUMN, CREATED_COLUMN, UPDATED_COLUMN, VERSION_COLUMN);
-    
+    private List<ColumnData<T>> columnData = Arrays.asList(ID_COLUMN, VERSION_COLUMN, CREATED_COLUMN, UPDATED_COLUMN);
+
     public List<ColumnData<T>> getColumnData() {
         return columnData;
     }
@@ -56,12 +54,8 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     }
 
     public Boolean getIncludeDebugInfo() {
-        return MediaMaintDisplay.getDebugMode();
+        return ContactsState.isDebugMode();
     }
-
-//    public void setIncludeDebugInfo(Boolean includeDebugInfo) {
-//        this.includeDebugInfo = includeDebugInfo;
-//    }
 
     @Override
     public int getColumnCount() {
@@ -69,22 +63,27 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     }
 
     @Override
-    public String getColumnName(int col) {
-        return getColumnData().get(col).getColumnName();
+    public String getColumnName(int columnIndex) {
+        return getColumnData().get(columnIndex).getColumnName();
     }
 
     @Override
-    public Class<?> getColumnClass(int col) {
-        return getColumnData().get(col).getColumnClass();
+    public Class<?> getColumnClass(int columnIndex) {
+        return getColumnData().get(columnIndex).getColumnClass();
     }
 
     @Override
-    public Object getValueAt(int col, T audited) {
-        return getColumnData().get(col).getValue(audited);
+    public boolean isCellEditable(int columnIndex) {
+        return getColumnData().get(columnIndex).isCellEditable();
     }
 
     @Override
-    public void setValueAt(Object value, T rowData, int col) {
-        getColumnData().get(col).setValue(rowData, value);
+    public Object getValueAt(int columnIndex, T audited) {
+        return getColumnData().get(columnIndex).getValue(audited);
+    }
+
+    @Override
+    public void setValueAt(Object value, T rowData, int columnIndex) {
+        getColumnData().get(columnIndex).setValue(rowData, value);
     }
 }

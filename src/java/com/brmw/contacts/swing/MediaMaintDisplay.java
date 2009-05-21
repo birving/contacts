@@ -25,7 +25,6 @@ import com.brmw.contacts.presenter.PresenterFirstRegistry;
  *
  */
 public class MediaMaintDisplay {
-    private static Boolean debugMode = Boolean.FALSE;
     public static final String MEDIA_TABLE = "MediaTable";
 
     public static void displayTableInCenterPanel(String tableHeading, TableModel mediaTableModel) {
@@ -74,13 +73,4 @@ public class MediaMaintDisplay {
         container.validate();
         container.setVisible(true);
     }
-
-    public static Boolean getDebugMode() {
-        return debugMode;
-    }
-
-    public static void setDebugMode(Boolean debugMode) {
-        MediaMaintDisplay.debugMode = debugMode;
-    }
-
 }

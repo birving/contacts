@@ -9,11 +9,13 @@ public interface TableMetaData<T> {
 
     public int getColumnCount();
 
-    public String getColumnName(int col);
+    public String getColumnName(int columnIndex);
 
-    public Class<?> getColumnClass(int col);
+    public Class<?> getColumnClass(int columnIndex);
+    
+    public boolean isCellEditable(int columnIndex);
 
-    public Object getValueAt(int col, T rowObject);
+    public Object getValueAt(int columnIndex, T rowObject);
 
     public void setValueAt(Object value, T rowData, int columnIndex);
 }

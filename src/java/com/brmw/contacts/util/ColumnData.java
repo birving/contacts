@@ -12,6 +12,8 @@ public interface ColumnData<T> {
     
     public Class<?> getColumnClass();
     
+    public boolean isCellEditable();
+    
     public Object getValue(T rowObject);
     
     public void setValue(T rowObject, Object value);

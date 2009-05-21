@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.brmw.contacts.ContactsState;
 import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.hibernate.HibernateFactory;
 import com.brmw.contacts.model.MediaMaintModel;
@@ -21,7 +22,15 @@ public class MediaMaintModelImpl implements MediaMaintModel {
         
         @SuppressWarnings("unchecked")
         Collection<Medium> tableData = session.createQuery("from Medium").list();
-//        session.close();
+        if (ContactsState.isDebugMode()) {
+            // This is a bit of a hack to populate the audit data which is otherwise proxied.
+            // TODO: find a better way.
+            for (Medium medium : tableData) {
+                medium.getCreated().getTransactionDate();
+                medium.getUpdated().getTransactionDate();
+            }
+        }
+        session.close();
 
         return tableData;
     }

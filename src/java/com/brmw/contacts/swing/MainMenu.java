@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.ContactsState;
 import com.brmw.contacts.presenter.PresenterFirstRegistry;
 
 public class MainMenu {
@@ -85,7 +86,7 @@ public class MainMenu {
         debugModeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MediaMaintDisplay.setDebugMode(debugModeMenuItem.isSelected());                
+                ContactsState.setDebugMode(debugModeMenuItem.isSelected());                
             }
         });
     }

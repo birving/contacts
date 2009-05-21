@@ -13,7 +13,7 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(MediumMetaData.class);
 
-    private static final ColumnData<Medium> NAME_COLUMN = new AbstractColumnData<Medium>("Name") {
+    private static final ColumnData<Medium> NAME_COLUMN = new AbstractColumnData<Medium>("Name", true) {
         @Override
         public Object getValue(Medium medium) {
             return medium.getName();
@@ -25,7 +25,7 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
         }
     };
 
-    private static final ColumnData<Medium> TYPE_COLUMN = new AbstractColumnData<Medium>("Type") {
+    private static final ColumnData<Medium> TYPE_COLUMN = new AbstractColumnData<Medium>("Type", true) {
         @Override
         public Object getValue(Medium medium) {
             return medium.getType();
@@ -37,7 +37,7 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
         }
     };
 
-    private static final ColumnData<Medium> NOTES_COLUMN = new AbstractColumnData<Medium>("Notes") {
+    private static final ColumnData<Medium> NOTES_COLUMN = new AbstractColumnData<Medium>("Notes", true) {
         @Override
         public Object getValue(Medium medium) {
             return medium.getNotes();

@@ -57,7 +57,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return super.getColumnClass(columnIndex);
+        return tableMetaData.getColumnClass(columnIndex);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return tableMetaData.isCellEditable(columnIndex);
     }
 
     @Override
@@ -82,6 +82,10 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         }
     }
 
+    /* 
+     * This method supports a transient array copy of the collection. 
+     * 
+     */
     @SuppressWarnings("unchecked")
     private T[] getRows() {
         if (rows == null) {

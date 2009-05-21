@@ -27,7 +27,7 @@ public class PresenterFirstRegistry {
     private PresenterFirstRegistry() {
     }
 
-    protected static PresenterFirstRegistry getInstance() {
+    public static PresenterFirstRegistry getInstance() {
         return instance;
     }
 
