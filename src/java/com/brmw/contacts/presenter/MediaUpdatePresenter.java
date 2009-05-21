@@ -39,7 +39,7 @@ public class MediaUpdatePresenter {
      */
     private void addListeners() {
         // Button to save updates from Media Maintenance screen
-        mediaUpdateView.addMediaUpdateRequestListener(new ActionListener() {
+        mediaUpdateView.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 handleMediaUpdateRequest();
             }

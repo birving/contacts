@@ -28,7 +28,7 @@ public class MediaUpdatePresenterTest extends MockObjectTestCase {
         // Expectations
         checking(new Expectations() {
             {
-                oneOf(mockView).addMediaUpdateRequestListener(with(any(ActionListener.class)));
+                oneOf(mockView).addActionListener(with(any(ActionListener.class)));
                 will(SaveParameterAction.saveParameter(0, "mediaUpdate", actionListeners));
             }
         });

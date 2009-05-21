@@ -2,6 +2,9 @@ package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,12 +12,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-public class SwingHelper {
+/**
+ * This class builds the display for the Media Maintenance function.
+ * 
+ * @author bruce
+ *
+ */
+public class MediaMaintDisplay {
     private static Boolean debugMode = Boolean.FALSE;
+    public static final String MEDIA_TABLE = "MediaTable";
 
     public static void displayTableInCenterPanel(String tableHeading, TableModel mediaTableModel) {
+
         Container container = (Container) ComponentRegistry.getInstance().getComponent("CenterPanel");
         container.removeAll();
         container.setLayout(new BorderLayout());
@@ -25,6 +38,7 @@ public class SwingHelper {
         container.add(tableLabel, BorderLayout.NORTH);
 
         JTable table = new JTable(mediaTableModel);
+        ComponentRegistry.getInstance().register(MEDIA_TABLE, table);
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -33,9 +47,26 @@ public class SwingHelper {
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add entry");
         buttonPanel.add(addButton);
-        JButton saveButton = new JButton("Save changes");
+        addButton.setMnemonic(KeyEvent.VK_A);
+
+        final JButton saveButton = new JButton("Save changes");
         buttonPanel.add(saveButton);
-        
+        saveButton.setMnemonic(KeyEvent.VK_S);
+
+        saveButton.setEnabled(false);
+        mediaTableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                saveButton.setEnabled(true);
+            }
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveButton.setEnabled(false);
+            }
+        });
+        PresenterFirstSwingRegistry.getInstance().registerMediaUpdateButton(saveButton);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
         container.validate();
@@ -47,7 +78,7 @@ public class SwingHelper {
     }
 
     public static void setDebugMode(Boolean debugMode) {
-        SwingHelper.debugMode = debugMode;
+        MediaMaintDisplay.debugMode = debugMode;
     }
 
 }

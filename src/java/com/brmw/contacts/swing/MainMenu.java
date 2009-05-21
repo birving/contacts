@@ -71,7 +71,7 @@ public class MainMenu {
     private void createToolsMenu(JMenu toolsMenu) {
         JMenuItem defineMediaMenuItem = toolsMenu.add(new JMenuItem("Define media"));
         defineMediaMenuItem.setMnemonic(KeyEvent.VK_M);
-        new PresenterFirstSwingRegistry().registerMediaMaintButton(defineMediaMenuItem);
+        PresenterFirstSwingRegistry.getInstance().registerMediaMaintButton(defineMediaMenuItem);
         
         JMenuItem defineAssociationsMenuItem = toolsMenu.add(new JMenuItem("Define associations"));
         defineAssociationsMenuItem.setMnemonic(KeyEvent.VK_A);
@@ -83,7 +83,7 @@ public class MainMenu {
         debugModeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SwingHelper.setDebugMode(debugModeMenuItem.isSelected());                
+                MediaMaintDisplay.setDebugMode(debugModeMenuItem.isSelected());                
             }
         });
     }

@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.AbstractAuditedBean;
-import com.brmw.contacts.swing.SwingHelper;
+import com.brmw.contacts.swing.MediaMaintDisplay;
 
 public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements TableMetaData<T> {
     @SuppressWarnings("unused")
@@ -56,7 +56,7 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     }
 
     public Boolean getIncludeDebugInfo() {
-        return SwingHelper.getDebugMode();
+        return MediaMaintDisplay.getDebugMode();
     }
 
 //    public void setIncludeDebugInfo(Boolean includeDebugInfo) {

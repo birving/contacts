@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.swing.CollectionTableModel;
-import com.brmw.contacts.swing.SwingHelper;
+import com.brmw.contacts.swing.MediaMaintDisplay;
 import com.brmw.contacts.util.MediumMetaData;
 import com.brmw.contacts.view.MediaMaintView;
 
@@ -29,6 +29,6 @@ public class MediaMaintViewImpl extends AbstractButtonView implements MediaMaint
     public void displayMedia(Collection<Medium> media) {
         logger.debug("Running MediaMaintViewImpl.displayMedia();" );
         TableModel mediaTableModel = new CollectionTableModel<Medium>(media, new MediumMetaData());
-        SwingHelper.displayTableInCenterPanel("Define media", mediaTableModel);
+        MediaMaintDisplay.displayTableInCenterPanel("Define media", mediaTableModel);
     }
 }
