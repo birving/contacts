@@ -25,7 +25,7 @@ public class MainWindow {
     private JFrame frame;
 
     public MainWindow() {
-        PresenterFirstSwingRegistry registry = PresenterFirstSwingRegistry.getInstance();
+        PresenterFirstRegistry registry = PresenterFirstRegistry.getInstance();
         
         // Initialization
         frame = new JFrame("Contacts Manager");

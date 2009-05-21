@@ -71,7 +71,7 @@ public class MainMenu {
     private void createToolsMenu(JMenu toolsMenu) {
         JMenuItem defineMediaMenuItem = toolsMenu.add(new JMenuItem("Define media"));
         defineMediaMenuItem.setMnemonic(KeyEvent.VK_M);
-        PresenterFirstSwingRegistry.getInstance().registerMediaMaintButton(defineMediaMenuItem);
+        PresenterFirstRegistry.getInstance().registerMediaMaintButton(defineMediaMenuItem);
         
         JMenuItem defineAssociationsMenuItem = toolsMenu.add(new JMenuItem("Define associations"));
         defineAssociationsMenuItem.setMnemonic(KeyEvent.VK_A);

@@ -66,7 +66,7 @@ public class MediaMaintDisplay {
                 saveButton.setEnabled(false);
             }
         });
-        PresenterFirstSwingRegistry.getInstance().registerMediaUpdateButton(saveButton);
+        PresenterFirstRegistry.getInstance().registerMediaUpdateButton(saveButton);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
         container.validate();

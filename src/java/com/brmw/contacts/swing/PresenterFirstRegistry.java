@@ -11,7 +11,9 @@ import com.brmw.contacts.swing.impl.MediaUpdateViewImpl;
 
 /**
  * This class wires together the Model-View-Presenter triads. The code in the
- * class could be replaced with dependency injection, e.g. via Spring.
+ * class could be (probably should be) replaced with dependency injection, e.g.
+ * via Spring. This class *should be* the only class that knows about the
+ * concrete classes on both the view and model side of the application.
  * 
  * Each registerXxx() methods in this class takes one (or more?) Swing
  * components as a parameter. It should always be the most generic component
@@ -21,16 +23,16 @@ import com.brmw.contacts.swing.impl.MediaUpdateViewImpl;
  * @author bruce
  * 
  */
-public class PresenterFirstSwingRegistry {
-    private static PresenterFirstSwingRegistry instance = new PresenterFirstSwingRegistry();
+public class PresenterFirstRegistry {
+    private static PresenterFirstRegistry instance = new PresenterFirstRegistry();
 
-    private PresenterFirstSwingRegistry() {
+    private PresenterFirstRegistry() {
     }
 
-    protected static PresenterFirstSwingRegistry getInstance() {
+    protected static PresenterFirstRegistry getInstance() {
         return instance;
     }
-    
+
     /**
      * Create MVP triad for media maintenance button (JButton or JMenuItem)
      * 
