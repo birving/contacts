@@ -28,10 +28,24 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
         }
     };
 
+    private final ColumnData<T> CREATED_ID_COLUMN = new AbstractColumnData<T>("C-Id", Long.class) {
+        @Override
+        public Object getValue(T audited) {
+            return audited.getCreated() == null ? null : audited.getCreated().getId();
+        }
+    };
+
     private final ColumnData<T> CREATED_COLUMN = new AbstractColumnData<T>("Created date", Date.class) {
         @Override
         public Object getValue(T audited) {
-            return audited.getUpdated() == null ? null : audited.getUpdated().getTransactionDate();
+            return audited.getCreated() == null ? null : audited.getCreated().getTransactionDate();
+        }
+    };
+
+    private final ColumnData<T> UPDATED_ID_COLUMN = new AbstractColumnData<T>("U-Id", Long.class) {
+        @Override
+        public Object getValue(T audited) {
+            return audited.getUpdated() == null ? null : audited.getUpdated().getId();
         }
     };
 
@@ -43,7 +57,7 @@ public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements Table
     };
 
     @SuppressWarnings("unchecked")
-    private List<ColumnData<T>> columnData = Arrays.asList(ID_COLUMN, VERSION_COLUMN, CREATED_COLUMN, UPDATED_COLUMN);
+    private List<ColumnData<T>> columnData = Arrays.asList(ID_COLUMN, VERSION_COLUMN, CREATED_ID_COLUMN, CREATED_COLUMN, UPDATED_ID_COLUMN, UPDATED_COLUMN);
 
     public List<ColumnData<T>> getColumnData() {
         return columnData;

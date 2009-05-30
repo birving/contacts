@@ -1,5 +1,8 @@
 package com.brmw.contacts.hibernate;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +16,7 @@ import com.brmw.contacts.domain.Audit;
 public class HibernateFactory {
     private static Logger logger = LoggerFactory.getLogger(HibernateFactory.class);
     private static SessionFactory sessionFactory;
+    private static final Map<Session, Audit> auditMap = new WeakHashMap<Session, Audit>();
 
     public static SessionFactory buildSessionFactory() throws HibernateException {
         if (sessionFactory != null) {
@@ -32,7 +36,7 @@ public class HibernateFactory {
     public static Session openSession() throws HibernateException {
         Audit audit = new Audit();
         Session session = sessionFactory.openSession(new AuditInterceptor(audit));
-        session.save(audit);
+        auditMap.put(session, audit);
         return session;
     }
 
@@ -46,7 +50,7 @@ public class HibernateFactory {
 
         }
     }
-    
+
     public static void close(Session session) {
         if (session != null) {
             try {
@@ -65,5 +69,9 @@ public class HibernateFactory {
                 logger.warn("Unable to rollback Hibernate transaction", ignored);
             }
         }
+    }
+
+    public static Audit getAudit(Session session) {
+        return auditMap.get(session);
     }
 }

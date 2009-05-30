@@ -3,7 +3,6 @@ package com.brmw.contacts.model.impl;
 import java.util.Collection;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import com.brmw.contacts.ContactsState;
 import com.brmw.contacts.domain.Medium;
@@ -15,10 +14,10 @@ public class MediaMaintModelImpl implements MediaMaintModel {
     @Override
     public Collection<Medium> getAllMedia() {
         Session session = null;
-        Transaction tx = null;
+//        Transaction tx = null;
         
         session = HibernateFactory.openSession();
-        tx = session.beginTransaction();
+//        tx = session.beginTransaction();
         
         @SuppressWarnings("unchecked")
         Collection<Medium> tableData = session.createQuery("from Medium").list();

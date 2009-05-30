@@ -4,7 +4,7 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.brmw.contacts.domain">
-	<class name="Audit" mutable="false">
+	<class name="Audit" > <!-- mutable="false" -->
 		<id name="id" type="long" column="id">
 			<generator class="org.hibernate.id.enhanced.TableGenerator">
 				<param name="table_name">sequence</param>

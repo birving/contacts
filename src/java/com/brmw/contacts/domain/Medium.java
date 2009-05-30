@@ -54,7 +54,7 @@ public class Medium extends AbstractAuditedBean {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (!(obj instanceof Medium))
             return false;
         Medium other = (Medium) obj;
         if (name == null) {
