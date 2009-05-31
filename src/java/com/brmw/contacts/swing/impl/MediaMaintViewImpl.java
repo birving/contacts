@@ -3,15 +3,12 @@ package com.brmw.contacts.swing.impl;
 import java.util.Collection;
 
 import javax.swing.AbstractButton;
-import javax.swing.table.TableModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
-import com.brmw.contacts.swing.CollectionTableModel;
 import com.brmw.contacts.swing.MediaMaintDisplay;
-import com.brmw.contacts.util.MediumMetaData;
 import com.brmw.contacts.view.MediaMaintView;
 
 /**
@@ -28,7 +25,6 @@ public class MediaMaintViewImpl extends AbstractButtonView implements MediaMaint
     @Override
     public void displayMedia(Collection<Medium> media) {
         logger.debug("Running MediaMaintViewImpl.displayMedia();" );
-        TableModel mediaTableModel = new CollectionTableModel<Medium>(media, new MediumMetaData());
-        MediaMaintDisplay.displayTableInCenterPanel("Define media", mediaTableModel);
+        new MediaMaintDisplay(media).display();
     }
 }

@@ -40,6 +40,13 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         return tableData;
     }
 
+    public void setTableData(Collection<T> tableData) {
+        this.tableData = tableData;
+        // Remove cached table values
+        this.rows = null;
+        fireTableDataChanged();
+    }
+
     @Override
     public int getColumnCount() {
         return tableMetaData.getColumnCount();
@@ -82,9 +89,8 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         }
     }
 
-    /* 
-     * This method supports a transient array copy of the collection. 
-     * 
+    /*
+     * This method supports a transient array copy of the collection.
      */
     @SuppressWarnings("unchecked")
     private T[] getRows() {

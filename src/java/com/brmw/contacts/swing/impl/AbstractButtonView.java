@@ -7,6 +7,12 @@ import javax.swing.JComponent;
 
 import com.brmw.contacts.view.ButtonView;
 
+/**
+ * Base class for View classes in Model-Presenter-View pattern.
+ * 
+ * This should be extended for any view classes representing button or menu
+ * items which invoke an action.
+ */
 public abstract class AbstractButtonView implements ButtonView {
 
     private AbstractButton button;

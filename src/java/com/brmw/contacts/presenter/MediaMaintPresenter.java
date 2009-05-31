@@ -32,15 +32,6 @@ public class MediaMaintPresenter {
         mediaMaintView.displayMedia(mediaMaintModel.getAllMedia());
     }
 
-    // /*
-    // * TODO: This should be moved off of the event dispatch thread!!!
-    // */
-    // private void handleMediaUpdateRequest() {
-    // logger.debug("Calling MediaMaintPresenter.handleMediaUpdateRequest()");
-    // Collection<Medium> media = mediaMaintView.getMedia();
-    // mediaMaintView.displayMedia(mediaMaintModel.updateAllMedia(media));
-    // }
-
     /**
      * Add required listeners for this presenter.
      */
@@ -51,13 +42,5 @@ public class MediaMaintPresenter {
                 handleMediaMaintRequest();
             }
         });
-
-        // // Button to save updates from Media Maintenance screen
-        // mediaMaintView.addMediaUpdateRequestListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent e) {
-        // handleMediaUpdateRequest();
-        // }
-        // });
     }
-
 }
