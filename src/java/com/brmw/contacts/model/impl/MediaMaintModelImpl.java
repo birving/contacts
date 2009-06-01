@@ -25,8 +25,12 @@ public class MediaMaintModelImpl implements MediaMaintModel {
             // This is a bit of a hack to populate the audit data which is otherwise proxied.
             // TODO: find a better way.
             for (Medium medium : tableData) {
-                medium.getCreated().getTransactionDate();
-                medium.getUpdated().getTransactionDate();
+                if (medium.getCreated() != null) {
+                    medium.getCreated().getTransactionDate();
+                }
+                if (medium.getUpdated() != null) {
+                    medium.getUpdated().getTransactionDate();
+                }
             }
         }
         session.close();

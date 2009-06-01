@@ -45,6 +45,13 @@
         <mapping resource="com/brmw/contacts/domain/Position.hbm.xml" />
 
         <!-- Event listeners -->
+        <!--
+            <event type="pre-insert"> <listener
+            class="com.brmw.contacts.hibernate.PreInsertListener" />
+            </event> <event type="save-update"> <listener
+            class="com.brmw.contacts.hibernate.SaveUpdateListener" />
+            </event>
+        -->
         <event type="flush">
             <listener class="com.brmw.contacts.hibernate.FlushListener" />
         </event>

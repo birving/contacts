@@ -20,7 +20,7 @@ public class FlushListener extends DefaultFlushEventListener {
         EventSource session = event.getSession();
 
         Audit audit = HibernateFactory.getAudit(session);
-        if (audit != null) {
+        if (audit != null && audit.getId() == null) {
             logger.debug("Executing onFlush() - Saving Audit!!");
             audit.setTransactionDate(new Date());
             session.save(audit);

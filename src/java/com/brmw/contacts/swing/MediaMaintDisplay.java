@@ -29,7 +29,6 @@ import com.brmw.contacts.util.MediumMetaData;
 public class MediaMaintDisplay {
     public static final String MEDIA_MAINT = "MediaMaint";
 
-    private Container container;
     private CollectionTableModel<Medium> collectionTableModel;
     private String tableHeading = "Define media";
     private JButton saveButton;
@@ -56,7 +55,7 @@ public class MediaMaintDisplay {
 
     public void display() {
 
-        this.container = (Container) ComponentRegistry.getInstance().getComponent("CenterPanel");
+        Container container = (Container) ComponentRegistry.getInstance().getComponent("CenterPanel");
         container.removeAll();
         container.setLayout(new BorderLayout());
 
@@ -66,7 +65,6 @@ public class MediaMaintDisplay {
         container.add(tableLabel, BorderLayout.NORTH);
 
         JTable table = new JTable(collectionTableModel);
-        // ComponentRegistry.getInstance().register(MEDIA_TABLE, table);
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -76,6 +74,12 @@ public class MediaMaintDisplay {
         JButton addButton = new JButton("Add entry");
         buttonPanel.add(addButton);
         addButton.setMnemonic(KeyEvent.VK_A);
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                collectionTableModel.addRow();
+            }
+        });
 
         saveButton = new JButton("Save changes");
         buttonPanel.add(saveButton);

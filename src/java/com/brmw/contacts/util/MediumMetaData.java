@@ -62,4 +62,9 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
             return mediumColumnData;
         }
     }
+
+    @Override
+    public Medium createInstance() {
+        return new Medium();
+    }
 }

@@ -1,5 +1,6 @@
 package com.brmw.contacts.hibernate;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -33,10 +34,20 @@ public class HibernateFactory {
         return sessionFactory;
     }
 
+    /**
+     * TODO: Consider moving the Audit logic (including session.save(audit)) to
+     * an Interceptor or EventListener. Problem - I have tried, but has not
+     * worked so far.
+     * 
+     * @return
+     * @throws HibernateException
+     */
     public static Session openSession() throws HibernateException {
         Audit audit = new Audit();
         Session session = sessionFactory.openSession(new AuditInterceptor(audit));
         auditMap.put(session, audit);
+        audit.setTransactionDate(new Date());
+        session.save(audit);
         return session;
     }
 

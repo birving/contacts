@@ -26,17 +26,26 @@ public class MediaUpdateModelImpl implements MediaUpdateModel {
             tx = session.beginTransaction();
 
             for (Medium medium : media) {
-                medium = (Medium) session.merge(medium);
+                if (medium.getId() == null) {
+                    Long id = (Long) session.save(medium);
+                    medium.setId(id);
+                } else {
+                    medium = (Medium) session.merge(medium);
+                }
             }
             session.flush();
             tx.commit();
             logger.info("Media updates committed.");
 
-            // This does not do what I would like.
+            // This may not do what I would like.
             for (Medium medium : media) {
                 session.refresh(medium);
-                session.refresh(medium.getCreated());
-                session.refresh(medium.getUpdated());
+                if (medium.getCreated() != null) {
+                    session.refresh(medium.getCreated());
+                }
+                if (medium.getUpdated() != null) {
+                    session.refresh(medium.getUpdated());
+                }
             }
 
         } catch (HibernateException e) {
@@ -60,8 +69,12 @@ public class MediaUpdateModelImpl implements MediaUpdateModel {
             // otherwise proxied.
             // TODO: find a better way.
             for (Medium medium : media2) {
-                medium.getCreated().getTransactionDate();
-                medium.getUpdated().getTransactionDate();
+                if (medium.getCreated() != null) {
+                    medium.getCreated().getTransactionDate();
+                }
+                if (medium.getUpdated() != null) {
+                    medium.getUpdated().getTransactionDate();
+                }
             }
         }
         HibernateFactory.close(session);

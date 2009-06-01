@@ -46,6 +46,12 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         this.rows = null;
         fireTableDataChanged();
     }
+    
+    public void addRow() {
+        tableData.add(tableMetaData.createInstance());
+        this.rows = null;
+        fireTableDataChanged();
+    }
 
     @Override
     public int getColumnCount() {

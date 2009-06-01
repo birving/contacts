@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.brmw.contacts.ContactsState;
 import com.brmw.contacts.domain.AbstractAuditedBean;
 
-public class AuditedBeanMetaData<T extends AbstractAuditedBean> implements TableMetaData<T> {
+public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> implements TableMetaData<T> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
 

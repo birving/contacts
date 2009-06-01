@@ -28,14 +28,13 @@ public class MediaUpdatePresenter {
         addListeners();
     }
 
-    /*
-     * TODO: This should be moved off of the event dispatch thread!!!
+    /**
+     * Do the required work off of the event dispatch thread
      */
     private void handleMediaUpdateRequest() {
         logger.debug("Calling MediaUpdatePresenter.handleMediaUpdateRequest()");
         Collection<Medium> media = mediaUpdateView.getMedia();
         new Worker(media).execute();
-        // mediaUpdateView.displayMedia(mediaUpdateModel.updateAllMedia(media));
     }
 
     /**

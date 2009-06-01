@@ -1,7 +1,5 @@
 package com.brmw.contacts.test;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -11,10 +9,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brmw.contacts.domain.Company;
-import com.brmw.contacts.domain.Locator;
 import com.brmw.contacts.domain.Medium;
-import com.brmw.contacts.domain.Person;
 import com.brmw.contacts.hibernate.HibernateFactory;
 
 /**
@@ -64,6 +59,7 @@ public class TestDataLoader {
             HibernateFactory.close(session);
         }
 
+/*
         Company company = new Company();
         company.setName("Acme");
         try {
@@ -104,5 +100,6 @@ public class TestDataLoader {
             HibernateFactory.close(session);
         }
         HibernateFactory.closeFactory();
+*/
     }
 }
