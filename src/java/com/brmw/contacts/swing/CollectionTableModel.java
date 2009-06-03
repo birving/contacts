@@ -1,6 +1,8 @@
 package com.brmw.contacts.swing;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
@@ -8,6 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.domain.Deleteable;
 import com.brmw.contacts.util.TableMetaData;
 
 /**
@@ -28,28 +31,46 @@ public class CollectionTableModel<T> extends AbstractTableModel {
     private static final Logger logger = LoggerFactory.getLogger(CollectionTableModel.class);
 
     private TableMetaData<T> tableMetaData;
-    private Collection<T> tableData;
-    private transient T[] rows;
+    private List<T> tableData;
+//    private transient T[] rows;
 
     public CollectionTableModel(Collection<T> tableData, TableMetaData<T> tableMetaData) {
-        this.tableData = tableData;
+        this.tableData = new ArrayList<T>(tableData);
         this.tableMetaData = tableMetaData;
     }
 
-    public Collection<T> getTableData() {
+    public List<T> getTableData() {
         return tableData;
     }
 
     public void setTableData(Collection<T> tableData) {
-        this.tableData = tableData;
+        this.tableData = new ArrayList<T>(tableData);
         // Remove cached table values
-        this.rows = null;
+//        this.rows = null;
         fireTableDataChanged();
     }
-    
+
     public void addRow() {
         tableData.add(tableMetaData.createInstance());
-        this.rows = null;
+//        this.rows = null;
+        fireTableDataChanged();
+    }
+
+    public void deleteSelectedRows(int[] selectedRows) {
+        // StringBuffer buf = new StringBuffer("Selected model rows: ");
+        // for (int rowIndex : selectedRows) {
+        // buf.append(rowIndex).append(", ");
+        // }
+        // JOptionPane.showMessageDialog(null, buf.toString());
+        
+        for (int selectedRowIndex : selectedRows) {
+            T selectedRowData = tableData.get(selectedRowIndex);
+            if (selectedRowData instanceof Deleteable) {
+                ((Deleteable)selectedRowData).setDeleted(true); 
+            }
+        }
+
+//        this.rows = null;
         fireTableDataChanged();
     }
 
@@ -75,7 +96,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        T rowData = getRows()[rowIndex];
+        T rowData = tableData.get(rowIndex);
         return tableMetaData.getValueAt(columnIndex, rowData);
     }
 
@@ -86,8 +107,8 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        rows = null;
-        T rowData = getRows()[rowIndex];
+//        rows = null;
+        T rowData = tableData.get(rowIndex);
         Object currentValue = this.getValueAt(rowIndex, columnIndex);
         if (currentValue == null || !currentValue.equals(value)) {
             tableMetaData.setValueAt(value, rowData, columnIndex);
@@ -95,16 +116,16 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         }
     }
 
-    /*
-     * This method supports a transient array copy of the collection.
-     */
-    @SuppressWarnings("unchecked")
-    private T[] getRows() {
-        if (rows == null) {
-            rows = (T[]) tableData.toArray();
-        }
-        return rows;
-    }
+//    /*
+//     * This method supports a transient array copy of the collection.
+//     */
+//    @SuppressWarnings("unchecked")
+//    private T[] getRows() {
+//        if (rows == null) {
+//            rows = (T[]) tableData.toArray();
+//        }
+//        return rows;
+//    }
 
     // ***** Temporary overrides for testing *****
     @Override

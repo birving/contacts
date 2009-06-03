@@ -1,6 +1,7 @@
 package com.brmw.contacts.model.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -26,7 +27,9 @@ public class MediaUpdateModelImpl implements MediaUpdateModel {
             tx = session.beginTransaction();
 
             for (Medium medium : media) {
-                if (medium.getId() == null) {
+                if (medium.isDeleted()) {
+                    session.delete(medium);
+                } else if (medium.getId() == null) {
                     Long id = (Long) session.save(medium);
                     medium.setId(id);
                 } else {
@@ -36,6 +39,13 @@ public class MediaUpdateModelImpl implements MediaUpdateModel {
             session.flush();
             tx.commit();
             logger.info("Media updates committed.");
+            
+            for (Iterator<Medium> iter = media.iterator(); iter.hasNext(); ){
+                if (iter.next().isDeleted()) {
+                    iter.remove();
+                }
+            }
+            
 
             // This may not do what I would like.
             for (Medium medium : media) {

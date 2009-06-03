@@ -64,6 +64,11 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     }
 
     @Override
+    public boolean isDeleteable() {
+        return true;
+    }
+
+    @Override
     public Medium createInstance() {
         return new Medium();
     }

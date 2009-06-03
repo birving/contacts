@@ -19,6 +19,8 @@ public interface TableMetaData<T> {
     public Object getValueAt(int columnIndex, T rowObject);
 
     public void setValueAt(Object value, T rowData, int columnIndex);
+    
+    public boolean isDeleteable();
 
     /**
      * This factory method is needed since it is not possible to create an

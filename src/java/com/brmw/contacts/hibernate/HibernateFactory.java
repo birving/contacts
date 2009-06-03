@@ -36,7 +36,7 @@ public class HibernateFactory {
 
     /**
      * TODO: Consider moving the Audit logic (including session.save(audit)) to
-     * an Interceptor or EventListener. Problem - I have tried, but has not
+     * an Interceptor or EventListener. Problem - I have tried, but it has not
      * worked so far.
      * 
      * @return
