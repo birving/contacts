@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Association;
-import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.model.AssociationMaintModel;
 import com.brmw.contacts.swing.AbstractSwingWorkerPlugin;
 import com.brmw.contacts.swing.PlugableSwingWorker;
