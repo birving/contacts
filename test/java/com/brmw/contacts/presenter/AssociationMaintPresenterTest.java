@@ -9,47 +9,46 @@ import java.util.Map;
 import org.jmock.Expectations;
 import org.jmock.integration.junit3.MockObjectTestCase;
 
-import com.brmw.contacts.model.MediaMaintModel;
+import com.brmw.contacts.model.AssociationMaintModel;
 import com.brmw.contacts.test.jmock.SaveParameterAction;
-import com.brmw.contacts.view.MediaMaintView;
+import com.brmw.contacts.view.AssociationMaintView;
 
-public class MediaMaintPresenterTest extends MockObjectTestCase {
+public class AssociationMaintPresenterTest extends MockObjectTestCase {
 
-    private MediaMaintView mockView;
-    private MediaMaintModel mockModel;
-    private MediaMaintPresenter presenter;
+    private AssociationMaintView mockView;
+    private AssociationMaintModel mockModel;
+    private AssociationMaintPresenter presenter;
     private Map<String, ActionListener> actionListeners = new HashMap<String, ActionListener>();
 
     @Override
     protected void setUp() throws Exception {
-        mockView = mock(MediaMaintView.class);
-        mockModel = mock(MediaMaintModel.class);
+        mockView = mock(AssociationMaintView.class);
+        mockModel = mock(AssociationMaintModel.class);
 
         // Expectations
         checking(new Expectations() {
             {
                 oneOf(mockView).addActionListener(with(any(ActionListener.class)));
-                will(SaveParameterAction.saveParameter(0, "mediaMaint", actionListeners));
+                will(SaveParameterAction.saveParameter(0, "associationMaint", actionListeners));
             }
         });
 
-        presenter = new MediaMaintPresenter(mockView, mockModel);
+        presenter = new AssociationMaintPresenter(mockView, mockModel);
         assertNotNull(presenter);
     }
 
     @SuppressWarnings("unchecked")
-    public void testMediaMaint() {
+    public void testAssociationMaint() {
 
         // Expectations
         checking(new Expectations() {
             {
-                oneOf(mockModel).getAllMedia();
-                oneOf(mockView).displayMedia(with(any(Collection.class)));
+                oneOf(mockModel).getAllAssociations();
+                oneOf(mockView).displayAssociations(with(any(Collection.class)));
             }
         });
 
         // Fire event (User just clicked button)
-        actionListeners.get("mediaMaint").actionPerformed(new ActionEvent(new Object(), 0, "command"));
-        
+        actionListeners.get("associationMaint").actionPerformed(new ActionEvent(new Object(), 0, "command"));
     }
 }

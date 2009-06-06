@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.model.MediaUpdateModel;
+import com.brmw.contacts.swing.PlugableSwingWorker;
+import com.brmw.contacts.swing.SwingWorkerPlugin;
 import com.brmw.contacts.view.MediaUpdateView;
 
 /**
@@ -21,11 +23,13 @@ public class MediaUpdatePresenter {
     private static final Logger logger = LoggerFactory.getLogger(MediaUpdatePresenter.class);
     private MediaUpdateView mediaUpdateView;
     private MediaUpdateModel mediaUpdateModel;
+    private SwingWorkerPlugin<Collection<Medium>, Object> worker;
 
     public MediaUpdatePresenter(MediaUpdateView mediaUpdateView, MediaUpdateModel mediaUpdateModel) {
         this.mediaUpdateView = mediaUpdateView;
         this.mediaUpdateModel = mediaUpdateModel;
         addListeners();
+        worker = new Worker();
     }
 
     /**
@@ -34,7 +38,9 @@ public class MediaUpdatePresenter {
     private void handleMediaUpdateRequest() {
         logger.debug("Calling MediaUpdatePresenter.handleMediaUpdateRequest()");
         Collection<Medium> media = mediaUpdateView.getMedia();
-        new Worker(media).execute();
+        SwingWorker<Collection<Medium>, Object> swingWorker = new PlugableSwingWorker<Collection<Medium>, Object>(worker);
+        worker.setInitialValue(media);
+        swingWorker.execute();
     }
 
     /**
@@ -49,28 +55,31 @@ public class MediaUpdatePresenter {
         });
     }
 
-    private class Worker extends SwingWorker<Collection<Medium>, Object> {
-        private Collection<Medium> media;
-        
-        protected Worker(Collection<Medium> media) {
-            this.media = media;
+    protected void setWorker(SwingWorkerPlugin<Collection<Medium>, Object> worker) {
+        this.worker = worker;
+    }
+
+    protected SwingWorkerPlugin<Collection<Medium>, Object> getWorker() {
+        return worker;
+    }
+
+    protected class Worker extends SwingWorkerPlugin<Collection<Medium>, Object> {
+
+        @Override
+        public Collection<Medium> doInBackground() throws Exception {
+            logger.debug("doInBackground() - running in Worker Thread");
+            return mediaUpdateModel.updateAllMedia(getInitialValue());
         }
 
         @Override
-        protected Collection<Medium> doInBackground() throws Exception {
-            return mediaUpdateModel.updateAllMedia(media);
-        }
-
-        @Override
-        protected void done() {
+        public void done() {
             try {
+                logger.debug("done() - running in Event Dispatch Thread");
                 mediaUpdateView.displayMedia(get());
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new IllegalStateException(e);
             } catch (ExecutionException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new IllegalStateException(e);
             }
         }
     }
