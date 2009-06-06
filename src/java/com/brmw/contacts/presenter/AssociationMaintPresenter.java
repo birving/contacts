@@ -54,7 +54,6 @@ public class AssociationMaintPresenter {
         });
     }
 
-    
     public SwingWorkerPlugin<Collection<Association>, Object> getWorkerPlugin() {
         return workerPlugin;
     }
@@ -62,7 +61,6 @@ public class AssociationMaintPresenter {
     public void setWorkerPlugin(SwingWorkerPlugin<Collection<Association>, Object> workerPlugin) {
         this.workerPlugin = workerPlugin;
     }
-
 
     private class WorkerPlugin extends AbstractSwingWorkerPlugin<Collection<Association>, Object> {
         @Override
