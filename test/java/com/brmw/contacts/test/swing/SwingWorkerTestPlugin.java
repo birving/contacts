@@ -3,11 +3,16 @@ package com.brmw.contacts.test.swing;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.brmw.contacts.swing.PlugableSwingWorker;
 import com.brmw.contacts.swing.SwingWorkerPlugin;
 
-public class SwingWorkerTestPlugin<T, V> extends SwingWorkerPlugin<T, V> {
-    SwingWorkerPlugin<T, V> delegate;
+public class SwingWorkerTestPlugin<T, V> implements SwingWorkerPlugin<T, V> {
+    private static Logger logger = LoggerFactory.getLogger("SwingWorkerPlugin"); 
+    private SwingWorkerPlugin<T, V> delegate;
+    private boolean complete = false;
 
     public SwingWorkerTestPlugin(SwingWorkerPlugin<T, V> delegate) {
         this.delegate = delegate;
@@ -20,8 +25,11 @@ public class SwingWorkerTestPlugin<T, V> extends SwingWorkerPlugin<T, V> {
      */
     @Override
     public synchronized void done() {
+        logger.debug("Starting: done()");
         delegate.done();
+        complete = true;
         this.notify();
+        logger.debug("Finished: done()");
     }
 
     /**
@@ -30,12 +38,17 @@ public class SwingWorkerTestPlugin<T, V> extends SwingWorkerPlugin<T, V> {
      * complete.
      */
     public synchronized void waitForCompletion() {
-        try {
-            this.wait();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        logger.debug("Starting: waitForCompletion()");
+        while (!complete) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            logger.debug("End of loop in: waitForCompletion()");
         }
+        logger.debug("Finished: waitForCompletion()");
     }
 
     // All remaining methods are handled by the delegate.

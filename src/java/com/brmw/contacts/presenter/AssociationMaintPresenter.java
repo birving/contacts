@@ -11,7 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Association;
+import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.model.AssociationMaintModel;
+import com.brmw.contacts.swing.AbstractSwingWorkerPlugin;
+import com.brmw.contacts.swing.PlugableSwingWorker;
+import com.brmw.contacts.swing.SwingWorkerPlugin;
 import com.brmw.contacts.view.AssociationMaintView;
 
 /**
@@ -21,11 +25,13 @@ public class AssociationMaintPresenter {
     private static final Logger logger = LoggerFactory.getLogger(AssociationMaintPresenter.class);
     private AssociationMaintView associationMaintView;
     private AssociationMaintModel associationMaintModel;
+    private SwingWorkerPlugin<Collection<Association>, Object> workerPlugin;
 
     public AssociationMaintPresenter(AssociationMaintView associationMaintView, AssociationMaintModel associationMaintModel) {
         this.associationMaintView = associationMaintView;
         this.associationMaintModel = associationMaintModel;
         addListeners();
+        workerPlugin = new WorkerPlugin();
     }
 
     /*
@@ -33,8 +39,8 @@ public class AssociationMaintPresenter {
      */
     private void handleAssociationMaintRequest() {
         logger.debug("Calling AssociationMaintPresenter.handleAssociationMaintRequest()");
-
-        new Worker().execute();
+        SwingWorker<Collection<Association>, Object> swingWorker = new PlugableSwingWorker<Collection<Association>, Object>(workerPlugin);
+        swingWorker.execute();
     }
 
     /**
@@ -49,15 +55,27 @@ public class AssociationMaintPresenter {
         });
     }
 
-    private class Worker extends SwingWorker<Collection<Association>, Object> {
+    
+    public SwingWorkerPlugin<Collection<Association>, Object> getWorkerPlugin() {
+        return workerPlugin;
+    }
+
+    public void setWorkerPlugin(SwingWorkerPlugin<Collection<Association>, Object> workerPlugin) {
+        this.workerPlugin = workerPlugin;
+    }
+
+
+    private class WorkerPlugin extends AbstractSwingWorkerPlugin<Collection<Association>, Object> {
         @Override
-        protected Collection<Association> doInBackground() throws Exception {
+        public Collection<Association> doInBackground() throws Exception {
+            logger.debug("doInBackground() - running in Worker Thread");
             return associationMaintModel.getAllAssociations();
         }
 
         @Override
-        protected void done() {
+        public void done() {
             try {
+                logger.debug("done() - running in Event Dispatch Thread");
                 associationMaintView.displayAssociations(get());
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
@@ -67,6 +85,5 @@ public class AssociationMaintPresenter {
                 e.printStackTrace();
             }
         }
-
     }
 }

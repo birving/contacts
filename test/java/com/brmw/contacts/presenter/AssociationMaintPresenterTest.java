@@ -11,6 +11,7 @@ import org.jmock.integration.junit3.MockObjectTestCase;
 
 import com.brmw.contacts.model.AssociationMaintModel;
 import com.brmw.contacts.test.jmock.SaveParameterAction;
+import com.brmw.contacts.test.swing.SwingWorkerTestPlugin;
 import com.brmw.contacts.view.AssociationMaintView;
 
 public class AssociationMaintPresenterTest extends MockObjectTestCase {
@@ -40,6 +41,9 @@ public class AssociationMaintPresenterTest extends MockObjectTestCase {
     @SuppressWarnings("unchecked")
     public void testAssociationMaint() {
 
+        SwingWorkerTestPlugin worker = new SwingWorkerTestPlugin(presenter.getWorkerPlugin());
+        presenter.setWorkerPlugin(worker);
+
         // Expectations
         checking(new Expectations() {
             {
@@ -48,7 +52,9 @@ public class AssociationMaintPresenterTest extends MockObjectTestCase {
             }
         });
 
-        // Fire event (User just clicked button)
+        // Fire event - Simulates user clicking button
         actionListeners.get("associationMaint").actionPerformed(new ActionEvent(new Object(), 0, "command"));
+        
+        worker.waitForCompletion();
     }
 }

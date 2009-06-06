@@ -53,8 +53,8 @@ public class MediaUpdatePresenterTest extends MockObjectTestCase {
             }
         });
 
-        SwingWorkerTestPlugin worker = new SwingWorkerTestPlugin(presenter.new Worker());
-        presenter.setWorker(worker);
+        SwingWorkerTestPlugin worker = new SwingWorkerTestPlugin(presenter.getWorkerPlugin());
+        presenter.setWorkerPlugin(worker);
 
         // Fire event (Simulates user clicks Save button)
         actionListeners.get("mediaUpdate").actionPerformed(new ActionEvent(new Object(), 0, "update"));

@@ -1,40 +1,23 @@
-/**
- * 
- */
 package com.brmw.contacts.swing;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public abstract class SwingWorkerPlugin<T, V> {
-    private PlugableSwingWorker<T, V> owner;
-    private T initialValue;
+public interface SwingWorkerPlugin<T, V> {
+    public PlugableSwingWorker<T, V> getOwner();
 
-    public PlugableSwingWorker<T, V> getOwner() {
-        return owner;
-    }
+    public void setOwner(PlugableSwingWorker<T, V> owner);
 
-    public void setOwner(PlugableSwingWorker<T, V> owner) {
-        this.owner = owner;
-    }
+    public T getInitialValue();
 
-    public T getInitialValue() {
-        return initialValue;
-    }
+    public void setInitialValue(T initialValue);
 
-    public void setInitialValue(T initialValue) {
-        this.initialValue = initialValue;
-    }
+    public T doInBackground() throws Exception;
 
-    public abstract T doInBackground() throws Exception;
+    public void done();
 
-    public void done() {
-    }
+    public void process(List<V> chunks);
 
-    public void process(List<V> chunks) {
-    }
+    public T get() throws InterruptedException, ExecutionException;
 
-    public T get() throws InterruptedException, ExecutionException {
-        return getOwner().get();
-    }
 }

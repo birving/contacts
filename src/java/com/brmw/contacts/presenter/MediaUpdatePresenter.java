@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
 import com.brmw.contacts.model.MediaUpdateModel;
+import com.brmw.contacts.swing.AbstractSwingWorkerPlugin;
 import com.brmw.contacts.swing.PlugableSwingWorker;
 import com.brmw.contacts.swing.SwingWorkerPlugin;
 import com.brmw.contacts.view.MediaUpdateView;
@@ -23,13 +24,13 @@ public class MediaUpdatePresenter {
     private static final Logger logger = LoggerFactory.getLogger(MediaUpdatePresenter.class);
     private MediaUpdateView mediaUpdateView;
     private MediaUpdateModel mediaUpdateModel;
-    private SwingWorkerPlugin<Collection<Medium>, Object> worker;
+    private SwingWorkerPlugin<Collection<Medium>, Object> workerPlugin;
 
     public MediaUpdatePresenter(MediaUpdateView mediaUpdateView, MediaUpdateModel mediaUpdateModel) {
         this.mediaUpdateView = mediaUpdateView;
         this.mediaUpdateModel = mediaUpdateModel;
         addListeners();
-        worker = new Worker();
+        workerPlugin = new WorkerPlugin();
     }
 
     /**
@@ -38,8 +39,8 @@ public class MediaUpdatePresenter {
     private void handleMediaUpdateRequest() {
         logger.debug("Calling MediaUpdatePresenter.handleMediaUpdateRequest()");
         Collection<Medium> media = mediaUpdateView.getMedia();
-        SwingWorker<Collection<Medium>, Object> swingWorker = new PlugableSwingWorker<Collection<Medium>, Object>(worker);
-        worker.setInitialValue(media);
+        SwingWorker<Collection<Medium>, Object> swingWorker = new PlugableSwingWorker<Collection<Medium>, Object>(workerPlugin);
+        workerPlugin.setInitialValue(media);
         swingWorker.execute();
     }
 
@@ -55,15 +56,15 @@ public class MediaUpdatePresenter {
         });
     }
 
-    protected void setWorker(SwingWorkerPlugin<Collection<Medium>, Object> worker) {
-        this.worker = worker;
+    protected void setWorkerPlugin(SwingWorkerPlugin<Collection<Medium>, Object> worker) {
+        this.workerPlugin = worker;
     }
 
-    protected SwingWorkerPlugin<Collection<Medium>, Object> getWorker() {
-        return worker;
+    protected SwingWorkerPlugin<Collection<Medium>, Object> getWorkerPlugin() {
+        return workerPlugin;
     }
 
-    protected class Worker extends SwingWorkerPlugin<Collection<Medium>, Object> {
+    private class WorkerPlugin extends AbstractSwingWorkerPlugin<Collection<Medium>, Object> {
 
         @Override
         public Collection<Medium> doInBackground() throws Exception {
