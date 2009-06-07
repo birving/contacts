@@ -32,7 +32,6 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     private TableMetaData<T> tableMetaData;
     private List<T> tableData;
-//    private transient T[] rows;
 
     public CollectionTableModel(Collection<T> tableData, TableMetaData<T> tableMetaData) {
         this.tableData = new ArrayList<T>(tableData);
@@ -45,32 +44,21 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     public void setTableData(Collection<T> tableData) {
         this.tableData = new ArrayList<T>(tableData);
-        // Remove cached table values
-//        this.rows = null;
         fireTableDataChanged();
     }
 
     public void addRow() {
         tableData.add(tableMetaData.createInstance());
-//        this.rows = null;
         fireTableDataChanged();
     }
 
     public void deleteSelectedRows(int[] selectedRows) {
-        // StringBuffer buf = new StringBuffer("Selected model rows: ");
-        // for (int rowIndex : selectedRows) {
-        // buf.append(rowIndex).append(", ");
-        // }
-        // JOptionPane.showMessageDialog(null, buf.toString());
-        
         for (int selectedRowIndex : selectedRows) {
             T selectedRowData = tableData.get(selectedRowIndex);
             if (selectedRowData instanceof Deleteable) {
                 ((Deleteable)selectedRowData).setDeleted(true); 
             }
         }
-
-//        this.rows = null;
         fireTableDataChanged();
     }
 
@@ -107,7 +95,6 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-//        rows = null;
         T rowData = tableData.get(rowIndex);
         Object currentValue = this.getValueAt(rowIndex, columnIndex);
         if (currentValue == null || !currentValue.equals(value)) {
@@ -115,17 +102,6 @@ public class CollectionTableModel<T> extends AbstractTableModel {
             fireTableCellUpdated(rowIndex, columnIndex);
         }
     }
-
-//    /*
-//     * This method supports a transient array copy of the collection.
-//     */
-//    @SuppressWarnings("unchecked")
-//    private T[] getRows() {
-//        if (rows == null) {
-//            rows = (T[]) tableData.toArray();
-//        }
-//        return rows;
-//    }
 
     // ***** Temporary overrides for testing *****
     @Override

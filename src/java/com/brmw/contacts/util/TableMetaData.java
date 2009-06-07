@@ -1,12 +1,17 @@
 package com.brmw.contacts.util;
 
+
 /**
- * Represents column headings and data types for a table of type <T>
+ * Represents column headings and data types and other meta-data for a table of type <T>
  * 
  * @param T
  *            Type of data in the table.
  */
 public interface TableMetaData<T> {
+    
+    public String getRegistryKey();
+
+    public String getTableHeader();
 
     public int getColumnCount();
 

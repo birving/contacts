@@ -1,11 +1,9 @@
 package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.slf4j.Logger;
@@ -15,8 +13,9 @@ import com.brmw.contacts.presenter.PresenterFirstRegistry;
 
 /**
  * Main GUI screen for Contacts application.
+ * 
  * @author Bruce Irving
- *
+ * 
  */
 public class MainWindow {
     @SuppressWarnings("unused")
@@ -27,37 +26,41 @@ public class MainWindow {
     private JFrame frame;
 
     public MainWindow() {
-        PresenterFirstRegistry registry = PresenterFirstRegistry.getInstance();
-        
+        PresenterFirstRegistry presenter1stRegistry = PresenterFirstRegistry.getInstance();
+        ComponentRegistry componentRegistry = ComponentRegistry.getInstance();
+
         // Initialization
-        frame = new JFrame("Contacts Manager");
+        frame = new JFrame(ResourceFactory.getString("app.title"));
+//        frame.setIconImage(ResourceFactory.createImageIcon("images/32x32/apps/system-users.png").getImage());
+        frame.setIconImages(ResourceFactory.createImages("apps/system-users.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setJMenuBar(new MainMenu().getMenuBar());
 
-        JLabel label = new JLabel("Contacts Management - This label has to go!!");
-        Container contentPane = frame.getContentPane();
-        contentPane.add(label, BorderLayout.NORTH);
-        
+        // Create North (Toolbar?) panel and save reference
+        JPanel northPanel = new JPanel();
+        frame.add(northPanel, BorderLayout.SOUTH);
+        componentRegistry.register("NorthPanel", northPanel);
+
         // Create Center panel and save reference
         JPanel centerPanel = new JPanel();
-        contentPane.add(centerPanel, BorderLayout.CENTER);
-        ComponentRegistry.getInstance().register("CenterPanel", centerPanel);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        componentRegistry.register("CenterPanel", centerPanel);
 
-        // Create South (Status) panel and save reference 
+        // Create South (Status) panel and save reference
         JPanel southPanel = new JPanel();
-        contentPane.add(label, BorderLayout.SOUTH);
-        ComponentRegistry.getInstance().register("SouthPanel", southPanel);
+        frame.add(southPanel, BorderLayout.SOUTH);
+        componentRegistry.register("SouthPanel", southPanel);
 
-        JButton mediaMaintButton = new JButton("Display all media types");
-        contentPane.add(mediaMaintButton, BorderLayout.SOUTH);
-        registry.registerMediaMaintButton(mediaMaintButton);
+        JButton mediaMaintButton = ResourceFactory.createButton("Media");
+        frame.add(mediaMaintButton, BorderLayout.SOUTH);
+        presenter1stRegistry.registerMediaMaintButton(mediaMaintButton);
     }
 
     public void show() {
-         // Show the UI.
-         frame.pack();
-         frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-         frame.setVisible(true);
+        // Show the UI.
+        frame.pack();
+        frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        frame.setVisible(true);
     }
 }

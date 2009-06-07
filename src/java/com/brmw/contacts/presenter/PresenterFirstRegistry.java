@@ -46,4 +46,14 @@ public class PresenterFirstRegistry {
     public void registerMediaUpdateButton(AbstractButton button) {
         new MediaUpdatePresenter(new MediaUpdateViewImpl(button), new MediaUpdateModelImpl());
     }
+    
+    /**
+     * Create MVP triad for association maintenance button (JButton or JMenuItem)
+     * 
+     */
+    public void registerAssociationMaintButton(AbstractButton button) {
+        // TODO: Implement method
+        // new AssociationMaintPresenter(new AssociationMaintViewImpl(button), new AssociationMaintModelImpl());
+    }
+
 }

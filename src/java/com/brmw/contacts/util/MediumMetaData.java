@@ -53,6 +53,16 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     private List<ColumnData<Medium>> mediumColumnData = Arrays.asList(NAME_COLUMN, TYPE_COLUMN, NOTES_COLUMN);
 
     @Override
+    public String getRegistryKey() {
+        return "mediaMaint";
+    }
+
+    @Override
+    public String getTableHeader() {
+        return "Define media";
+    }
+
+    @Override
     public List<ColumnData<Medium>> getColumnData() {
         if (getIncludeDebugInfo()) {
             List<ColumnData<Medium>> colData = new ArrayList<ColumnData<Medium>>(mediumColumnData);

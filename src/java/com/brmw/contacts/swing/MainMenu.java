@@ -2,9 +2,7 @@ package com.brmw.contacts.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,16 +30,16 @@ public class MainMenu {
      * Create Main application menu
      */
     private void crateMainMenu() {
-        JMenu contactsMenu = menuBar.add(new JMenu("Contacts"));
-        contactsMenu.setMnemonic(KeyEvent.VK_C);
+        JMenu contactsMenu = menuBar.add(ResourceFactory.createMenu("Contacts"));
         createContactsMenu(contactsMenu);
+//        JOptionPane.showMessageDialog(null, message, title, messageType)
 
-        JMenu toolsMenu = menuBar.add(new JMenu("Tools"));
-        toolsMenu.setMnemonic(KeyEvent.VK_T);
+        JMenu toolsMenu = menuBar.add(ResourceFactory.createMenu("Tools"));
+        // toolsMenu.setMnemonic(KeyEvent.VK_T);
         createToolsMenu(toolsMenu);
 
-        JMenu helpMenu = menuBar.add(new JMenu("Help"));
-        helpMenu.setMnemonic(KeyEvent.VK_H);
+        JMenu helpMenu = menuBar.add(ResourceFactory.createMenu("Help"));
+        // helpMenu.setMnemonic(KeyEvent.VK_H);
         createHelpMenu(helpMenu);
     }
 
@@ -49,16 +47,15 @@ public class MainMenu {
         /*
          * Contacts menu
          */
-        JMenuItem findPersonMenuItem = contactsMenu.add(new JMenuItem("Find person"));
-        findPersonMenuItem.setMnemonic(KeyEvent.VK_P);
-
-        JMenuItem findCompanyMenuItem = contactsMenu.add(new JMenuItem("Find company"));
-        findCompanyMenuItem.setMnemonic(KeyEvent.VK_C);
+        @SuppressWarnings("unused")
+        JMenuItem findPersonMenuItem = contactsMenu.add(ResourceFactory.createMenuItem("Contacts.FindPerson"));
+        
+        @SuppressWarnings("unused")
+        JMenuItem findCompanyMenuItem = contactsMenu.add(ResourceFactory.createMenuItem("Contacts.FindCompany"));
 
         contactsMenu.addSeparator();
 
-        JMenuItem exitMenuItem = contactsMenu.add(new JMenuItem("Exit"));
-        exitMenuItem.setMnemonic(KeyEvent.VK_X);
+        JMenuItem exitMenuItem = contactsMenu.add(ResourceFactory.createMenuItem("Contacts.Exit"));
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,21 +69,19 @@ public class MainMenu {
      * Create Tools menu
      */
     private void createToolsMenu(JMenu toolsMenu) {
-        JMenuItem defineMediaMenuItem = toolsMenu.add(new JMenuItem("Define media"));
-        defineMediaMenuItem.setMnemonic(KeyEvent.VK_M);
+        JMenuItem defineMediaMenuItem = toolsMenu.add(ResourceFactory.createMenuItem("Tools.DefineMedia"));
         PresenterFirstRegistry.getInstance().registerMediaMaintButton(defineMediaMenuItem);
-        
-        JMenuItem defineAssociationsMenuItem = toolsMenu.add(new JMenuItem("Define associations"));
-        defineAssociationsMenuItem.setMnemonic(KeyEvent.VK_A);
-        
+
+        JMenuItem defineAssociationsMenuItem = toolsMenu.add(ResourceFactory.createMenuItem("Tools.DefineAssoc"));
+        PresenterFirstRegistry.getInstance().registerAssociationMaintButton(defineAssociationsMenuItem);
+
         toolsMenu.addSeparator();
 
-        final JMenuItem debugModeMenuItem = toolsMenu.add(new JCheckBoxMenuItem("Debug mode"));
-        debugModeMenuItem.setMnemonic(KeyEvent.VK_D);
+        final JMenuItem debugModeMenuItem = toolsMenu.add(ResourceFactory.createCheckBoxMenuItem("Tools.Debug"));
         debugModeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ContactsState.setDebugMode(debugModeMenuItem.isSelected());                
+                ContactsState.setDebugMode(debugModeMenuItem.isSelected());
             }
         });
     }
@@ -95,10 +90,10 @@ public class MainMenu {
      * Create Help menu
      */
     private void createHelpMenu(JMenu helpMenu) {
-        JMenuItem helpContentsMenuItem = helpMenu.add(new JMenuItem("Help contents"));
-        helpContentsMenuItem.setMnemonic(KeyEvent.VK_H);
+        @SuppressWarnings("unused")
+        JMenuItem helpContentsMenuItem = helpMenu.add(ResourceFactory.createMenuItem("Help.Contents"));
 
-        JMenuItem aboutMenuItem = helpMenu.add(new JMenuItem("About Contacts application"));
-        aboutMenuItem.setMnemonic(KeyEvent.VK_A);
+        @SuppressWarnings("unused")
+        JMenuItem aboutMenuItem = helpMenu.add(ResourceFactory.createMenuItem("Help.About"));
     }
 }

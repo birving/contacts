@@ -1,11 +1,11 @@
 ============================================== Stories ============================================== 
-5. User requests removal of used Medium entry and attempts to save changes to database. Change is rejected.
+005. User requests removal of used Medium entry and attempts to save changes to database. Change is rejected.
 
-6. User requests full list of company association types. List is displayed on screen.
-7. User modifies company association type data (name, description); clicks Save button; changes are saved to database.
-8. User requests addition of new company association type entry and saves changes to database. 
-9. User requests removal of unused company association type entry and saves changes to database.
-10. User requests removal of used company association type entry and attempts to save changes to database. Change is rejected.
+006. User requests full list of company association types. List is displayed on screen.
+007. User modifies company association type data (name, description); clicks Save button; changes are saved to database.
+008. User requests addition of new company association type entry and saves changes to database. 
+009. User requests removal of unused company association type entry and saves changes to database.
+010. User requests removal of used company association type entry and attempts to save changes to database. Change is rejected.
 
 ========================================= Story Instructions ========================================= 
 A strength of Presenter First is the simple, concrete nature of the approach. Development proceeds as follows:
@@ -29,10 +29,10 @@ A strength of Presenter First is the simple, concrete nature of the approach. De
   3.8. Create a minimal user interface implementation to satisfy the view interface for this story
   
 ========================================= Completed Stories ========================================= 
-1. User requests full list of communications media (email, phone). List is displayed on screen.
-2. User modifies Medium data (name, type and/or notes); clicks Save button; changes are saved to database. 
-3. User requests addition of new Medium entry and saves changes to database. 
-4. User requests removal of unused Medium entry and saves changes to database.
+001. User requests full list of communications media (email, phone). List is displayed on screen.
+002. User modifies Medium data (name, type and/or notes); clicks Save button; changes are saved to database. 
+003. User requests addition of new Medium entry and saves changes to database. 
+004. User requests removal of unused Medium entry and saves changes to database.
 =====
 
   

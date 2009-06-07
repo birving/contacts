@@ -17,8 +17,8 @@ public abstract class AbstractButtonView implements ButtonView {
 
     private AbstractButton button;
 
-    protected AbstractButtonView(AbstractButton mediaMaintButton) {
-        this.button = mediaMaintButton;
+    protected AbstractButtonView(AbstractButton button) {
+        this.button = button;
     }
 
     public JComponent getComponent() {

@@ -31,10 +31,10 @@ public class Contacts {
     Contacts(String[] args) {
         // Initialize model
         initializeModel();
-        
+
         // Initialize look and feel
         initializeLookAndFeel();
-        
+
         // Prepare for application's eventual shutdown
         Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownHook(), "Shutdown"));
 
@@ -44,7 +44,7 @@ public class Contacts {
     private void initializeModel() {
         HibernateFactory.buildSessionFactory();
     }
-    
+
     private void initializeLookAndFeel() {
         String lookAndFeelClassName = "Unknown";
         try {
