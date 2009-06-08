@@ -5,7 +5,6 @@ package com.brmw.contacts.swing;
 
 import java.util.Locale;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -79,7 +78,7 @@ public class Contacts {
         logger.debug("Default Locale: {}", Locale.getDefault());
         startContacts();
     }
-    
+
     private static void startContacts() {
         instance = new Contacts();
 
@@ -93,12 +92,14 @@ public class Contacts {
 
     public static void restartContacts() {
         logger.debug("Default Locale: {}", Locale.getDefault());
-        JFrame mainWindow = (JFrame) ComponentRegistry.getInstance().getComponent("MainWindow");
-        mainWindow.dispose();        
+
+        // Remove existing GUI components
+        instance.window.dispose();
+
         ComponentRegistry.getInstance().clear();
         Runtime.getRuntime().removeShutdownHook(instance.shutdownHook);
         instance = null;
-        
+
         startContacts();
     }
 }

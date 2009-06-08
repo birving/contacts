@@ -31,7 +31,6 @@ public class MainWindow {
 
         // Initialization
         frame = new JFrame(ResourceFactory.getString("app.title"));
-        componentRegistry.register("MainWindow", frame);
         frame.setIconImages(ResourceFactory.createImages("apps/system-users.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -62,5 +61,12 @@ public class MainWindow {
         frame.pack();
         frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         frame.setVisible(true);
+    }
+
+    /** 
+     * Any required cleanup of the GUI before a restart should go here.
+     */
+    public void dispose() {
+        frame.dispose();
     }
 }
