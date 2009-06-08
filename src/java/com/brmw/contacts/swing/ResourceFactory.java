@@ -3,6 +3,7 @@ package com.brmw.contacts.swing;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -13,12 +14,17 @@ import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility class to generate certain swing components from a resource bundle
  */
 public class ResourceFactory {
+    private static final Logger logger = LoggerFactory.getLogger(ResourceFactory.class);
     private static final String BUTTON_PREFIX = "button.";
     private static final String MENU_PREFIX = "menu.";
 
@@ -29,6 +35,16 @@ public class ResourceFactory {
 
     private static ResourceBundle resources = ResourceBundle.getBundle("contactsResources");
     private static Set<String> keySet = resources.keySet();
+
+    public static Locale getLocaleInUse() {
+        logger.debug("Default locale: {}; Effective locale: {}", Locale.getDefault(), resources.getLocale());
+        return resources.getLocale();
+    }
+
+    public static void setCurrentLocale() {
+        resources = ResourceBundle.getBundle("contactsResources");
+        logger.debug("New default locale: {}; Effective locale: {}", Locale.getDefault(), resources.getLocale());
+    }
 
     public static String getString(String key) {
         if (keySet.contains(key)) {
@@ -56,6 +72,11 @@ public class ResourceFactory {
     public static JCheckBoxMenuItem createCheckBoxMenuItem(String key) {
         JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem();
         return (JCheckBoxMenuItem) initializeMenuItem(menuItem, MENU_PREFIX + key);
+    }
+
+    public static JRadioButtonMenuItem createRadioButtonMenuItem(String key) {
+        JRadioButtonMenuItem menuItem = new JRadioButtonMenuItem();
+        return (JRadioButtonMenuItem) initializeMenuItem(menuItem, MENU_PREFIX + key);
     }
 
     private static JMenuItem initializeMenuItem(JMenuItem menuItem, String key) {

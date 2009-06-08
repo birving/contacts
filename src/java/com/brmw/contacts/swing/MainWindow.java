@@ -31,7 +31,7 @@ public class MainWindow {
 
         // Initialization
         frame = new JFrame(ResourceFactory.getString("app.title"));
-//        frame.setIconImage(ResourceFactory.createImageIcon("images/32x32/apps/system-users.png").getImage());
+        componentRegistry.register("MainWindow", frame);
         frame.setIconImages(ResourceFactory.createImages("apps/system-users.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

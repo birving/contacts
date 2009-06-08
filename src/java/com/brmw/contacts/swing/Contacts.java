@@ -3,6 +3,9 @@
  */
 package com.brmw.contacts.swing;
 
+import java.util.Locale;
+
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,22 +24,24 @@ import com.brmw.contacts.util.ShutdownHook;
  */
 public class Contacts {
     private static final Logger logger = LoggerFactory.getLogger(Contacts.class);
+    private static Contacts instance;
     private MainWindow window;
+    private Thread shutdownHook;
 
     /**
      * 
      * @param args
      *            Currently not used.
      */
-    Contacts(String[] args) {
+    Contacts() {
         // Initialize model
         initializeModel();
 
         // Initialize look and feel
         initializeLookAndFeel();
 
-        // Prepare for application's eventual shutdown
-        Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownHook(), "Shutdown"));
+        shutdownHook = new Thread(new ShutdownHook(), "Shutdown");
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
 
         window = new MainWindow();
     }
@@ -71,13 +76,29 @@ public class Contacts {
      *            Currently not used.
      */
     public static void main(final String[] args) {
-        final Contacts contacts = new Contacts(args);
+        logger.debug("Default Locale: {}", Locale.getDefault());
+        startContacts();
+    }
+    
+    private static void startContacts() {
+        instance = new Contacts();
 
         // Launch GUI on the event-dispatching thread.
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                contacts.show();
+                instance.show();
             }
         });
+    }
+
+    public static void restartContacts() {
+        logger.debug("Default Locale: {}", Locale.getDefault());
+        JFrame mainWindow = (JFrame) ComponentRegistry.getInstance().getComponent("MainWindow");
+        mainWindow.dispose();        
+        ComponentRegistry.getInstance().clear();
+        Runtime.getRuntime().removeShutdownHook(instance.shutdownHook);
+        instance = null;
+        
+        startContacts();
     }
 }

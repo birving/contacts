@@ -23,4 +23,8 @@ public class ComponentRegistry {
     public Object getComponent(String name) {
         return components.get(name);
     }
+
+    public void clear() {
+        components.clear();
+    }
 }
