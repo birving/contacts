@@ -13,16 +13,13 @@ public class MediaMaintModelImpl implements MediaMaintModel {
 
     @Override
     public Collection<Medium> getAllMedia() {
-        Session session = null;
-//        Transaction tx = null;
-        
-        session = HibernateFactory.openSession();
-//        tx = session.beginTransaction();
-        
+        Session session = HibernateFactory.openSession();
+
         @SuppressWarnings("unchecked")
         Collection<Medium> tableData = session.createQuery("from Medium").list();
         if (ContactsState.isDebugMode()) {
-            // This is a bit of a hack to populate the audit data which is otherwise proxied.
+            // This is a bit of a hack to populate the audit data which is
+            // otherwise proxied.
             // TODO: find a better way.
             for (Medium medium : tableData) {
                 if (medium.getCreated() != null) {

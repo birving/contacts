@@ -12,8 +12,8 @@ import java.util.Set;
  *         This class represents a person with whom there may be contact.
  */
 public class Person extends AbstractAuditedBean {
-    private String lastName;     // Natural identifier
-    private String firstName;    // Natural identifier
+    private String lastName; // Natural identifier
+    private String firstName; // Natural identifier
     private Company company;
     private String role;
     private Set<Locator> locators = new HashSet<Locator>();

@@ -56,7 +56,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
         for (int selectedRowIndex : selectedRows) {
             T selectedRowData = tableData.get(selectedRowIndex);
             if (selectedRowData instanceof Deleteable) {
-                ((Deleteable)selectedRowData).setDeleted(true); 
+                ((Deleteable) selectedRowData).setDeleted(true);
             }
         }
         fireTableDataChanged();

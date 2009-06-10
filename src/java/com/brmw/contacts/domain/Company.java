@@ -66,7 +66,7 @@ public class Company extends AbstractAuditedBean {
     void setContacts(Set<Person> contacts) {
         this.contacts = contacts;
     }
-    
+
     /* Convenience method */
     public void addContact(Person contact) {
         contact.setCompany(this);
@@ -80,7 +80,7 @@ public class Company extends AbstractAuditedBean {
     void setAssociations(Set<Association> associations) {
         this.associations = associations;
     }
-    
+
     public void addAssociation(Association association) {
         associations.add(association);
     }

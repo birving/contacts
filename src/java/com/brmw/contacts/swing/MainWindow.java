@@ -24,14 +24,15 @@ public class MainWindow {
     private static final int DEFAULT_HEIGHT = 400;
 
     private JFrame frame;
+    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
     public MainWindow() {
         PresenterFirstRegistry presenter1stRegistry = PresenterFirstRegistry.getInstance();
         ComponentRegistry componentRegistry = ComponentRegistry.getInstance();
 
         // Initialization
-        frame = new JFrame(ResourceFactory.getString("app.title"));
-        frame.setIconImages(ResourceFactory.createImages("apps/system-users.png"));
+        frame = new JFrame(resourceFactory.getString("app.title"));
+        frame.setIconImages(resourceFactory.createImages("apps/system-users.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setJMenuBar(new MainMenu().getMenuBar());
@@ -51,7 +52,7 @@ public class MainWindow {
         frame.add(southPanel, BorderLayout.SOUTH);
         componentRegistry.register("SouthPanel", southPanel);
 
-        JButton mediaMaintButton = ResourceFactory.createButton("Media");
+        JButton mediaMaintButton = resourceFactory.createButton("Media");
         frame.add(mediaMaintButton, BorderLayout.SOUTH);
         presenter1stRegistry.registerMediaMaintButton(mediaMaintButton);
     }
@@ -63,7 +64,7 @@ public class MainWindow {
         frame.setVisible(true);
     }
 
-    /** 
+    /**
      * Any required cleanup of the GUI before a restart should go here.
      */
     public void dispose() {

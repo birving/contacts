@@ -1,7 +1,6 @@
 package com.brmw.contacts.util;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,56 +13,23 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
 
-    private final ColumnData<T> ID_COLUMN = new AbstractColumnData<T>("Id", Long.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getId();
-        }
-    };
+    private List<FieldData<T>> columnData;
 
-    private final ColumnData<T> VERSION_COLUMN = new AbstractColumnData<T>("Version", Long.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getVersion();
-        }
-    };
+    protected AuditedBeanMetaData() {
+        columnData = new ArrayList<FieldData<T>>();
+        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "id"));
+        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "version"));
+        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "created.transactionDate"));
+        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "created.id"));
+        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "updated.transactionDate"));
+        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "updated.id"));
+    }
 
-    private final ColumnData<T> CREATED_ID_COLUMN = new AbstractColumnData<T>("C-Id", Long.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getCreated() == null ? null : audited.getCreated().getId();
-        }
-    };
-
-    private final ColumnData<T> CREATED_COLUMN = new AbstractColumnData<T>("Created date", Date.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getCreated() == null ? null : audited.getCreated().getTransactionDate();
-        }
-    };
-
-    private final ColumnData<T> UPDATED_ID_COLUMN = new AbstractColumnData<T>("U-Id", Long.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getUpdated() == null ? null : audited.getUpdated().getId();
-        }
-    };
-
-    private final ColumnData<T> UPDATED_COLUMN = new AbstractColumnData<T>("Updated date", Date.class) {
-        @Override
-        public Object getValue(T audited) {
-            return audited.getUpdated() == null ? null : audited.getUpdated().getTransactionDate();
-        }
-    };
-
-    @SuppressWarnings("unchecked")
-    private List<ColumnData<T>> columnData = Arrays.asList(ID_COLUMN, VERSION_COLUMN, CREATED_ID_COLUMN, CREATED_COLUMN, UPDATED_ID_COLUMN, UPDATED_COLUMN);
-
-    public List<ColumnData<T>> getColumnData() {
+    public List<FieldData<T>> getColumnData() {
         return columnData;
     }
 
-    public void setColumnData(List<ColumnData<T>> columnData) {
+    public void setColumnData(List<FieldData<T>> columnData) {
         this.columnData = columnData;
     }
 
@@ -78,17 +44,17 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
 
     @Override
     public String getColumnName(int columnIndex) {
-        return getColumnData().get(columnIndex).getColumnName();
+        return getColumnData().get(columnIndex).getDisplayName();
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return getColumnData().get(columnIndex).getColumnClass();
+        return getColumnData().get(columnIndex).getFieldClass();
     }
 
     @Override
     public boolean isCellEditable(int columnIndex) {
-        return getColumnData().get(columnIndex).isCellEditable();
+        return getColumnData().get(columnIndex).isFieldEditable();
     }
 
     @Override

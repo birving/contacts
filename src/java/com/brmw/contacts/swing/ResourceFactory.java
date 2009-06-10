@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
  * Utility class to generate certain swing components from a resource bundle
  */
 public class ResourceFactory {
+    private static final String DEFAULT_BASE_NAME = "contactsResources";
     private static final Logger logger = LoggerFactory.getLogger(ResourceFactory.class);
     private static final String BUTTON_PREFIX = "button.";
     private static final String MENU_PREFIX = "menu.";
@@ -33,20 +34,39 @@ public class ResourceFactory {
     private static final String MNEMONIC_SUFFIX = ".mnemonic";
     private static final String TOOL_TIP_SUFFIX = ".tooltip";
 
-    private static ResourceBundle resources = ResourceBundle.getBundle("contactsResources");
-    private static Set<String> keySet = resources.keySet();
+    private static ResourceFactory instance = new ResourceFactory();
 
-    public static Locale getLocaleInUse() {
+    public static ResourceFactory getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(ResourceFactory instance) {
+        ResourceFactory.instance = instance;
+    }
+
+    private ResourceBundle resources;
+    private Set<String> keySet;
+
+    public ResourceFactory() {
+        this(DEFAULT_BASE_NAME);
+    }
+
+    public ResourceFactory(String baseName) {
+        resources = ResourceBundle.getBundle(baseName);
+        keySet = resources.keySet();
+    }
+
+    public Locale getLocaleInUse() {
         logger.debug("Default locale: {}; Effective locale: {}", Locale.getDefault(), resources.getLocale());
         return resources.getLocale();
     }
 
-    public static void setCurrentLocale() {
-        resources = ResourceBundle.getBundle("contactsResources");
+    public void setCurrentLocale() {
+        resources = ResourceBundle.getBundle(DEFAULT_BASE_NAME);
         logger.debug("New default locale: {}; Effective locale: {}", Locale.getDefault(), resources.getLocale());
     }
 
-    public static String getString(String key) {
+    public String getString(String key) {
         if (keySet.contains(key)) {
             return resources.getString(key);
         } else {
@@ -54,32 +74,32 @@ public class ResourceFactory {
         }
     }
 
-    public static JButton createButton(String key) {
+    public JButton createButton(String key) {
         JButton button = new JButton();
         return (JButton) initializeButton(button, BUTTON_PREFIX + key);
     }
 
-    public static JMenu createMenu(String key) {
+    public JMenu createMenu(String key) {
         JMenu menu = new JMenu();
         return (JMenu) initializeMenuItem(menu, MENU_PREFIX + key);
     }
 
-    public static JMenuItem createMenuItem(String key) {
+    public JMenuItem createMenuItem(String key) {
         JMenuItem menuItem = new JMenuItem();
         return initializeMenuItem(menuItem, MENU_PREFIX + key);
     }
 
-    public static JCheckBoxMenuItem createCheckBoxMenuItem(String key) {
+    public JCheckBoxMenuItem createCheckBoxMenuItem(String key) {
         JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem();
         return (JCheckBoxMenuItem) initializeMenuItem(menuItem, MENU_PREFIX + key);
     }
 
-    public static JRadioButtonMenuItem createRadioButtonMenuItem(String key) {
+    public JRadioButtonMenuItem createRadioButtonMenuItem(String key) {
         JRadioButtonMenuItem menuItem = new JRadioButtonMenuItem();
         return (JRadioButtonMenuItem) initializeMenuItem(menuItem, MENU_PREFIX + key);
     }
 
-    private static JMenuItem initializeMenuItem(JMenuItem menuItem, String key) {
+    private JMenuItem initializeMenuItem(JMenuItem menuItem, String key) {
         String accelerator = getString(key + ACCEL_SUFFIX);
         if (accelerator != null) {
             KeyStroke keyStroke = KeyStroke.getKeyStroke(accelerator);
@@ -89,7 +109,7 @@ public class ResourceFactory {
         return (JMenuItem) initializeButton(menuItem, key);
     }
 
-    private static AbstractButton initializeButton(AbstractButton button, String key) {
+    private AbstractButton initializeButton(AbstractButton button, String key) {
         String text = getString(key);
         if (text == null) {
             return null;
@@ -119,7 +139,7 @@ public class ResourceFactory {
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
-    private static ImageIcon createImageIcon(String path) {
+    private ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = ClassLoader.getSystemResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
@@ -130,7 +150,7 @@ public class ResourceFactory {
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
-    public static List<Image> createImages(String path) {
+    public List<Image> createImages(String path) {
         List<Image> images = new ArrayList<Image>();
 
         ImageIcon imageIcon1 = createImageIcon("images/16x16/" + path);

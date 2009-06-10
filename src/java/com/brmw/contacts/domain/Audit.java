@@ -2,7 +2,6 @@ package com.brmw.contacts.domain;
 
 import java.util.Date;
 
-
 /**
  * @author Bruce Irving
  * 

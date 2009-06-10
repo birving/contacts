@@ -39,13 +39,12 @@ public class MediaUpdateModelImpl implements MediaUpdateModel {
             session.flush();
             tx.commit();
             logger.info("Media updates committed.");
-            
-            for (Iterator<Medium> iter = media.iterator(); iter.hasNext(); ){
+
+            for (Iterator<Medium> iter = media.iterator(); iter.hasNext();) {
                 if (iter.next().isDeleted()) {
                     iter.remove();
                 }
             }
-            
 
             // This may not do what I would like.
             for (Medium medium : media) {

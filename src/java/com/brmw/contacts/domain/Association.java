@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * @author Bruce Irving
- * <p/>
+ *         <p/>
  *         Companies may be associated as parent/subsidiary, employer/recruiter,
  *         etc. as specified by <code>AssociationType</code>
  */
@@ -24,7 +24,7 @@ public class Association extends AbstractAuditedBean {
     void setCompanies(Set<Company> companies) {
         this.companies = companies;
     }
-    
+
     public void addCompany(Company company) {
         companies.add(company);
     }

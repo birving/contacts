@@ -23,6 +23,7 @@ public class MainMenu {
     private static final Logger logger = LoggerFactory.getLogger(MainMenu.class);
     private JMenuBar menuBar;
     private Map<Locale, JRadioButtonMenuItem> localeButtonMap = new HashMap<Locale, JRadioButtonMenuItem>();
+    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
     public MainMenu() {
         menuBar = new JMenuBar();
@@ -37,13 +38,13 @@ public class MainMenu {
      * Create Main application menu
      */
     private void crateMainMenu() {
-        JMenu contactsMenu = menuBar.add(ResourceFactory.createMenu("Contacts"));
+        JMenu contactsMenu = menuBar.add(resourceFactory.createMenu("Contacts"));
         createContactsMenu(contactsMenu);
 
-        JMenu toolsMenu = menuBar.add(ResourceFactory.createMenu("Tools"));
+        JMenu toolsMenu = menuBar.add(resourceFactory.createMenu("Tools"));
         createToolsMenu(toolsMenu);
 
-        JMenu helpMenu = menuBar.add(ResourceFactory.createMenu("Help"));
+        JMenu helpMenu = menuBar.add(resourceFactory.createMenu("Help"));
         createHelpMenu(helpMenu);
     }
 
@@ -51,7 +52,7 @@ public class MainMenu {
         /*
          * Contacts menu
          */
-        JMenuItem findPersonMenuItem = contactsMenu.add(ResourceFactory.createMenuItem("Contacts.FindPerson"));
+        JMenuItem findPersonMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindPerson"));
         findPersonMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,7 +60,7 @@ public class MainMenu {
             }
         });
 
-        JMenuItem findCompanyMenuItem = contactsMenu.add(ResourceFactory.createMenuItem("Contacts.FindCompany"));
+        JMenuItem findCompanyMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindCompany"));
         findCompanyMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,7 +70,7 @@ public class MainMenu {
 
         contactsMenu.addSeparator();
 
-        JMenuItem exitMenuItem = contactsMenu.add(ResourceFactory.createMenuItem("Contacts.Exit"));
+        JMenuItem exitMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.Exit"));
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,18 +84,18 @@ public class MainMenu {
      * Create Tools menu
      */
     private void createToolsMenu(JMenu toolsMenu) {
-        JMenu localeMenu = (JMenu) toolsMenu.add(ResourceFactory.createMenu("Tools.Locale"));
+        JMenu localeMenu = (JMenu) toolsMenu.add(resourceFactory.createMenu("Tools.Locale"));
         createLocaleMenu(localeMenu);
 
-        JMenuItem defineMediaMenuItem = toolsMenu.add(ResourceFactory.createMenuItem("Tools.DefineMedia"));
+        JMenuItem defineMediaMenuItem = toolsMenu.add(resourceFactory.createMenuItem("Tools.DefineMedia"));
         PresenterFirstRegistry.getInstance().registerMediaMaintButton(defineMediaMenuItem);
 
-        JMenuItem defineAssociationsMenuItem = toolsMenu.add(ResourceFactory.createMenuItem("Tools.DefineAssoc"));
-        PresenterFirstRegistry.getInstance().registerAssociationMaintButton(defineAssociationsMenuItem);
+        JMenuItem defineAssociationsMenuItem = toolsMenu.add(resourceFactory.createMenuItem("Tools.DefineAssoc"));
+        PresenterFirstRegistry.getInstance().registerAssociationTypeMaintButton(defineAssociationsMenuItem);
 
         toolsMenu.addSeparator();
 
-        final JMenuItem debugModeMenuItem = toolsMenu.add(ResourceFactory.createCheckBoxMenuItem("Tools.Debug"));
+        final JMenuItem debugModeMenuItem = toolsMenu.add(resourceFactory.createCheckBoxMenuItem("Tools.Debug"));
         debugModeMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +110,7 @@ public class MainMenu {
     private void createLocaleMenu(JMenu localeMenu) {
         logger.debug("Current locale: {}", Locale.getDefault());
 
-        final JRadioButtonMenuItem englishMenuItem = (JRadioButtonMenuItem) localeMenu.add(ResourceFactory
+        final JRadioButtonMenuItem englishMenuItem = (JRadioButtonMenuItem) localeMenu.add(resourceFactory
                 .createRadioButtonMenuItem("Tools.Locale.English"));
         localeButtonMap.put(Locale.ROOT, englishMenuItem);
         localeButtonMap.put(Locale.ENGLISH, englishMenuItem);
@@ -122,7 +123,7 @@ public class MainMenu {
             }
         });
 
-        final JRadioButtonMenuItem pigLatinMenuItem = (JRadioButtonMenuItem) localeMenu.add(ResourceFactory
+        final JRadioButtonMenuItem pigLatinMenuItem = (JRadioButtonMenuItem) localeMenu.add(resourceFactory
                 .createRadioButtonMenuItem("Tools.Locale.Piglatin"));
         final Locale piglatinLocale = new Locale("en", "US", "PIGLATIN");
         localeButtonMap.put(piglatinLocale, pigLatinMenuItem);
@@ -138,27 +139,27 @@ public class MainMenu {
         buttonGroup.add(englishMenuItem);
         buttonGroup.add(pigLatinMenuItem);
 
-        ResourceFactory.setCurrentLocale();
-        localeButtonMap.get(ResourceFactory.getLocaleInUse()).setSelected(true);
+        resourceFactory.setCurrentLocale();
+        localeButtonMap.get(resourceFactory.getLocaleInUse()).setSelected(true);
     }
 
     private void confirmRestart(Locale newLocale, JRadioButtonMenuItem selectedMenuItem) {
-        if (selectedMenuItem.equals(localeButtonMap.get(ResourceFactory.getLocaleInUse()))) {
+        if (selectedMenuItem.equals(localeButtonMap.get(resourceFactory.getLocaleInUse()))) {
             logger.debug("Locale is not changing");
             return;
         }
 
-        int answer = JOptionPane.showConfirmDialog(null, ResourceFactory.getString("app.confirmRestart"), ResourceFactory
+        int answer = JOptionPane.showConfirmDialog(null, resourceFactory.getString("app.confirmRestart"), resourceFactory
                 .getString("app.confirmResart.title"), JOptionPane.YES_NO_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
             logger.debug("Setting locale to {}", newLocale);
             Locale.setDefault(newLocale);
             logger.debug("Locale now set to {}", Locale.getDefault());
-            ResourceFactory.setCurrentLocale();
-            ResourceFactory.getLocaleInUse();
+            resourceFactory.setCurrentLocale();
+            resourceFactory.getLocaleInUse();
             Contacts.restartContacts();
         }
-        selectedMenuItem = localeButtonMap.get(ResourceFactory.getLocaleInUse());
+        selectedMenuItem = localeButtonMap.get(resourceFactory.getLocaleInUse());
         if (selectedMenuItem == null) {
             selectedMenuItem = localeButtonMap.get(Locale.ROOT);
         }
@@ -169,7 +170,7 @@ public class MainMenu {
      * Create Help menu
      */
     private void createHelpMenu(JMenu helpMenu) {
-        JMenuItem helpContentsMenuItem = helpMenu.add(ResourceFactory.createMenuItem("Help.Contents"));
+        JMenuItem helpContentsMenuItem = helpMenu.add(resourceFactory.createMenuItem("Help.Contents"));
         helpContentsMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -177,7 +178,7 @@ public class MainMenu {
             }
         });
 
-        JMenuItem aboutMenuItem = helpMenu.add(ResourceFactory.createMenuItem("Help.About"));
+        JMenuItem aboutMenuItem = helpMenu.add(resourceFactory.createMenuItem("Help.About"));
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -24,7 +24,7 @@ public class MediaMaintViewImpl extends AbstractButtonView implements MediaMaint
 
     @Override
     public void displayMedia(Collection<Medium> media) {
-        logger.debug("Running MediaMaintViewImpl.displayMedia();" );
+        logger.debug("Running MediaMaintViewImpl.displayMedia();");
         new MediaMaintDisplay(media).display();
     }
 }

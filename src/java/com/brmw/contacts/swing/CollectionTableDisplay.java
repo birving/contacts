@@ -60,7 +60,6 @@ public class CollectionTableDisplay<T extends AbstractBean> {
     }
 
     public void display() {
-
         Container container = (Container) ComponentRegistry.getInstance().getComponent("CenterPanel");
         container.removeAll();
         container.setLayout(new BorderLayout());

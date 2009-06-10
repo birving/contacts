@@ -73,7 +73,7 @@ public class MediaMaintDisplay {
 
         final JTable table = new JTable(collectionTableModel);
         table.setFillsViewportHeight(true);
-//        table.setAutoCreateRowSorter(true);
+        // table.setAutoCreateRowSorter(true);
         TableRowSorter<CollectionTableModel<Medium>> rowSorter = new TableRowSorter<CollectionTableModel<Medium>>(collectionTableModel);
         rowSorter.setRowFilter(new RowFilter<CollectionTableModel<Medium>, Integer>() {
             @Override
@@ -84,7 +84,7 @@ public class MediaMaintDisplay {
             }
         });
         table.setRowSorter(rowSorter);
-        
+
         JScrollPane scrollPane = new JScrollPane(table);
         container.add(scrollPane, BorderLayout.CENTER);
 
@@ -116,7 +116,7 @@ public class MediaMaintDisplay {
                 for (int i = 0; i < selection.length; i++) {
                     selection[i] = table.convertRowIndexToModel(selection[i]);
                 }
-                
+
                 collectionTableModel.deleteSelectedRows(selection);
             }
         });

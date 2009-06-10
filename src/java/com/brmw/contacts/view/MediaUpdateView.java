@@ -8,6 +8,8 @@ import com.brmw.contacts.domain.Medium;
 public interface MediaUpdateView {
 
     public void addActionListener(ActionListener actionListener);
+
     public void displayMedia(Collection<Medium> media);
+
     public Collection<Medium> getMedia();
 }

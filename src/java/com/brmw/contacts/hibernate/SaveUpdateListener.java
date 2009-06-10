@@ -15,7 +15,6 @@ import com.brmw.contacts.domain.Auditable;
 public class SaveUpdateListener extends DefaultSaveOrUpdateEventListener {
     private static final Logger logger = LoggerFactory.getLogger(SaveUpdateListener.class);
 
-    
     @Override
     public void onSaveOrUpdate(SaveOrUpdateEvent event) throws HibernateException {
         logger.debug("Executing onSaveOrUpdate()");
@@ -30,7 +29,7 @@ public class SaveUpdateListener extends DefaultSaveOrUpdateEventListener {
             }
             // ((Auditable)event.getEntity()).setCreated(audit);
         }
-        
+
         super.onSaveOrUpdate(event);
     }
 }

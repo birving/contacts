@@ -1,6 +1,5 @@
 package com.brmw.contacts.domain;
 
-
 /**
  * @author Bruce Irving
  *         <p/>
@@ -25,8 +24,12 @@ public abstract class AbstractAuditedBean extends AbstractBean implements Audita
         return created;
     }
 
-    /* (non-Javadoc)
-     * @see com.brmw.contacts.model.Auditable#setCreated(com.brmw.contacts.model.Audit)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.brmw.contacts.model.Auditable#setCreated(com.brmw.contacts.model.
+     * Audit)
      */
     public void setCreated(Audit audit) {
         this.created = audit;
@@ -36,8 +39,12 @@ public abstract class AbstractAuditedBean extends AbstractBean implements Audita
         return updated;
     }
 
-    /* (non-Javadoc)
-     * @see com.brmw.contacts.model.Auditable#setUpdated(com.brmw.contacts.model.Audit)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.brmw.contacts.model.Auditable#setUpdated(com.brmw.contacts.model.
+     * Audit)
      */
     public void setUpdated(Audit updated) {
         this.updated = updated;

@@ -13,44 +13,12 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(MediumMetaData.class);
 
-    private static final ColumnData<Medium> NAME_COLUMN = new AbstractColumnData<Medium>("Name", true) {
-        @Override
-        public Object getValue(Medium medium) {
-            return medium.getName();
-        }
-
-        @Override
-        public void setValue(Medium medium, Object value) {
-            medium.setName((String) value);
-        }
-    };
-
-    private static final ColumnData<Medium> TYPE_COLUMN = new AbstractColumnData<Medium>("Type", true) {
-        @Override
-        public Object getValue(Medium medium) {
-            return medium.getType();
-        }
-
-        @Override
-        public void setValue(Medium medium, Object value) {
-            medium.setType((String) value);
-        }
-    };
-
-    private static final ColumnData<Medium> NOTES_COLUMN = new AbstractColumnData<Medium>("Notes", true) {
-        @Override
-        public Object getValue(Medium medium) {
-            return medium.getNotes();
-        }
-
-        @Override
-        public void setValue(Medium medium, Object value) {
-            medium.setNotes((String) value);
-        }
-    };
+    private static final FieldData<Medium> NAME_COLUMN = new AbstractFieldData<Medium>(Medium.class, "name", true);
+    private static final FieldData<Medium> TYPE_COLUMN = new AbstractFieldData<Medium>(Medium.class, "type", true);
+    private static final FieldData<Medium> NOTES_COLUMN = new AbstractFieldData<Medium>(Medium.class, "notes", true);
 
     @SuppressWarnings("unchecked")
-    private List<ColumnData<Medium>> mediumColumnData = Arrays.asList(NAME_COLUMN, TYPE_COLUMN, NOTES_COLUMN);
+    private List<FieldData<Medium>> mediumColumnData = Arrays.asList(NAME_COLUMN, TYPE_COLUMN, NOTES_COLUMN);
 
     @Override
     public String getRegistryKey() {
@@ -63,9 +31,9 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     }
 
     @Override
-    public List<ColumnData<Medium>> getColumnData() {
+    public List<FieldData<Medium>> getColumnData() {
         if (getIncludeDebugInfo()) {
-            List<ColumnData<Medium>> colData = new ArrayList<ColumnData<Medium>>(mediumColumnData);
+            List<FieldData<Medium>> colData = new ArrayList<FieldData<Medium>>(mediumColumnData);
             colData.addAll(super.getColumnData());
             return colData;
         } else {
