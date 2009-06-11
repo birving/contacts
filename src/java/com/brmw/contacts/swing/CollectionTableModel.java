@@ -84,6 +84,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        logger.debug("calling getValueAt({}, {}, {})", rowIndex, columnIndex);
         T rowData = tableData.get(rowIndex);
         return tableMetaData.getValueAt(columnIndex, rowData);
     }
@@ -95,6 +96,7 @@ public class CollectionTableModel<T> extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        logger.debug("calling setValueAt({}, {}, {})", new Object[]{value, rowIndex, columnIndex});
         T rowData = tableData.get(rowIndex);
         Object currentValue = this.getValueAt(rowIndex, columnIndex);
         if (currentValue == null || !currentValue.equals(value)) {

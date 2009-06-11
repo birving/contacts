@@ -1,5 +1,7 @@
 ============================================== Stories ============================================== 
 005. User requests removal of used Medium entry and attempts to save changes to database. Change is rejected.
+011. User adds duplicate data to table, Duplicte is rejected immediately.
+012. User adds or edits data with null (or blank) value. Save button should not be enabled until fixed; also need some indication of missing data. 
 
 006. User requests full list of company association types. List is displayed on screen.
 007. User modifies company association type data (name, description); clicks Save button; changes are saved to database.

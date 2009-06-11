@@ -149,8 +149,8 @@ public class MainMenu {
             return;
         }
 
-        int answer = JOptionPane.showConfirmDialog(null, resourceFactory.getString("app.confirmRestart"), resourceFactory
-                .getString("app.confirmResart.title"), JOptionPane.YES_NO_OPTION);
+        int answer = JOptionPane.showConfirmDialog(null, resourceFactory.getString("app.confirmRestart.text", null), resourceFactory
+                .getString("app.confirmRestart.title"), JOptionPane.YES_NO_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
             logger.debug("Setting locale to {}", newLocale);
             Locale.setDefault(newLocale);

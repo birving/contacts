@@ -67,10 +67,21 @@ public class ResourceFactory {
     }
 
     public String getString(String key) {
+        return getString(key, null, true);
+    }
+
+    public String getString(String key, String defaultValue) {
+        return getString(key, defaultValue, false);
+    }
+
+    private String getString(String key, String defaultValue, boolean required) {
         if (keySet.contains(key)) {
             return resources.getString(key);
+        } else if (!required) {
+            return defaultValue;
         } else {
-            return null;
+            // TODO: Replace with custom Exception
+            throw new RuntimeException("Missing resource: " + key);
         }
     }
 
@@ -100,7 +111,7 @@ public class ResourceFactory {
     }
 
     private JMenuItem initializeMenuItem(JMenuItem menuItem, String key) {
-        String accelerator = getString(key + ACCEL_SUFFIX);
+        String accelerator = getString(key + ACCEL_SUFFIX, null);
         if (accelerator != null) {
             KeyStroke keyStroke = KeyStroke.getKeyStroke(accelerator);
             menuItem.setAccelerator(keyStroke);
@@ -110,24 +121,24 @@ public class ResourceFactory {
     }
 
     private AbstractButton initializeButton(AbstractButton button, String key) {
-        String text = getString(key);
+        String text = getString(key, null);
         if (text == null) {
             return null;
         } else {
             button.setText(text);
         }
 
-        String mnemonic = getString(key + MNEMONIC_SUFFIX);
+        String mnemonic = getString(key + MNEMONIC_SUFFIX, null);
         if (mnemonic != null && mnemonic.length() == 1) {
             button.setMnemonic(mnemonic.codePointAt(0));
         }
 
-        String toolTip = getString(key + TOOL_TIP_SUFFIX);
+        String toolTip = getString(key + TOOL_TIP_SUFFIX, null);
         if (toolTip != null) {
             button.setToolTipText(toolTip);
         }
 
-        String iconPath = getString(key + ICON_SUFFIX);
+        String iconPath = getString(key + ICON_SUFFIX, null);
         if (iconPath != null) {
             Icon icon = createImageIcon(iconPath);
             if (icon != null) {

@@ -21,56 +21,44 @@ public class AbstractFieldData<T> implements FieldData<T> {
      * which has field as a member.
      */
     private Class<?> ownerClass;
-    // private Field field;
+    private String resourceKey;
     private Class<?> fieldClass;
-    private String displayName;
+//    private String displayName;
     private boolean fieldEditable;
     private List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
     private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
-    protected AbstractFieldData(Class<?> ownerClass, String fieldKey) {
-        this(ownerClass, fieldKey, false);
+    protected AbstractFieldData(Class<?> ownerClass, String registryKey, String fieldKey) {
+        this(ownerClass, registryKey, fieldKey, false);
     }
 
-    protected AbstractFieldData(Class<?> ownerClass, String fieldKey, Boolean fieldEditable) {
+    protected AbstractFieldData(Class<?> ownerClass, String registryKey, String fieldKey, Boolean fieldEditable) {
         this.ownerClass = ownerClass;
+        this.resourceKey = registryKey + ".col." + fieldKey + ".text";
         setFieldKey(fieldKey);
-        setDisplayKey(fieldKey);
+//        setDisplayKey(fieldKey);
         this.fieldEditable = fieldEditable;
-    }
-
-    // protected AbstractFieldData(Class<?> ownerClass, String fieldKey, String
-    // displayKey) {
-    // this.ownerClass = ownerClass;
-    // setFieldKey(fieldKey);
-    // setDisplayKey(displayKey);
-    // }
-
-    protected AbstractFieldData(String columnName, Boolean cellEditable) {
-        setFieldKey(columnName);
-        this.fieldClass = String.class;
-        this.fieldEditable = cellEditable;
     }
 
     @Override
     public String getDisplayName() {
-        return displayName;
+        return resourceFactory.getString(resourceKey);  
     }
 
-    /**
-     * Set display name from resource; or default to key itself
-     * 
-     * @param displayKey
-     *            Resource key
-     */
-    private void setDisplayKey(String displayKey) {
-
-        String resourceKey = ownerClass.getName() + "." + displayKey;
-        this.displayName = resourceFactory.getString(resourceKey);
-        if (this.displayName == null) {
-            this.displayName = displayKey;
-        }
-    }
+//    /**
+//     * Set display name from resource; or default to key itself
+//     * 
+//     * @param displayKey1
+//     *            Resource key
+//     */
+//    private void setDisplayKey(String displayKey1) {
+//
+//        String resourceKey1 = resourceKey + "." + displayKey1 + ".text";
+//        this.displayName = resourceFactory.getString(resourceKey1);
+//        if (this.displayName == null) {
+//            this.displayName = displayKey1;
+//        }
+//    }
 
     private void setFieldKey(String fieldKey) {
 
@@ -118,10 +106,10 @@ public class AbstractFieldData<T> implements FieldData<T> {
     public Object getValue(T rowObject) {
         Object nextObject = rowObject;
         for (PropertyDescriptor descriptor : propDescriptors) {
-            logger.debug("Getting PropertyDescriptor for class:{}; field:{}", ownerClass, displayName);
+            logger.debug("Getting PropertyDescriptor for class:{}; field:{}", ownerClass, resourceKey);
             Method getter = descriptor.getReadMethod();
             if (getter == null) {
-                throw new RuntimeException("No getter found for class:" + ownerClass + "; field:" + displayName);
+                throw new RuntimeException("No getter found for class:" + ownerClass + "; field:" + resourceKey);
             }
             try {
                 nextObject = getter.invoke(nextObject);
@@ -133,13 +121,13 @@ public class AbstractFieldData<T> implements FieldData<T> {
                 // e.printStackTrace();
             } catch (IllegalAccessException e) {
                 // TODO re-throw as custom RuntimeException
-                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + displayName, e);
+                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + resourceKey, e);
             } catch (InvocationTargetException e) {
                 // TODO re-throw as custom RuntimeException
-                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + displayName, e);
+                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + resourceKey, e);
             } catch (NullPointerException e) {
                 // TODO re-throw as custom RuntimeException
-                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + displayName, e);
+                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + resourceKey, e);
             }
         }
         return nextObject;

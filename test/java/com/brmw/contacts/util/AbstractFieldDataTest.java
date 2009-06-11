@@ -23,12 +23,10 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testSimpleField() {
-        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(Medium.class, "name");
+        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(Medium.class, "test", "name");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
-        // There is no resource for this field, so resource key (name) should be
-        // used instead.
         assertEquals("Incorrect displayName:", "name", fieldData.getDisplayName());
         assertEquals("Incorrect fieldClass:", String.class, fieldData.getFieldClass());
         assertTrue("Expected fieldEditable to be true; was false", fieldData.isFieldEditable());
@@ -42,7 +40,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testBaseClassLongField() {
-        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(AbstractAuditedBean.class, "id");
+        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(AbstractAuditedBean.class, "test", "id");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
@@ -61,11 +59,11 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testBaseClassNestedField() throws ParseException {
-        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(AbstractAuditedBean.class, "created.transactionDate");
+        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(AbstractAuditedBean.class, "test", "created.transactionDate");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
-        assertEquals("Incorrect displayName:", "created.transactionDate", fieldData.getDisplayName());
+        assertEquals("Incorrect displayName:", "Test Created Date", fieldData.getDisplayName());
         assertEquals("Incorrect fieldClass:", Date.class, fieldData.getFieldClass());
         assertTrue("Expected fieldEditable to be true; was false", fieldData.isFieldEditable());
 
@@ -88,7 +86,11 @@ public class AbstractFieldDataTest extends TestCase {
         protected Object[][] getContents() {
             return new Object[][] { 
                     { "resource.key", "resource.value" },
-                    { "com.brmw.contacts.domain.AbstractAuditedBean.id", "Identifier" },
+                    { "test.col.name.text", "name" },
+                    { "test.col.id.text", "Identifier" },
+                    
+                    { "test.col.created.transactionDate.text", "Test Created Date" },
+
             };
         }
     }

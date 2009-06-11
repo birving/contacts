@@ -36,6 +36,7 @@ public class CollectionTableDisplay<T extends AbstractBean> {
     private TableMetaData<T> metaData;
     private JButton saveButton;
     private JButton revertButton;
+    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
     public CollectionTableDisplay(Collection<T> data, TableMetaData<T> metaData) {
         this.metaData = metaData;
@@ -75,9 +76,11 @@ public class CollectionTableDisplay<T extends AbstractBean> {
     }
 
     private void createTableHeader(Container container) {
-        JLabel tableLabel = new JLabel(metaData.getTableHeader(), SwingConstants.CENTER);
+        String headerText = resourceFactory.getString(metaData.getRegistryKey() + ".tableHeader.text");
+        String headerTooltip = resourceFactory.getString(metaData.getRegistryKey() + ".tableHeader.tooltip", null);
+        JLabel tableLabel = new JLabel(headerText, SwingConstants.CENTER);
         tableLabel.setFont(ContactsConstants.HEADER_FONT);
-        tableLabel.setToolTipText("What is this table used for");
+        tableLabel.setToolTipText(headerTooltip);
         container.add(tableLabel, BorderLayout.NORTH);
     }
 
