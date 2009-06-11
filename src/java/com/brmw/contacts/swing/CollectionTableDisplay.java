@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Collection;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,16 +23,13 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableRowSorter;
 
 import com.brmw.contacts.domain.AbstractBean;
-import com.brmw.contacts.presenter.PresenterFirstRegistry;
 import com.brmw.contacts.util.TableMetaData;
 
 /**
- * This class builds the display for a JTable and associated buttons for type T.
- * 
- * @author bruce
- * 
+ * This class builds the Swing display for a JTable and associated buttons for
+ * type T.
  */
-public class CollectionTableDisplay<T extends AbstractBean> {
+public abstract class CollectionTableDisplay<T extends AbstractBean> {
     private CollectionTableModel<T> collectionTableModel;
     private TableMetaData<T> metaData;
     private JButton saveButton;
@@ -43,6 +41,22 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         this.collectionTableModel = new CollectionTableModel<T>(data, metaData);
         ComponentRegistry.getInstance().register(metaData.getRegistryKey(), this);
     }
+
+    /**
+     * Implement this method to wire up Save button
+     * 
+     * @param button
+     *            Save button
+     */
+    abstract protected void registerSaveButton(AbstractButton button);
+
+    /**
+     * Implement this method to wire up Revert button
+     * 
+     * @param button
+     *            Revert button
+     */
+    abstract protected void registerRevertButton(AbstractButton button);
 
     /**
      * Update data in table
@@ -61,7 +75,7 @@ public class CollectionTableDisplay<T extends AbstractBean> {
     }
 
     public void display() {
-        Container container = (Container) ComponentRegistry.getInstance().getComponent("CenterPanel");
+        Container container = ComponentRegistry.getInstance().getContainer("CenterPanel");
         container.removeAll();
         container.setLayout(new BorderLayout());
 
@@ -89,10 +103,12 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         table.setFillsViewportHeight(true);
 
         if (metaData.isDeleteable()) {
-            TableRowSorter<CollectionTableModel<T>> rowSorter = new TableRowSorter<CollectionTableModel<T>>(collectionTableModel);
+            TableRowSorter<CollectionTableModel<T>> rowSorter =
+                    new TableRowSorter<CollectionTableModel<T>>(collectionTableModel);
             rowSorter.setRowFilter(new RowFilter<CollectionTableModel<T>, Integer>() {
                 @Override
-                public boolean include(javax.swing.RowFilter.Entry<? extends CollectionTableModel<T>, ? extends Integer> entry) {
+                public boolean include(
+                        javax.swing.RowFilter.Entry<? extends CollectionTableModel<T>, ? extends Integer> entry) {
                     CollectionTableModel<T> tableModel = entry.getModel();
                     T data = tableModel.getTableData().get(entry.getIdentifier());
                     return !data.isDeleted();
@@ -153,12 +169,12 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         saveButton = (JButton) rightBtnPanel.add(new JButton("Save"));
         saveButton.setMnemonic(KeyEvent.VK_S);
         saveButton.setEnabled(false);
-        PresenterFirstRegistry.getInstance().registerMediaUpdateButton(saveButton);
+        registerSaveButton(saveButton);
 
         revertButton = (JButton) rightBtnPanel.add(new JButton("Revert"));
         revertButton.setMnemonic(KeyEvent.VK_R);
         revertButton.setEnabled(false);
-        PresenterFirstRegistry.getInstance().registerMediaMaintButton(revertButton);
+        registerRevertButton(revertButton);
 
         // When data is modified, enable Save and Revert buttons
         collectionTableModel.addTableModelListener(new TableModelListener() {

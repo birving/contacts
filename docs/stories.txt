@@ -1,12 +1,8 @@
 ============================================== Stories ============================================== 
-005. User requests removal of used Medium entry and attempts to save changes to database. Change is rejected.
-011. User adds duplicate data to table, Duplicte is rejected immediately.
-012. User adds or edits data with null (or blank) value. Save button should not be enabled until fixed; also need some indication of missing data. 
+005. User requests removal of used Medium (or Association type) entry and attempts to save changes to database. Change is rejected.
+011. User adds duplicate data to GUI table (for Medium or Association Type); duplicate entry is rejected immediately (before clicking Save).
+012. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until fixed; also need some indication of missing data. 
 
-006. User requests full list of company association types. List is displayed on screen.
-007. User modifies company association type data (name, description); clicks Save button; changes are saved to database.
-008. User requests addition of new company association type entry and saves changes to database. 
-009. User requests removal of unused company association type entry and saves changes to database.
 010. User requests removal of used company association type entry and attempts to save changes to database. Change is rejected.
 
 ========================================= Story Instructions ========================================= 
@@ -35,6 +31,10 @@ A strength of Presenter First is the simple, concrete nature of the approach. De
 002. User modifies Medium data (name, type and/or notes); clicks Save button; changes are saved to database. 
 003. User requests addition of new Medium entry and saves changes to database. 
 004. User requests removal of unused Medium entry and saves changes to database.
+006. User requests full list of company association types. List is displayed on screen.
+007. User modifies company association type data (name, description); clicks Save button; changes are saved to database.
+008. User requests addition of new company association type entry and saves changes to database. 
+009. User requests removal of unused company association type entry and saves changes to database.
 =====
 
   

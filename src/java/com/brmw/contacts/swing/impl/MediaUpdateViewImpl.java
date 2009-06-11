@@ -8,8 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
+import com.brmw.contacts.swing.CollectionTableDisplay;
 import com.brmw.contacts.swing.ComponentRegistry;
-import com.brmw.contacts.swing.MediaMaintDisplay;
+import com.brmw.contacts.util.MediumMetaData;
 import com.brmw.contacts.view.MediaUpdateView;
 
 public class MediaUpdateViewImpl extends AbstractButtonView implements MediaUpdateView {
@@ -23,7 +24,10 @@ public class MediaUpdateViewImpl extends AbstractButtonView implements MediaUpda
     public void displayMedia(Collection<Medium> media) {
         logger.debug("Running MediaUpdateViewImpl.displayMedia();");
 
-        MediaMaintDisplay mediaMaintDisplay = (MediaMaintDisplay) ComponentRegistry.getInstance().getComponent(MediaMaintDisplay.MEDIA_MAINT);
+        @SuppressWarnings("unchecked")
+        CollectionTableDisplay<Medium> mediaMaintDisplay =
+                (CollectionTableDisplay<Medium>) ComponentRegistry.getInstance()
+                        .getCollectionTable(MediumMetaData.REGISTRY_KEY);
         if (mediaMaintDisplay != null) {
             mediaMaintDisplay.setTableData(media);
         } else {
@@ -33,7 +37,10 @@ public class MediaUpdateViewImpl extends AbstractButtonView implements MediaUpda
 
     @Override
     public Collection<Medium> getMedia() {
-        MediaMaintDisplay mediaMaintDisplay = (MediaMaintDisplay) ComponentRegistry.getInstance().getComponent(MediaMaintDisplay.MEDIA_MAINT);
+        @SuppressWarnings("unchecked")
+        CollectionTableDisplay<Medium> mediaMaintDisplay =
+                (CollectionTableDisplay<Medium>) ComponentRegistry.getInstance()
+                        .getCollectionTable(MediumMetaData.REGISTRY_KEY);
         if (mediaMaintDisplay != null) {
             return mediaMaintDisplay.getTableData();
         } else {

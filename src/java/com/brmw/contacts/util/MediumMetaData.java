@@ -11,7 +11,7 @@ import com.brmw.contacts.domain.Medium;
 public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(MediumMetaData.class);
-    private static final String REGISTRY_KEY = "mediaMaint";
+    public static final String REGISTRY_KEY = "mediaMaint";
 
     private List<FieldData<Medium>> mediumColumnData;
 

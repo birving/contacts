@@ -3,9 +3,11 @@ package com.brmw.contacts.presenter;
 import javax.swing.AbstractButton;
 
 import com.brmw.contacts.model.impl.AssociationTypeMaintModelImpl;
+import com.brmw.contacts.model.impl.AssociationTypeUpdateModelImpl;
 import com.brmw.contacts.model.impl.MediaMaintModelImpl;
 import com.brmw.contacts.model.impl.MediaUpdateModelImpl;
 import com.brmw.contacts.swing.impl.AssociationTypeMaintViewImpl;
+import com.brmw.contacts.swing.impl.AssociationTypeUpdateViewImpl;
 import com.brmw.contacts.swing.impl.MediaMaintViewImpl;
 import com.brmw.contacts.swing.impl.MediaUpdateViewImpl;
 
@@ -53,5 +55,14 @@ public class PresenterFirstRegistry {
      */
     public void registerAssociationTypeMaintButton(AbstractButton button) {
         new AssociationTypeMaintPresenter(new AssociationTypeMaintViewImpl(button), new AssociationTypeMaintModelImpl());
+    }
+
+    /**
+     * Create MVP triad for association type update button (JButton or
+     * JMenuItem)
+     */
+    public void registerAssociationTypeUpdateButton(AbstractButton button) {
+        new AssociationTypeUpdatePresenter(new AssociationTypeUpdateViewImpl(button),
+                new AssociationTypeUpdateModelImpl());
     }
 }

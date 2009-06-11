@@ -11,7 +11,7 @@ import com.brmw.contacts.domain.AssociationType;
 public class AssociationTypeMetaData extends AuditedBeanMetaData<AssociationType> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AssociationTypeMetaData.class);
-    private static final String REGISTRY_KEY = "assocTypeMaint";
+    public static final String REGISTRY_KEY = "assocTypeMaint";
 
     private List<FieldData<AssociationType>> associationTypeColumnData;
 

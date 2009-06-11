@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
-import com.brmw.contacts.swing.MediaMaintDisplay;
+import com.brmw.contacts.presenter.PresenterFirstRegistry;
+import com.brmw.contacts.swing.CollectionTableDisplay;
+import com.brmw.contacts.util.MediumMetaData;
 import com.brmw.contacts.view.MediaMaintView;
 
 /**
@@ -25,6 +27,17 @@ public class MediaMaintViewImpl extends AbstractButtonView implements MediaMaint
     @Override
     public void displayMedia(Collection<Medium> media) {
         logger.debug("Running MediaMaintViewImpl.displayMedia();");
-        new MediaMaintDisplay(media).display();
+        CollectionTableDisplay<Medium> mediaDisplay = new CollectionTableDisplay<Medium>(media, new MediumMetaData()) {
+            @Override
+            protected void registerSaveButton(AbstractButton button) {
+                PresenterFirstRegistry.getInstance().registerMediaUpdateButton(button);
+            }
+
+            @Override
+            protected void registerRevertButton(AbstractButton button) {
+                PresenterFirstRegistry.getInstance().registerMediaMaintButton(button);
+            }
+        };
+        mediaDisplay.display();
     }
 }
