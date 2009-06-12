@@ -1,8 +1,7 @@
 ============================================== Stories ============================================== 
+012. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until fixed; also need some indication of missing data. 
 005. User requests removal of used Medium (or Association type) entry and attempts to save changes to database. Change is rejected.
 011. User adds duplicate data to GUI table (for Medium or Association Type); duplicate entry is rejected immediately (before clicking Save).
-012. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until fixed; also need some indication of missing data. 
-
 010. User requests removal of used company association type entry and attempts to save changes to database. Change is rejected.
 
 ========================================= Story Instructions ========================================= 

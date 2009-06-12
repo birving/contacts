@@ -26,12 +26,14 @@ import org.slf4j.LoggerFactory;
 public class ResourceFactory {
     private static final String DEFAULT_BASE_NAME = "contactsResources";
     private static final Logger logger = LoggerFactory.getLogger(ResourceFactory.class);
+
     private static final String BUTTON_PREFIX = "button.";
     private static final String MENU_PREFIX = "menu.";
 
     private static final String ACCEL_SUFFIX = ".accelerator";
     private static final String ICON_SUFFIX = ".icon";
     private static final String MNEMONIC_SUFFIX = ".mnemonic";
+    private static final String TEXT_SUFFIX = ".text";
     private static final String TOOL_TIP_SUFFIX = ".tooltip";
 
     private static ResourceFactory instance = new ResourceFactory();
@@ -110,6 +112,15 @@ public class ResourceFactory {
         return (JRadioButtonMenuItem) initializeMenuItem(menuItem, MENU_PREFIX + key);
     }
 
+    public Icon createIcon(String key) {
+        String iconPath = getString(key + ICON_SUFFIX, null);
+        if (iconPath != null) {
+            return createImageIcon(iconPath);
+        } else {
+            return null;
+        }
+    }
+    
     private JMenuItem initializeMenuItem(JMenuItem menuItem, String key) {
         String accelerator = getString(key + ACCEL_SUFFIX, null);
         if (accelerator != null) {
@@ -121,7 +132,7 @@ public class ResourceFactory {
     }
 
     private AbstractButton initializeButton(AbstractButton button, String key) {
-        String text = getString(key, null);
+        String text = getString(key + TEXT_SUFFIX, null);
         if (text == null) {
             return null;
         } else {

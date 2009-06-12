@@ -1,15 +1,14 @@
 package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.brmw.contacts.presenter.PresenterFirstRegistry;
 
 /**
  * Main GUI screen for Contacts application.
@@ -27,7 +26,6 @@ public class MainWindow {
     private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
     public MainWindow() {
-        PresenterFirstRegistry presenter1stRegistry = PresenterFirstRegistry.getInstance();
         ComponentRegistry componentRegistry = ComponentRegistry.getInstance();
 
         // Initialization
@@ -48,13 +46,13 @@ public class MainWindow {
         componentRegistry.register("CenterPanel", centerPanel);
 
         // Create South (Status) panel and save reference
-        JPanel southPanel = new JPanel();
+        JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         frame.add(southPanel, BorderLayout.SOUTH);
-        componentRegistry.register("SouthPanel", southPanel);
+        // componentRegistry.register("SouthPanel", southPanel);
 
-        JButton mediaMaintButton = resourceFactory.createButton("Media");
-        frame.add(mediaMaintButton, BorderLayout.SOUTH);
-        presenter1stRegistry.registerMediaMaintButton(mediaMaintButton);
+        JLabel statusField = new JLabel(); // "Status: ");
+        southPanel.add(statusField);
+        componentRegistry.register("StatusField", statusField);
     }
 
     public void show() {

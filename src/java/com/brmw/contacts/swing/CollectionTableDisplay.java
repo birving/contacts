@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.util.Collection;
 
 import javax.swing.AbstractButton;
@@ -132,9 +131,8 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         JPanel rightBtnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(rightBtnPanel, BorderLayout.EAST);
 
-        JButton addButton = new JButton("Add entry");
+        JButton addButton = ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".add");
         leftBtnPanel.add(addButton);
-        addButton.setMnemonic(KeyEvent.VK_A);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,9 +140,8 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
             }
         });
 
-        final JButton deleteButton = new JButton("Delete");
+        final JButton deleteButton = ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".delete");
         leftBtnPanel.add(deleteButton);
-        deleteButton.setMnemonic(KeyEvent.VK_D);
         deleteButton.setEnabled(false);
         deleteButton.addActionListener(new ActionListener() {
             @Override
@@ -166,13 +163,11 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         });
 
         // Save and Revert buttons should work together.
-        saveButton = (JButton) rightBtnPanel.add(new JButton("Save"));
-        saveButton.setMnemonic(KeyEvent.VK_S);
+        saveButton = (JButton) rightBtnPanel.add(ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".save"));
         saveButton.setEnabled(false);
         registerSaveButton(saveButton);
 
-        revertButton = (JButton) rightBtnPanel.add(new JButton("Revert"));
-        revertButton.setMnemonic(KeyEvent.VK_R);
+        revertButton = (JButton) rightBtnPanel.add(ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".revert"));
         revertButton.setEnabled(false);
         registerRevertButton(revertButton);
 

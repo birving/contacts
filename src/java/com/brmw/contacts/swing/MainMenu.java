@@ -27,7 +27,7 @@ public class MainMenu {
 
     public MainMenu() {
         menuBar = new JMenuBar();
-        crateMainMenu();
+        createMainMenu();
     }
 
     public JMenuBar getMenuBar() {
@@ -37,7 +37,7 @@ public class MainMenu {
     /**
      * Create Main application menu
      */
-    private void crateMainMenu() {
+    private void createMainMenu() {
         JMenu contactsMenu = menuBar.add(resourceFactory.createMenu("Contacts"));
         createContactsMenu(contactsMenu);
 
@@ -110,8 +110,8 @@ public class MainMenu {
     private void createLocaleMenu(JMenu localeMenu) {
         logger.debug("Current locale: {}", Locale.getDefault());
 
-        final JRadioButtonMenuItem englishMenuItem = (JRadioButtonMenuItem) localeMenu.add(resourceFactory
-                .createRadioButtonMenuItem("Tools.Locale.English"));
+        final JRadioButtonMenuItem englishMenuItem =
+                (JRadioButtonMenuItem) localeMenu.add(resourceFactory.createRadioButtonMenuItem("Tools.Locale.English"));
         localeButtonMap.put(Locale.ROOT, englishMenuItem);
         localeButtonMap.put(Locale.ENGLISH, englishMenuItem);
         logger.debug("English locale: {}", Locale.ENGLISH);
@@ -123,8 +123,8 @@ public class MainMenu {
             }
         });
 
-        final JRadioButtonMenuItem pigLatinMenuItem = (JRadioButtonMenuItem) localeMenu.add(resourceFactory
-                .createRadioButtonMenuItem("Tools.Locale.Piglatin"));
+        final JRadioButtonMenuItem pigLatinMenuItem =
+                (JRadioButtonMenuItem) localeMenu.add(resourceFactory.createRadioButtonMenuItem("Tools.Locale.Piglatin"));
         final Locale piglatinLocale = new Locale("en", "US", "PIGLATIN");
         localeButtonMap.put(piglatinLocale, pigLatinMenuItem);
         logger.debug("Pig Latin locale: {}", piglatinLocale);
@@ -149,8 +149,11 @@ public class MainMenu {
             return;
         }
 
-        int answer = JOptionPane.showConfirmDialog(null, resourceFactory.getString("app.confirmRestart.text", null), resourceFactory
-                .getString("app.confirmRestart.title"), JOptionPane.YES_NO_OPTION);
+        int answer =
+                JOptionPane.showConfirmDialog(
+                                              null, resourceFactory.getString("app.confirmRestart.text", null),
+                                              resourceFactory.getString("app.confirmRestart.title"),
+                                              JOptionPane.YES_NO_OPTION);
         if (answer == JOptionPane.YES_OPTION) {
             logger.debug("Setting locale to {}", newLocale);
             Locale.setDefault(newLocale);
@@ -182,7 +185,10 @@ public class MainMenu {
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "About - not yet implemented.");
+                JOptionPane.showMessageDialog(null, resourceFactory.getString("app.about.text"), 
+                                              resourceFactory.getString("app.about.title"), 
+                                              JOptionPane.INFORMATION_MESSAGE, 
+                                              resourceFactory.createIcon("app.about"));
             }
         });
     }
