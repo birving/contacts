@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.ContactsState;
-import com.brmw.contacts.presenter.PresenterFirstRegistry;
+import com.brmw.contacts.mvp.PresenterFirstRegistry;
 
 public class MainMenu {
     private static final Logger logger = LoggerFactory.getLogger(MainMenu.class);
