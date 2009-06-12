@@ -185,10 +185,12 @@ public class MainMenu {
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, resourceFactory.getString("app.about.text"), 
-                                              resourceFactory.getString("app.about.title"), 
-                                              JOptionPane.INFORMATION_MESSAGE, 
-                                              resourceFactory.createIcon("app.about"));
+                JOptionPane.showMessageDialog(
+                                              null, resourceFactory.getString("app.about.text") + "\n"
+                                                      + ContactsConstants.LAST_CHANGED_REVISION + " "
+                                                      + ContactsConstants.LAST_CHANGED_DATE,
+                                              resourceFactory.getString("app.about.title"),
+                                              JOptionPane.INFORMATION_MESSAGE, resourceFactory.createIcon("app.about"));
             }
         });
     }
