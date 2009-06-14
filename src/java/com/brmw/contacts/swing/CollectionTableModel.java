@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Deleteable;
-import com.brmw.contacts.util.TableMetaData;
+import com.brmw.contacts.domain.adaptor.TableMetaData;
 
 /**
  * This class serves as an adapter from a

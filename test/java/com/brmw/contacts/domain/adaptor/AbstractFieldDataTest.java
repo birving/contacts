@@ -1,4 +1,4 @@
-package com.brmw.contacts.util;
+package com.brmw.contacts.domain.adaptor;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,6 +12,7 @@ import com.brmw.contacts.ResourceFactory;
 import com.brmw.contacts.domain.AbstractAuditedBean;
 import com.brmw.contacts.domain.Audit;
 import com.brmw.contacts.domain.Medium;
+import com.brmw.contacts.domain.adaptor.BaseFieldData;
 
 public class AbstractFieldDataTest extends TestCase {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

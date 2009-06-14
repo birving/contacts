@@ -22,7 +22,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableRowSorter;
 
 import com.brmw.contacts.domain.AbstractBean;
-import com.brmw.contacts.util.TableMetaData;
+import com.brmw.contacts.domain.adaptor.TableMetaData;
 
 /**
  * This class builds the Swing display for a JTable and associated buttons for

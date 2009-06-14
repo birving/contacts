@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Medium;
+import com.brmw.contacts.domain.adaptor.MediumMetaData;
 import com.brmw.contacts.mvp.PresenterFirstRegistry;
 import com.brmw.contacts.mvp.view.MediaMaintView;
 import com.brmw.contacts.swing.CollectionTableDisplay;
-import com.brmw.contacts.util.MediumMetaData;
 
 /**
  * Media Maintenance GUI elements.

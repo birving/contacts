@@ -1,4 +1,4 @@
-package com.brmw.contacts.util;
+package com.brmw.contacts.domain.adaptor;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;

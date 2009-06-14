@@ -1,4 +1,4 @@
-package com.brmw.contacts.util;
+package com.brmw.contacts.domain.adaptor;
 
 /**
  * Represents column headings and data types and other meta-data for a table of

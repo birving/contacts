@@ -8,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.AssociationType;
+import com.brmw.contacts.domain.adaptor.AssociationTypeMetaData;
 import com.brmw.contacts.mvp.view.AssociationTypeUpdateView;
 import com.brmw.contacts.swing.CollectionTableDisplay;
 import com.brmw.contacts.swing.ComponentRegistry;
-import com.brmw.contacts.util.AssociationTypeMetaData;
 
 public class AssociationTypeUpdateViewImpl extends AbstractButtonView implements AssociationTypeUpdateView {
     private static final Logger logger = LoggerFactory.getLogger(AssociationTypeUpdateViewImpl.class);

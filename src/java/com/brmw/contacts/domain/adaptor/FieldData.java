@@ -1,4 +1,4 @@
-package com.brmw.contacts.util;
+package com.brmw.contacts.domain.adaptor;
 
 /**
  * Parameters for display of a data field in the GUI.
