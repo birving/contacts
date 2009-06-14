@@ -23,7 +23,7 @@ public class MainMenu {
     private static final Logger logger = LoggerFactory.getLogger(MainMenu.class);
     private JMenuBar menuBar;
     private Map<Locale, JRadioButtonMenuItem> localeButtonMap = new HashMap<Locale, JRadioButtonMenuItem>();
-    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
+    private SwingResourceFactory resourceFactory = SwingResourceFactory.getInstance();
 
     public MainMenu() {
         menuBar = new JMenuBar();

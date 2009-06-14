@@ -3,9 +3,6 @@ package com.brmw.contacts.swing;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
 
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
@@ -20,72 +17,47 @@ import javax.swing.KeyStroke;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.ResourceFactory;
+
 /**
  * Utility class to generate certain swing components from a resource bundle
  */
-public class ResourceFactory {
-    private static final String DEFAULT_BASE_NAME = "contactsResources";
-    private static final Logger logger = LoggerFactory.getLogger(ResourceFactory.class);
+public class SwingResourceFactory extends ResourceFactory {
+    @SuppressWarnings("unused")
+    private static final Logger logger = LoggerFactory.getLogger(SwingResourceFactory.class);
 
     private static final String BUTTON_PREFIX = "button.";
     private static final String MENU_PREFIX = "menu.";
-
     private static final String ACCEL_SUFFIX = ".accelerator";
     private static final String ICON_SUFFIX = ".icon";
     private static final String MNEMONIC_SUFFIX = ".mnemonic";
     private static final String TEXT_SUFFIX = ".text";
     private static final String TOOL_TIP_SUFFIX = ".tooltip";
+    private static SwingResourceFactory instance = new SwingResourceFactory();
 
-    private static ResourceFactory instance = new ResourceFactory();
-
-    public static ResourceFactory getInstance() {
+    public static SwingResourceFactory getInstance() {
         return instance;
     }
 
-    public static void setInstance(ResourceFactory instance) {
-        ResourceFactory.instance = instance;
+    public static void setInstance(SwingResourceFactory instance) {
+        SwingResourceFactory.instance = instance;
     }
 
-    private ResourceBundle resources;
-    private Set<String> keySet;
-
-    public ResourceFactory() {
-        this(DEFAULT_BASE_NAME);
+    /**
+     * Default constructor
+     */
+    public SwingResourceFactory() {
+        super();
     }
 
-    public ResourceFactory(String baseName) {
-        resources = ResourceBundle.getBundle(baseName);
-        keySet = resources.keySet();
+    /**
+     * Constructor for test use
+     */
+    public SwingResourceFactory(String baseName) {
+        super(baseName);
     }
 
-    public Locale getLocaleInUse() {
-        logger.debug("Default locale: {}; Effective locale: {}", Locale.getDefault(), resources.getLocale());
-        return resources.getLocale();
-    }
-
-    public void setCurrentLocale() {
-        resources = ResourceBundle.getBundle(DEFAULT_BASE_NAME);
-        logger.debug("New default locale: {}; Effective locale: {}", Locale.getDefault(), resources.getLocale());
-    }
-
-    public String getString(String key) {
-        return getString(key, null, true);
-    }
-
-    public String getString(String key, String defaultValue) {
-        return getString(key, defaultValue, false);
-    }
-
-    private String getString(String key, String defaultValue, boolean required) {
-        if (keySet.contains(key)) {
-            return resources.getString(key);
-        } else if (!required) {
-            return defaultValue;
-        } else {
-            // TODO: Replace with custom Exception
-            throw new RuntimeException("Missing resource: " + key);
-        }
-    }
+    // Create Swing components using strings from resource bundle
 
     public JButton createButton(String key) {
         JButton button = new JButton();
@@ -115,12 +87,21 @@ public class ResourceFactory {
     public Icon createIcon(String key) {
         String iconPath = getString(key + ICON_SUFFIX, null);
         if (iconPath != null) {
-            return createImageIcon(iconPath);
+            return loadImageIcon(iconPath);
         } else {
             return null;
         }
     }
-    
+
+    public List<Image> createImages(String key) {
+        String iconPath = getString(key, null);
+        if (iconPath != null) {
+            return loadImages(iconPath);
+        } else {
+            return null;
+        }
+    }
+
     private JMenuItem initializeMenuItem(JMenuItem menuItem, String key) {
         String accelerator = getString(key + ACCEL_SUFFIX, null);
         if (accelerator != null) {
@@ -151,7 +132,7 @@ public class ResourceFactory {
 
         String iconPath = getString(key + ICON_SUFFIX, null);
         if (iconPath != null) {
-            Icon icon = createImageIcon(iconPath);
+            Icon icon = loadImageIcon(iconPath);
             if (icon != null) {
                 button.setIcon(icon);
             }
@@ -161,7 +142,7 @@ public class ResourceFactory {
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
-    private ImageIcon createImageIcon(String path) {
+    private ImageIcon loadImageIcon(String path) {
         java.net.URL imgURL = ClassLoader.getSystemResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
@@ -172,20 +153,20 @@ public class ResourceFactory {
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
-    public List<Image> createImages(String path) {
+    private List<Image> loadImages(String path) {
         List<Image> images = new ArrayList<Image>();
 
-        ImageIcon imageIcon1 = createImageIcon("images/16x16/" + path);
+        ImageIcon imageIcon1 = loadImageIcon("images/16x16/" + path);
         if (imageIcon1 != null) {
             images.add(imageIcon1.getImage());
         }
 
-        ImageIcon imageIcon2 = createImageIcon("images/22x22/" + path);
+        ImageIcon imageIcon2 = loadImageIcon("images/22x22/" + path);
         if (imageIcon2 != null) {
             images.add(imageIcon2.getImage());
         }
 
-        ImageIcon imageIcon3 = createImageIcon("images/32x32/" + path);
+        ImageIcon imageIcon3 = loadImageIcon("images/32x32/" + path);
         if (imageIcon3 != null) {
             images.add(imageIcon3.getImage());
         }

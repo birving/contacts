@@ -23,14 +23,14 @@ public class MainWindow {
     private static final int DEFAULT_HEIGHT = 400;
 
     private JFrame frame;
-    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
+    private SwingResourceFactory resourceFactory = SwingResourceFactory.getInstance();
 
     public MainWindow() {
         ComponentRegistry componentRegistry = ComponentRegistry.getInstance();
 
         // Initialization
         frame = new JFrame(resourceFactory.getString("app.title"));
-        frame.setIconImages(resourceFactory.createImages("apps/system-users.png"));
+        frame.setIconImages(resourceFactory.createImages("app.images"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setJMenuBar(new MainMenu().getMenuBar());

@@ -39,7 +39,8 @@ public class MediaUpdatePresenter {
     private void handleMediaUpdateRequest() {
         logger.debug("Calling MediaUpdatePresenter.handleMediaUpdateRequest()");
         Collection<Medium> media = mediaUpdateView.getMedia();
-        SwingWorker<Collection<Medium>, Object> swingWorker = new PlugableSwingWorker<Collection<Medium>, Object>(workerPlugin);
+        SwingWorker<Collection<Medium>, Object> swingWorker =
+                new PlugableSwingWorker<Collection<Medium>, Object>(workerPlugin);
         workerPlugin.setInitialValue(media);
         swingWorker.execute();
     }

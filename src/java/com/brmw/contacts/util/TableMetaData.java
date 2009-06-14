@@ -11,8 +11,6 @@ public interface TableMetaData<T> {
 
     public String getRegistryKey();
 
-    public String getTableHeader();
-
     public int getColumnCount();
 
     public String getColumnName(int columnIndex);

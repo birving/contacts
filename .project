@@ -21,11 +21,6 @@
 			<location>/home/bruce/workspace_gen/contacts/classes</location>
 		</link>
 		<link>
-			<name>javadoc</name>
-			<type>2</type>
-			<location>/home/bruce/workspace_gen/contacts/javadoc</location>
-		</link>
-		<link>
 			<name>lib/dom4j-1.6.1.jar</name>
 			<type>1</type>
 			<location>/home/bruce/lib/hibernate-distribution-3.3.1.GA/lib/required/dom4j-1.6.1.jar</location>

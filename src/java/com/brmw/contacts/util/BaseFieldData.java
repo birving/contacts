@@ -10,11 +10,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brmw.contacts.swing.ResourceFactory;
+import com.brmw.contacts.ResourceFactory;
 
-// TODO: rename to BaseFieldData since it is no longer Abstract
-public class AbstractFieldData<T> implements FieldData<T> {
-    private static final Logger logger = LoggerFactory.getLogger(AbstractFieldData.class);
+public class BaseFieldData<T> implements FieldData<T> {
+    private static final Logger logger = LoggerFactory.getLogger(BaseFieldData.class);
 
     /**
      * ownerClass is *usually* but not always the same as <T>. This is the class
@@ -23,42 +22,25 @@ public class AbstractFieldData<T> implements FieldData<T> {
     private Class<?> ownerClass;
     private String resourceKey;
     private Class<?> fieldClass;
-//    private String displayName;
     private boolean fieldEditable;
     private List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
     private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
-    protected AbstractFieldData(Class<?> ownerClass, String registryKey, String fieldKey) {
+    protected BaseFieldData(Class<?> ownerClass, String registryKey, String fieldKey) {
         this(ownerClass, registryKey, fieldKey, false);
     }
 
-    protected AbstractFieldData(Class<?> ownerClass, String registryKey, String fieldKey, Boolean fieldEditable) {
+    protected BaseFieldData(Class<?> ownerClass, String registryKey, String fieldKey, Boolean fieldEditable) {
         this.ownerClass = ownerClass;
         this.resourceKey = registryKey + ".col." + fieldKey + ".text";
         setFieldKey(fieldKey);
-//        setDisplayKey(fieldKey);
         this.fieldEditable = fieldEditable;
     }
 
     @Override
     public String getDisplayName() {
-        return resourceFactory.getString(resourceKey);  
+        return resourceFactory.getString(resourceKey);
     }
-
-//    /**
-//     * Set display name from resource; or default to key itself
-//     * 
-//     * @param displayKey1
-//     *            Resource key
-//     */
-//    private void setDisplayKey(String displayKey1) {
-//
-//        String resourceKey1 = resourceKey + "." + displayKey1 + ".text";
-//        this.displayName = resourceFactory.getString(resourceKey1);
-//        if (this.displayName == null) {
-//            this.displayName = displayKey1;
-//        }
-//    }
 
     private void setFieldKey(String fieldKey) {
 
@@ -79,7 +61,8 @@ public class AbstractFieldData<T> implements FieldData<T> {
 
             } catch (IntrospectionException e) {
                 // TODO Auto-generated catch block
-                throw new RuntimeException("Unable to get PropertyDescriptor(s) for " + fieldClass + "; field " + fieldName, e);
+                throw new RuntimeException("Unable to get PropertyDescriptor(s) for " + fieldClass + "; field "
+                        + fieldName, e);
             }
         }
     }

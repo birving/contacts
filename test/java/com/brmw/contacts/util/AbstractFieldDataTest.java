@@ -8,10 +8,10 @@ import java.util.ListResourceBundle;
 
 import junit.framework.TestCase;
 
+import com.brmw.contacts.ResourceFactory;
 import com.brmw.contacts.domain.AbstractAuditedBean;
 import com.brmw.contacts.domain.Audit;
 import com.brmw.contacts.domain.Medium;
-import com.brmw.contacts.swing.ResourceFactory;
 
 public class AbstractFieldDataTest extends TestCase {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -23,7 +23,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testSimpleField() {
-        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(Medium.class, "test", "name");
+        BaseFieldData<Medium> fieldData = new BaseFieldData<Medium>(Medium.class, "test", "name");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
@@ -40,7 +40,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testBaseClassLongField() {
-        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(AbstractAuditedBean.class, "test", "id");
+        BaseFieldData<Medium> fieldData = new BaseFieldData<Medium>(AbstractAuditedBean.class, "test", "id");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
@@ -59,7 +59,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testBaseClassNestedField() throws ParseException {
-        AbstractFieldData<Medium> fieldData = new AbstractFieldData<Medium>(AbstractAuditedBean.class, "test", "created.transactionDate");
+        BaseFieldData<Medium> fieldData = new BaseFieldData<Medium>(AbstractAuditedBean.class, "test", "created.transactionDate");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);

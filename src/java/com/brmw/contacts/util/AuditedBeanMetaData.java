@@ -8,14 +8,13 @@ import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.ContactsState;
 import com.brmw.contacts.domain.AbstractAuditedBean;
-import com.brmw.contacts.swing.ResourceFactory;
 
 public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> implements TableMetaData<T> {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
     private List<FieldData<T>> columnData;
     private String registryKey;
-    private String tableHeader;
+    // private String tableHeader;
     private boolean deleteable;
 
     /**
@@ -30,13 +29,14 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
         this.registryKey = registryKey;
         this.deleteable = deleteable;
         columnData = new ArrayList<FieldData<T>>();
-        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "auditedBean", "id"));
-        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "auditedBean", "version"));
-        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.transactionDate"));
-        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.id"));
-        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.transactionDate"));
-        columnData.add(new AbstractFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.id"));
-        setTableHeader(ResourceFactory.getInstance().getString(getRegistryKey() + ".tableHeader.text"));
+        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "id"));
+        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "version"));
+        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.transactionDate"));
+        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.id"));
+        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.transactionDate"));
+        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.id"));
+        // setTableHeader(ResourceFactory.getInstance().getString(getRegistryKey()
+        // + ".tableHeader.text"));
     }
 
     protected Boolean getIncludeDebugInfo() {
@@ -47,14 +47,14 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
         return columnData;
     }
 
-    @Override
-    public String getTableHeader() {
-        return tableHeader;
-    }
-
-    protected void setTableHeader(String tableHeader) {
-        this.tableHeader = tableHeader;
-    }
+    // @Override
+    // public String getTableHeader() {
+    // return tableHeader;
+    // }
+    //
+    // protected void setTableHeader(String tableHeader) {
+    // this.tableHeader = tableHeader;
+    // }
 
     @Override
     public String getRegistryKey() {

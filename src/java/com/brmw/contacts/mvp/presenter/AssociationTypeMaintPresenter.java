@@ -26,7 +26,8 @@ public class AssociationTypeMaintPresenter {
     private AssociationTypeMaintModel associationTypeMaintModel;
     private SwingWorkerPlugin<Collection<AssociationType>, Object> workerPlugin;
 
-    public AssociationTypeMaintPresenter(AssociationTypeMaintView associationTypeMaintView, AssociationTypeMaintModel associationTypeMaintModel) {
+    public AssociationTypeMaintPresenter(AssociationTypeMaintView associationTypeMaintView,
+            AssociationTypeMaintModel associationTypeMaintModel) {
         this.associationTypeMaintView = associationTypeMaintView;
         this.associationTypeMaintModel = associationTypeMaintModel;
         addListeners();
@@ -38,7 +39,8 @@ public class AssociationTypeMaintPresenter {
      */
     private void handleAssociationTypeMaintRequest() {
         logger.debug("Calling AssociationTypeMaintPresenter.handleAssociationTypeMaintRequest()");
-        SwingWorker<Collection<AssociationType>, Object> swingWorker = new PlugableSwingWorker<Collection<AssociationType>, Object>(workerPlugin);
+        SwingWorker<Collection<AssociationType>, Object> swingWorker =
+                new PlugableSwingWorker<Collection<AssociationType>, Object>(workerPlugin);
         swingWorker.execute();
     }
 

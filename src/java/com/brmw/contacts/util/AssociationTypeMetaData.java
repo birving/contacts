@@ -18,14 +18,17 @@ public class AssociationTypeMetaData extends AuditedBeanMetaData<AssociationType
     public AssociationTypeMetaData() {
         super(REGISTRY_KEY, true);
         associationTypeColumnData = new ArrayList<FieldData<AssociationType>>();
-        associationTypeColumnData.add(new AbstractFieldData<AssociationType>(AssociationType.class, getRegistryKey(), "name", true));
-        associationTypeColumnData.add(new AbstractFieldData<AssociationType>(AssociationType.class, getRegistryKey(), "description", true));
+        associationTypeColumnData.add(new BaseFieldData<AssociationType>(AssociationType.class, getRegistryKey(),
+                "name", true));
+        associationTypeColumnData.add(new BaseFieldData<AssociationType>(AssociationType.class, getRegistryKey(),
+                "description", true));
     }
 
     @Override
     protected List<FieldData<AssociationType>> getColumnData() {
         if (getIncludeDebugInfo()) {
-            List<FieldData<AssociationType>> colData = new ArrayList<FieldData<AssociationType>>(associationTypeColumnData);
+            List<FieldData<AssociationType>> colData =
+                    new ArrayList<FieldData<AssociationType>>(associationTypeColumnData);
             colData.addAll(super.getColumnData());
             return colData;
         } else {

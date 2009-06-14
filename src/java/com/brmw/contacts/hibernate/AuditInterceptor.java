@@ -25,7 +25,8 @@ public class AuditInterceptor extends EmptyInterceptor {
     }
 
     @Override
-    public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
+    public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
+            String[] propertyNames, Type[] types) {
         logger.debug("Interceptor: onFlushDirty() - entity {}", entity.getClass().getName());
         if (entity instanceof Auditable) {
             boolean modified = false;
@@ -89,7 +90,8 @@ public class AuditInterceptor extends EmptyInterceptor {
     }
 
     @Override
-    public int[] findDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
+    public int[] findDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
+            String[] propertyNames, Type[] types) {
         logger.debug("Interceptor: findDirty() - entity {}", entity.getClass().getName());
         return super.findDirty(entity, id, currentState, previousState, propertyNames, types);
     }

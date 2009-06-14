@@ -39,7 +39,7 @@ public class HibernateFactory {
      * an Interceptor or EventListener. Problem - I have tried, but it has not
      * worked so far.
      * 
-     * @return
+     * @return newly created session
      * @throws HibernateException
      */
     public static Session openSession() throws HibernateException {

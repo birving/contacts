@@ -33,7 +33,7 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
     private TableMetaData<T> metaData;
     private JButton saveButton;
     private JButton revertButton;
-    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
+    private SwingResourceFactory resourceFactory = SwingResourceFactory.getInstance();
 
     public CollectionTableDisplay(Collection<T> data, TableMetaData<T> metaData) {
         this.metaData = metaData;
@@ -131,7 +131,7 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         JPanel rightBtnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(rightBtnPanel, BorderLayout.EAST);
 
-        JButton addButton = ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".add");
+        JButton addButton = SwingResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".add");
         leftBtnPanel.add(addButton);
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -140,7 +140,8 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
             }
         });
 
-        final JButton deleteButton = ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".delete");
+        final JButton deleteButton =
+                SwingResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".delete");
         leftBtnPanel.add(deleteButton);
         deleteButton.setEnabled(false);
         deleteButton.addActionListener(new ActionListener() {
@@ -163,11 +164,17 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         });
 
         // Save and Revert buttons should work together.
-        saveButton = (JButton) rightBtnPanel.add(ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".save"));
+        saveButton =
+                (JButton) rightBtnPanel.add(SwingResourceFactory.getInstance().createButton(
+                                                                                            metaData.getRegistryKey()
+                                                                                                    + ".save"));
         saveButton.setEnabled(false);
         registerSaveButton(saveButton);
 
-        revertButton = (JButton) rightBtnPanel.add(ResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".revert"));
+        revertButton =
+                (JButton) rightBtnPanel.add(SwingResourceFactory.getInstance().createButton(
+                                                                                            metaData.getRegistryKey()
+                                                                                                    + ".revert"));
         revertButton.setEnabled(false);
         registerRevertButton(revertButton);
 
