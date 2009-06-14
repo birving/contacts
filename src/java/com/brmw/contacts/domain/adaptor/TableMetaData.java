@@ -1,15 +1,14 @@
 package com.brmw.contacts.domain.adaptor;
 
 /**
- * Represents column headings and data types and other meta-data for a table of
- * type <T>
+ * Represents names, data types and other meta-data for a table of type <T>.
  * 
  * @param T
  *            Type of data in the table.
  */
 public interface TableMetaData<T> {
 
-    public String getRegistryKey();
+    public String getTableName();
 
     public int getColumnCount();
 

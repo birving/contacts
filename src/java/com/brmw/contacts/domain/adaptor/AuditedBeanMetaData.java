@@ -14,7 +14,6 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
     private static Logger logger = LoggerFactory.getLogger(AuditedBeanMetaData.class);
     private List<FieldData<T>> columnData;
     private String registryKey;
-    // private String tableHeader;
     private boolean deleteable;
 
     /**
@@ -35,8 +34,6 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
         columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.id"));
         columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.transactionDate"));
         columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.id"));
-        // setTableHeader(ResourceFactory.getInstance().getString(getRegistryKey()
-        // + ".tableHeader.text"));
     }
 
     protected Boolean getIncludeDebugInfo() {
@@ -47,17 +44,8 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
         return columnData;
     }
 
-    // @Override
-    // public String getTableHeader() {
-    // return tableHeader;
-    // }
-    //
-    // protected void setTableHeader(String tableHeader) {
-    // this.tableHeader = tableHeader;
-    // }
-
     @Override
-    public String getRegistryKey() {
+    public String getTableName() {
         return registryKey;
     }
 

@@ -38,7 +38,7 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
     public CollectionTableDisplay(Collection<T> data, TableMetaData<T> metaData) {
         this.metaData = metaData;
         this.collectionTableModel = new CollectionTableModel<T>(data, metaData);
-        ComponentRegistry.getInstance().register(metaData.getRegistryKey(), this);
+        ComponentRegistry.getInstance().register(metaData.getTableName(), this);
     }
 
     /**
@@ -89,8 +89,8 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
     }
 
     private void createTableHeader(Container container) {
-        String headerText = resourceFactory.getString(metaData.getRegistryKey() + ".tableHeader.text");
-        String headerTooltip = resourceFactory.getString(metaData.getRegistryKey() + ".tableHeader.tooltip", null);
+        String headerText = resourceFactory.getString(metaData.getTableName() + ".tableHeader.text");
+        String headerTooltip = resourceFactory.getString(metaData.getTableName() + ".tableHeader.tooltip", null);
         JLabel tableLabel = new JLabel(headerText, SwingConstants.CENTER);
         tableLabel.setFont(ContactsConstants.HEADER_FONT);
         tableLabel.setToolTipText(headerTooltip);
@@ -131,7 +131,7 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         JPanel rightBtnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(rightBtnPanel, BorderLayout.EAST);
 
-        JButton addButton = SwingResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".add");
+        JButton addButton = resourceFactory.createButton(metaData.getTableName() + ".add");
         leftBtnPanel.add(addButton);
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -140,8 +140,7 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
             }
         });
 
-        final JButton deleteButton =
-                SwingResourceFactory.getInstance().createButton(metaData.getRegistryKey() + ".delete");
+        final JButton deleteButton = resourceFactory.createButton(metaData.getTableName() + ".delete");
         leftBtnPanel.add(deleteButton);
         deleteButton.setEnabled(false);
         deleteButton.addActionListener(new ActionListener() {
@@ -164,17 +163,11 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         });
 
         // Save and Revert buttons should work together.
-        saveButton =
-                (JButton) rightBtnPanel.add(SwingResourceFactory.getInstance().createButton(
-                                                                                            metaData.getRegistryKey()
-                                                                                                    + ".save"));
+        saveButton = (JButton) rightBtnPanel.add(resourceFactory.createButton(metaData.getTableName() + ".save"));
         saveButton.setEnabled(false);
         registerSaveButton(saveButton);
 
-        revertButton =
-                (JButton) rightBtnPanel.add(SwingResourceFactory.getInstance().createButton(
-                                                                                            metaData.getRegistryKey()
-                                                                                                    + ".revert"));
+        revertButton = (JButton) rightBtnPanel.add(resourceFactory.createButton(metaData.getTableName() + ".revert"));
         revertButton.setEnabled(false);
         registerRevertButton(revertButton);
 
