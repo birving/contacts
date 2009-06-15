@@ -6,14 +6,17 @@ import com.brmw.contacts.mvp.model.impl.AssociationTypeMaintModelImpl;
 import com.brmw.contacts.mvp.model.impl.AssociationTypeUpdateModelImpl;
 import com.brmw.contacts.mvp.model.impl.MediaMaintModelImpl;
 import com.brmw.contacts.mvp.model.impl.MediaUpdateModelImpl;
+import com.brmw.contacts.mvp.model.impl.PersonMaintModelImpl;
 import com.brmw.contacts.mvp.presenter.AssociationTypeMaintPresenter;
 import com.brmw.contacts.mvp.presenter.AssociationTypeUpdatePresenter;
 import com.brmw.contacts.mvp.presenter.MediaMaintPresenter;
 import com.brmw.contacts.mvp.presenter.MediaUpdatePresenter;
+import com.brmw.contacts.mvp.presenter.PersonMaintPresenter;
 import com.brmw.contacts.mvp.view.swingimpl.AssociationTypeMaintViewImpl;
 import com.brmw.contacts.mvp.view.swingimpl.AssociationTypeUpdateViewImpl;
 import com.brmw.contacts.mvp.view.swingimpl.MediaMaintViewImpl;
 import com.brmw.contacts.mvp.view.swingimpl.MediaUpdateViewImpl;
+import com.brmw.contacts.mvp.view.swingimpl.PersonMaintViewImpl;
 
 /**
  * This class wires together the Model-View-Presenter triads. The code in the
@@ -68,5 +71,12 @@ public class PresenterFirstRegistry {
     public void registerAssociationTypeUpdateButton(AbstractButton button) {
         new AssociationTypeUpdatePresenter(new AssociationTypeUpdateViewImpl(button),
                 new AssociationTypeUpdateModelImpl());
+    }
+
+    /**
+     * Create MVP triad for person maintenance button (JButton or JMenuItem)
+     */
+    public void registerPersonMaintButton(AbstractButton button) {
+        new PersonMaintPresenter(new PersonMaintViewImpl(button), new PersonMaintModelImpl());
     }
 }

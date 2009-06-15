@@ -44,4 +44,15 @@ public class Association extends AbstractAuditedBean {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append(associationType.toString()).append(" : ");
+        for (Company company : companies) {
+            buf.append(company.getName()).append(" ");
+        }
+        return buf.toString();
+    }
+
 }

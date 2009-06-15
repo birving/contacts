@@ -35,7 +35,8 @@ public class AssociationTypeMaintPresenter {
     }
 
     /*
-     * TODO: This should be moved off of the event dispatch thread!!!
+     * Do the work associated with this action. This executes on a worker
+     * thread, not on the event dispatch thread.
      */
     private void handleAssociationTypeMaintRequest() {
         logger.debug("Calling AssociationTypeMaintPresenter.handleAssociationTypeMaintRequest()");

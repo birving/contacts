@@ -88,6 +88,18 @@ public class Person extends AbstractAuditedBean {
     }
 
     @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        if (firstName != null) {
+            buf.append(firstName).append(" ");
+        }
+        if (lastName != null) {
+            buf.append(lastName);
+        }
+        return buf.toString();
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

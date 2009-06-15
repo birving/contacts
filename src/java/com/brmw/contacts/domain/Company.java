@@ -86,6 +86,11 @@ public class Company extends AbstractAuditedBean {
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public int hashCode() {
         return (name == null) ? 0 : name.hashCode();
     }

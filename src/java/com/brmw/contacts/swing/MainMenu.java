@@ -53,14 +53,16 @@ public class MainMenu {
          * Contacts menu
          */
         JMenuItem findPersonMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindPerson"));
-        findPersonMenuItem.addActionListener(new ActionListener() {
+        PresenterFirstRegistry.getInstance().registerPersonMaintButton(findPersonMenuItem);
+         findPersonMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Find Person not yet implemented.");
+                JOptionPane.showMessageDialog(null, "Find Person by search not yet implemented. So far its just 'get all persons'.");
             }
         });
 
         JMenuItem findCompanyMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindCompany"));
+        // PresenterFirstRegistry.getInstance().registerCompanyMaintButton(findCompanyMenuItem);
         findCompanyMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

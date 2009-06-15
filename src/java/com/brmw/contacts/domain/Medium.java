@@ -40,6 +40,11 @@ public class Medium extends AbstractAuditedBean {
     }
 
     @Override
+    public String toString() {
+        return name.toString();
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

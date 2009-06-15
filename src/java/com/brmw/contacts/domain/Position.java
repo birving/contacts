@@ -64,4 +64,15 @@ public class Position extends AbstractAuditedBean {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        if (identifier != null && ! identifier.isEmpty()) {
+            return identifier;
+        } else if (description != null && ! description.isEmpty()) {
+            return description;
+        } else {
+            return "UNKNOWN";
+        }
+    }
 }

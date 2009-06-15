@@ -69,4 +69,12 @@ public class Communication extends AbstractAuditedBean {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append("Communication by ").append(medium.getType()).append(" on ").append(time);
+        return buf.toString();
+    }
+    
 }

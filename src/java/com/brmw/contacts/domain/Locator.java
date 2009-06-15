@@ -54,6 +54,13 @@ public class Locator extends AbstractAuditedBean {
         this.notes = notes;
     }
 
+    
+    @Override
+    // Phone: 630-765-1234  Email: frank.billsby@twombly.org
+    public String toString() {
+        return medium.toString() + ": " + value;
+    }
+
     @Override
     public int hashCode() {
         return (value == null) ? 0 : value.hashCode();

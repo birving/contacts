@@ -28,7 +28,7 @@ import com.brmw.contacts.domain.adaptor.TableMetaData;
  * This class builds the Swing display for a JTable and associated buttons for
  * type T.
  */
-public abstract class CollectionTableDisplay<T extends AbstractBean> {
+public class CollectionTableDisplay<T extends AbstractBean> {
     private CollectionTableModel<T> collectionTableModel;
     private TableMetaData<T> metaData;
     private JButton saveButton;
@@ -42,20 +42,24 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
     }
 
     /**
-     * Implement this method to wire up Save button
+     * Override this method to wire up Save button
      * 
      * @param button
      *            Save button
      */
-    abstract protected void registerSaveButton(AbstractButton button);
+    protected void registerSaveButton(AbstractButton button) {
+        throw new UnsupportedOperationException("Save button has not been properly registered.");
+    }
 
     /**
-     * Implement this method to wire up Revert button
+     * Override this method to wire up Revert button
      * 
      * @param button
      *            Revert button
      */
-    abstract protected void registerRevertButton(AbstractButton button);
+    protected void registerRevertButton(AbstractButton button) {
+        throw new UnsupportedOperationException("Revert button has not been properly registered.");
+    }
 
     /**
      * Update data in table
@@ -65,8 +69,8 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
      */
     public void setTableData(Collection<T> data) {
         collectionTableModel.setTableData(data);
-        saveButton.setEnabled(false);
-        revertButton.setEnabled(false);
+        setButtonEnabled(saveButton, false);
+        setButtonEnabled(revertButton, false);
     }
 
     public Collection<T> getTableData() {
@@ -132,69 +136,91 @@ public abstract class CollectionTableDisplay<T extends AbstractBean> {
         buttonPanel.add(rightBtnPanel, BorderLayout.EAST);
 
         JButton addButton = resourceFactory.createButton(metaData.getTableName() + ".add");
-        leftBtnPanel.add(addButton);
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                collectionTableModel.addRow();
-            }
-        });
+        if (addButton != null) {
+            leftBtnPanel.add(addButton);
+            addButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    collectionTableModel.addRow();
+                }
+            });
+        }
 
         final JButton deleteButton = resourceFactory.createButton(metaData.getTableName() + ".delete");
-        leftBtnPanel.add(deleteButton);
-        deleteButton.setEnabled(false);
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int[] selection = table.getSelectedRows();
-                for (int i = 0; i < selection.length; i++) {
-                    selection[i] = table.convertRowIndexToModel(selection[i]);
-                }
+        if (deleteButton != null) {
+            leftBtnPanel.add(deleteButton);
+            deleteButton.setEnabled(false);
+            deleteButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int[] selection = table.getSelectedRows();
+                    for (int i = 0; i < selection.length; i++) {
+                        selection[i] = table.convertRowIndexToModel(selection[i]);
+                    }
 
-                collectionTableModel.deleteSelectedRows(selection);
-            }
-        });
-        // When selection changes, enable or disable the Delete button
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                deleteButton.setEnabled(table.getSelectedRowCount() > 0);
-            }
-        });
+                    collectionTableModel.deleteSelectedRows(selection);
+                }
+            });
+            // When selection changes, enable or disable the Delete button
+            table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    deleteButton.setEnabled(table.getSelectedRowCount() > 0);
+                }
+            });
+        }
 
         // Save and Revert buttons should work together.
-        saveButton = (JButton) rightBtnPanel.add(resourceFactory.createButton(metaData.getTableName() + ".save"));
-        saveButton.setEnabled(false);
-        registerSaveButton(saveButton);
+        saveButton = resourceFactory.createButton(metaData.getTableName() + ".save");
+        if (saveButton != null) {
+            rightBtnPanel.add(saveButton);
+            saveButton.setEnabled(false);
+            registerSaveButton(saveButton);
+        }
 
-        revertButton = (JButton) rightBtnPanel.add(resourceFactory.createButton(metaData.getTableName() + ".revert"));
-        revertButton.setEnabled(false);
-        registerRevertButton(revertButton);
+        revertButton = resourceFactory.createButton(metaData.getTableName() + ".revert");
+        if (revertButton != null) {
+            rightBtnPanel.add(revertButton);
+            revertButton.setEnabled(false);
+            registerRevertButton(revertButton);
+        }
 
-        // When data is modified, enable Save and Revert buttons
-        collectionTableModel.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                saveButton.setEnabled(true);
-                revertButton.setEnabled(true);
-            }
-        });
+        if (saveButton != null || revertButton != null) {
+            // When data is modified, enable Save and Revert buttons
+            collectionTableModel.addTableModelListener(new TableModelListener() {
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    setButtonEnabled(saveButton, true);
+                    setButtonEnabled(revertButton, true);
+                }
+            });
+        }
 
         // When Save or Revert is executed, disable Save and Revert buttons
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveButton.setEnabled(false);
-                revertButton.setEnabled(false);
-            }
-        });
+        if (saveButton != null) {
+            saveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setButtonEnabled(saveButton, false);
+                    setButtonEnabled(revertButton, false);
+                }
+            });
+        }
 
-        revertButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveButton.setEnabled(false);
-                revertButton.setEnabled(false);
-            }
-        });
+        if (revertButton != null) {
+            revertButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setButtonEnabled(saveButton, false);
+                    setButtonEnabled(revertButton, false);
+                }
+            });
+        }
+    }
+
+    private void setButtonEnabled(AbstractButton button, boolean enabled) {
+        if (button != null) {
+            button.setEnabled(enabled);
+        }
     }
 }
