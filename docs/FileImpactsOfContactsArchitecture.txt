@@ -1,0 +1,52 @@
+This file documents what Java classes and other files must be created or modified to implement a new gui feature.
+
+For a sample, we look at the files involved in display of AssociationType maintenance table:
+
+    First the domain model and a simple adpater must exist ...
+	class: com.brmw.contacts.domain.AssociationType
+	class: com.brmw.contacts.domain.adaptor.AssociationTypeMetaData
+	file: /contacts/src/hibernate/hibernate.cfg.xml					- Hibernate configuration
+	file:  /contacts/src/hibernate/com/brmw/contacts/domain/AssociationType.hbm.xml	- Hibernate mapping
+
+    Then the following MVP interfaces and classes created to display the initial table...
+	class: com.brmw.contacts.mvp.presenter.AssociationTypeMaintPresenter
+	interface: com.brmw.contacts.mvp.model.AssociationTypeMaintModel
+	interface: com.brmw.contacts.mvp.view.AssociationTypeMaintView
+	class: com.brmw.contacts.mvp.model.impl.AssociationTypeMaintModelImpl
+	class: com.brmw.contacts.mvp.view.swingimpl.AssociationTypeMaintViewImpl
+
+    And the following additional MVP interfaces and classes created to for the update function...
+	class: com.brmw.contacts.mvp.presenter.AssociationTypeUpdatePresenter
+	interface: com.brmw.contacts.mvp.model.AssociationTypeUpdateModel
+	interface: com.brmw.contacts.mvp.view.AssociationTypeUpdateView
+	class: com.brmw.contacts.mvp.model.impl.AssociationTypeUpdateModelImpl
+	class: com.brmw.contacts.mvp.view.swingimpl.AssociationTypeUpdateViewImpl
+
+    And the following files and classes require some modification...
+	file: /contacts/src/resources/contactsResources*.properties 	- String resources
+	class: com.brmw.contacts.mvp.PresenterFirstRegistry		-
+	class: com.brmw.contacts.swing.MainMenu				- any gui classes where the new functionality appears.
+
+So for this one function (displaying the table), there are 9 classes or interfaces and 3 other files impacted; plus 5 additional classes/interfaces for the update function.
+
+Checklist for implementing gui feature 'DoSomething' for domain Class 'Thingy'
+
+    These must exist (probably already do) ...
+	class: com.brmw.contacts.domain.Thingy
+	file:  /contacts/src/hibernate/com/brmw/contacts/domain/Thingy.hbm.xml
+    And appropriate enteries must be in this file ...
+	file: /contacts/src/hibernate/hibernate.cfg.xml
+
+    These must be created (probably do not already exist) ...
+	class: com.brmw.contacts.domain.adaptor.ThingyMetaData
+	class: com.brmw.contacts.mvp.presenter.ThingyDoSomethingPresenter
+	interface: com.brmw.contacts.mvp.model.ThingyDoSomethingModel
+	interface: com.brmw.contacts.mvp.view.ThingyDoSomethingView
+	class: com.brmw.contacts.mvp.model.impl.ThingyDoSomethingModelImpl
+	class: com.brmw.contacts.mvp.view.swingimpl.ThingyDoSomethingViewImpl
+
+    And the following files and classes must be modified as appropriate ...
+	file: /contacts/src/resources/contactsResources*.properties 	- String resources
+	class: com.brmw.contacts.mvp.PresenterFirstRegistry		-
+	class: com.brmw.contacts.swing.MainMenu				- any gui classes where the new functionality appears.
+
