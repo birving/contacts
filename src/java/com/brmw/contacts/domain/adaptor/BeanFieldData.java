@@ -10,36 +10,31 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brmw.contacts.ResourceFactory;
-
-public class BaseFieldData<T> implements FieldData<T> {
-    private static final Logger logger = LoggerFactory.getLogger(BaseFieldData.class);
+/**
+ * Implementation of FieldData using bean introspection to get and set values
+ * 
+ * @author bruce
+ * 
+ * @param <T>
+ */
+public class BeanFieldData<T> extends AbstractFieldData<T> implements FieldData<T> {
+    private static final Logger logger = LoggerFactory.getLogger(BeanFieldData.class);
 
     /**
      * ownerClass is *usually* but not always the same as <T>. This is the class
      * which has field as a member.
      */
     private Class<?> ownerClass;
-    private String resourceKey;
-    private Class<?> fieldClass;
-    private boolean fieldEditable;
     private List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
-    private ResourceFactory resourceFactory = ResourceFactory.getInstance();
 
-    protected BaseFieldData(Class<?> ownerClass, String registryKey, String fieldKey) {
-        this(ownerClass, registryKey, fieldKey, false);
+    protected BeanFieldData(Class<?> ownerClass, String ownerKey, String fieldKey) {
+        this(ownerClass, ownerKey, fieldKey, false);
     }
 
-    protected BaseFieldData(Class<?> ownerClass, String registryKey, String fieldKey, Boolean fieldEditable) {
+    protected BeanFieldData(Class<?> ownerClass, String ownerKey, String fieldKey, Boolean fieldEditable) {
+        super(ownerKey, fieldKey, fieldEditable);
         this.ownerClass = ownerClass;
-        this.resourceKey = registryKey + ".col." + fieldKey + ".text";
         setFieldKey(fieldKey);
-        this.fieldEditable = fieldEditable;
-    }
-
-    @Override
-    public String getDisplayName() {
-        return resourceFactory.getString(resourceKey);
     }
 
     private void setFieldKey(String fieldKey) {
@@ -47,52 +42,34 @@ public class BaseFieldData<T> implements FieldData<T> {
         String[] fieldNames = fieldKey.split("\\.");
 
         // Start at the top
-        fieldClass = ownerClass;
+        setFieldClass(ownerClass);
 
         for (String fieldName : fieldNames) {
-            logger.debug("Getting PropertyDescriptor for class:{}; field:{}", fieldClass, fieldName);
+            logger.debug("Getting PropertyDescriptor for class:{}; field:{}", getFieldClass(), fieldName);
             // Set field & fieldClass if possible.
             // If this fails, then setFieldClass() must be called!
             try {
-                PropertyDescriptor descriptor = new PropertyDescriptor(fieldName, fieldClass);
+                PropertyDescriptor descriptor = new PropertyDescriptor(fieldName, getFieldClass());
                 propDescriptors.add(descriptor);
                 // Get next type
-                fieldClass = descriptor.getPropertyType();
+                setFieldClass(descriptor.getPropertyType());
 
             } catch (IntrospectionException e) {
                 // TODO Auto-generated catch block
-                throw new RuntimeException("Unable to get PropertyDescriptor(s) for " + fieldClass + "; field "
+                throw new RuntimeException("Unable to get PropertyDescriptor(s) for " + getFieldClass() + "; field "
                         + fieldName, e);
             }
         }
     }
 
     @Override
-    public Class<?> getFieldClass() {
-        return fieldClass;
-    }
-
-    public void setFieldClass(Class<?> columnclass) {
-        this.fieldClass = columnclass;
-    }
-
-    @Override
-    public boolean isFieldEditable() {
-        return this.fieldEditable;
-    }
-
-    public void setFieldEditable(Boolean fieldEditable) {
-        this.fieldEditable = fieldEditable;
-    }
-
-    @Override
     public Object getValue(T rowObject) {
         Object nextObject = rowObject;
         for (PropertyDescriptor descriptor : propDescriptors) {
-            logger.debug("Getting PropertyDescriptor for class:{}; field:{}", ownerClass, resourceKey);
+            logger.debug("Getting PropertyDescriptor for class:{}; field:{}", ownerClass, getFieldKey());
             Method getter = descriptor.getReadMethod();
             if (getter == null) {
-                throw new RuntimeException("No getter found for class:" + ownerClass + "; field:" + resourceKey);
+                throw new RuntimeException("No getter found for class:" + ownerClass + "; field:" + getFieldKey());
             }
             try {
                 nextObject = getter.invoke(nextObject);
@@ -104,13 +81,16 @@ public class BaseFieldData<T> implements FieldData<T> {
                 // e.printStackTrace();
             } catch (IllegalAccessException e) {
                 // TODO re-throw as custom RuntimeException
-                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + resourceKey, e);
+                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + getFieldKey(),
+                        e);
             } catch (InvocationTargetException e) {
                 // TODO re-throw as custom RuntimeException
-                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + resourceKey, e);
+                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + getFieldKey(),
+                        e);
             } catch (NullPointerException e) {
                 // TODO re-throw as custom RuntimeException
-                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + resourceKey, e);
+                throw new RuntimeException("Unable to get value from class:" + ownerClass + "; field:" + getFieldKey(),
+                        e);
             }
         }
         return nextObject;

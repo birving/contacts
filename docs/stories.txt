@@ -1,8 +1,11 @@
 ============================================== Stories ============================================== 
-012. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until fixed; also need some indication of missing data. 
+011. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until data is consistent ; also need some indication of missing data. 
+010. User adds duplicate data to GUI table (for Medium or Association Type); duplicate entry is rejected immediately (before clicking Save).
 005. User requests removal of used Medium (or Association type) entry and attempts to save changes to database. Change is rejected.
-011. User adds duplicate data to GUI table (for Medium or Association Type); duplicate entry is rejected immediately (before clicking Save).
-010. User requests removal of used company association type entry and attempts to save changes to database. Change is rejected.
+
+013. User requests full list of companies (name, webpage, notes) 
+014. User requests full list of positions (employer, identifier, description, status, recruiterCompany, notes)
+015. User requests display of details of one person (name, companyInfo, role, notes, list of locators, list of communications)
 
 ========================================= Story Instructions ========================================= 
 A strength of Presenter First is the simple, concrete nature of the approach. Development proceeds as follows:
@@ -34,6 +37,7 @@ A strength of Presenter First is the simple, concrete nature of the approach. De
 007. User modifies company association type data (name, description); clicks Save button; changes are saved to database.
 008. User requests addition of new company association type entry and saves changes to database. 
 009. User requests removal of unused company association type entry and saves changes to database.
+012. User requests full list of Person entries. (name, company, email, phone, notes)
 =====
 
   

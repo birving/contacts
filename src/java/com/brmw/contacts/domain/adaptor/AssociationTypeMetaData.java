@@ -13,26 +13,24 @@ public class AssociationTypeMetaData extends AuditedBeanMetaData<AssociationType
     private static Logger logger = LoggerFactory.getLogger(AssociationTypeMetaData.class);
     public static final String REGISTRY_KEY = "assocTypeMaint";
 
-    private List<FieldData<AssociationType>> associationTypeColumnData;
+    private List<FieldData<AssociationType>> assocTypeColumnData;
 
     public AssociationTypeMetaData() {
         super(REGISTRY_KEY, true);
-        associationTypeColumnData = new ArrayList<FieldData<AssociationType>>();
-        associationTypeColumnData.add(new BaseFieldData<AssociationType>(AssociationType.class, getTableName(),
-                "name", true));
-        associationTypeColumnData.add(new BaseFieldData<AssociationType>(AssociationType.class, getTableName(),
+        assocTypeColumnData = new ArrayList<FieldData<AssociationType>>();
+        assocTypeColumnData.add(new BeanFieldData<AssociationType>(AssociationType.class, getTableName(), "name", true));
+        assocTypeColumnData.add(new BeanFieldData<AssociationType>(AssociationType.class, getTableName(),
                 "description", true));
     }
 
     @Override
     protected List<FieldData<AssociationType>> getColumnData() {
         if (getIncludeDebugInfo()) {
-            List<FieldData<AssociationType>> colData =
-                    new ArrayList<FieldData<AssociationType>>(associationTypeColumnData);
+            List<FieldData<AssociationType>> colData = new ArrayList<FieldData<AssociationType>>(assocTypeColumnData);
             colData.addAll(super.getColumnData());
             return colData;
         } else {
-            return associationTypeColumnData;
+            return assocTypeColumnData;
         }
     }
 

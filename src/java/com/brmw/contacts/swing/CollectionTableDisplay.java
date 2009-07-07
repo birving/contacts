@@ -29,6 +29,7 @@ import com.brmw.contacts.domain.adaptor.TableMetaData;
  * type T.
  */
 public class CollectionTableDisplay<T extends AbstractBean> {
+    private Container container;
     private CollectionTableModel<T> collectionTableModel;
     private TableMetaData<T> metaData;
     private JButton saveButton;
@@ -39,6 +40,14 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         this.metaData = metaData;
         this.collectionTableModel = new CollectionTableModel<T>(data, metaData);
         ComponentRegistry.getInstance().register(metaData.getTableName(), this);
+    }
+
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(Container container) {
+        this.container = container;
     }
 
     /**
@@ -78,7 +87,9 @@ public class CollectionTableDisplay<T extends AbstractBean> {
     }
 
     public void display() {
-        Container container = ComponentRegistry.getInstance().getContainer("CenterPanel");
+        if (container == null) {
+            container = ComponentRegistry.getInstance().getContainer("CenterPanel");
+        }
         container.removeAll();
         container.setLayout(new BorderLayout());
 

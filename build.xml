@@ -17,6 +17,7 @@
     <property name="prj.gen.root" value="${wrk.root}/workspace_gen/${ant.project.name}" />
     <property name="prj.classes.dir" value="${prj.gen.root}/classes" />
     <property name="prj.javadoc.dir" location="${prj.gen.root}/javadoc" />
+    <property name="prj.dist.dir" location="${prj.gen.root}/dist" />
     <property name="prj.java.dir" location="${prj.root}/src/java" />
     <property name="prj.hibernate.dir" location="${prj.root}/src/hibernate" />
     <property name="prj.test.root" location="${prj.root}/test" />
@@ -55,6 +56,34 @@
     <target name="showprops" description="Display ant properties.">
         <echoproperties />
     </target>
+
+    <!-- ================================= 
+          target: jar              
+         ================================= -->
+    <target name="jar" description="Create contacts.jar">
+        <mkdir dir="${prj.dist.dir}/lib" />
+        <delete file="${prj.dist.dir}/contacts.jar" />
+        <tstamp/>
+        <jar destfile="${prj.dist.dir}/contacts.jar" basedir="${prj.classes.dir}" duplicate="fail">
+            <manifest>
+                <attribute name="Main-Class" value="Contacts" />
+                <attribute name="Class-Path" value="lib/slf4j-api-1.5.6.jar lib/hibernate3.jar lib/antlr-2.7.6.jar lib/commons-collections-3.1.jar lib/dom4j-1.6.1.jar lib/javassist-3.4.GA.jar lib/jta-1.1.jar lib/mysql-connector-java-5.1.7-bin.jar lib/logback-classic-0.9.15.jar lib/logback-core-0.9.15.jar lib/c3p0-0.9.1.jar" />
+                <attribute name="Built-By" value="${user.name}" />
+                <section name="com/brmw/contacts" >
+                    <attribute name="Specification-Title" value="Contacts" />
+                    <attribute name="Specification-Version" value="0.1" />
+                    <attribute name="Specification-Vendor" value="B&amp;R Master Ware, Inc." />
+                    <attribute name="Implementation-Title" value="Contacts" />
+                    <attribute name="Implementation-Version" value="0.1 ${TODAY}" />
+                    <attribute name="Implementation-Vendor" value="B&amp;R Master Ware, Inc." />
+                </section>
+            </manifest>
+        </jar>
+    </target>
+    <!-- 
+    <attribute name="Class-Path" value="lib/*" />
+    <attribute name="Class-Path" value="lib/slf4j-api-1.5.6.jar lib/hibernate3.jar lib/antlr-2.7.6.jar lib/commons-collections-3.1.jar lib/dom4j-1.6.1.jar lib/javassist-3.4.GA.jar lib/jta-1.1.jar lib/mysql-connector-java-5.1.7-bin.jar lib/logback-classic-0.9.15.jar lib/logback-core-0.9.15.jar lib/c3p0-0.9.1.jar" />
+    -->
 
     <!-- ================================= 
           target: javadoc              

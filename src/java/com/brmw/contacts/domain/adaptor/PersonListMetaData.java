@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.brmw.contacts.domain.Locator;
 import com.brmw.contacts.domain.Person;
 
 public class PersonListMetaData extends AuditedBeanMetaData<Person> {
@@ -18,15 +19,35 @@ public class PersonListMetaData extends AuditedBeanMetaData<Person> {
     public PersonListMetaData() {
         super(REGISTRY_KEY, true);
         personColumnData = new ArrayList<FieldData<Person>>();
-        personColumnData.add(new BaseFieldData<Person>(Person.class, getTableName(), "firstName"));
-        personColumnData.add(new BaseFieldData<Person>(Person.class, getTableName(), "lastName"));
-        personColumnData.add(new BaseFieldData<Person>(Person.class, getTableName(), "company"));
-        personColumnData.add(new BaseFieldData<Person>(Person.class, getTableName(), "role"));
-        // personColumnData.add(new BaseFieldData<Person>(Person.class,
-        // getTableName(), "phone"));
-        // personColumnData.add(new BaseFieldData<Person>(Person.class,
-        // getTableName(), "email"));
-        personColumnData.add(new BaseFieldData<Person>(Person.class, getTableName(), "notes"));
+        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "firstName"));
+        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "lastName"));
+        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "company"));
+        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "role"));
+
+        personColumnData.add(new AbstractFieldData<Person>(getTableName(), "email") {
+            @Override
+            public Object getValue(Person person) {
+                for (Locator locator : person.getLocators()) {
+                    if ("email".equals(locator.getMedium().getType())) {
+                        return locator.getValue();
+                    }
+                }
+                return null;
+            }
+        });
+
+        personColumnData.add(new AbstractFieldData<Person>(getTableName(), "phone") {
+            @Override
+            public Object getValue(Person person) {
+                for (Locator locator : person.getLocators()) {
+                    if ("phone".equals(locator.getMedium().getType())) {
+                        return locator.getValue();
+                    }
+                }
+                return null;
+            }
+        });
+        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "notes"));
     }
 
     @Override

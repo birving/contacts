@@ -1,8 +1,9 @@
 package com.brmw.contacts.swing;
 
-import java.awt.Container;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JComponent;
 
 /**
  * Singleton to provide a handle to various Swing components for which access
@@ -12,7 +13,7 @@ public class ComponentRegistry {
     private static final ComponentRegistry registry = new ComponentRegistry();
 
     private Map<String, Object> objects = new HashMap<String, Object>();
-    private Map<String, Container> containers = new HashMap<String, Container>();
+    private Map<String, JComponent> components = new HashMap<String, JComponent>();
     // TODO: Consider using interface rather than concrete class for the
     // following ...
     private Map<String, CollectionTableDisplay<?>> collectionTables = new HashMap<String, CollectionTableDisplay<?>>();
@@ -25,8 +26,8 @@ public class ComponentRegistry {
         objects.put(name, component);
     }
 
-    public void register(String name, Container container) {
-        containers.put(name, container);
+    public void register(String name, JComponent container) {
+        components.put(name, container);
     }
 
     public void register(String name, CollectionTableDisplay<?> component) {
@@ -37,8 +38,8 @@ public class ComponentRegistry {
         return objects.get(name);
     }
 
-    public Container getContainer(String name) {
-        return containers.get(name);
+    public JComponent getContainer(String name) {
+        return components.get(name);
     }
 
     public CollectionTableDisplay<?> getCollectionTable(String name) {
@@ -47,7 +48,7 @@ public class ComponentRegistry {
 
     public void clear() {
         objects.clear();
-        containers.clear();
+        components.clear();
         collectionTables.clear();
     }
 }

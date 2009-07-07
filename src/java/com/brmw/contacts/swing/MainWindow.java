@@ -1,6 +1,7 @@
 package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
@@ -21,6 +22,8 @@ public class MainWindow {
     private static final Logger logger = LoggerFactory.getLogger(MainWindow.class);
     private static final int DEFAULT_WIDTH = 640;
     private static final int DEFAULT_HEIGHT = 400;
+    private static final int MIN_WIDTH = DEFAULT_WIDTH;
+    private static final int MIN_HEIGHT = DEFAULT_HEIGHT;
 
     private JFrame frame;
     private SwingResourceFactory resourceFactory = SwingResourceFactory.getInstance();
@@ -35,23 +38,23 @@ public class MainWindow {
 
         frame.setJMenuBar(new MainMenu().getMenuBar());
 
-        // Create North (Toolbar?) panel and save reference
-        JPanel northPanel = new JPanel();
-        frame.add(northPanel, BorderLayout.SOUTH);
-        componentRegistry.register("NorthPanel", northPanel);
+        // Create top (Toolbar?) panel and save reference
+        JPanel pageStartPanel = new JPanel();
+        frame.add(pageStartPanel, BorderLayout.PAGE_START);
+        componentRegistry.register("PageStartPanel", pageStartPanel);
 
         // Create Center panel and save reference
         JPanel centerPanel = new JPanel();
         frame.add(centerPanel, BorderLayout.CENTER);
         componentRegistry.register("CenterPanel", centerPanel);
 
-        // Create South (Status) panel and save reference
-        JPanel southPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        frame.add(southPanel, BorderLayout.SOUTH);
-        // componentRegistry.register("SouthPanel", southPanel);
+        // Create bottom (Status) panel and save reference
+        JPanel pageEndPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        frame.add(pageEndPanel, BorderLayout.PAGE_END);
+        // componentRegistry.register("PageEndPanel", pageEndPanel);
 
         JLabel statusField = new JLabel(); // "Status: ");
-        southPanel.add(statusField);
+        pageEndPanel.add(statusField);
         componentRegistry.register("StatusField", statusField);
     }
 
@@ -59,6 +62,7 @@ public class MainWindow {
         // Show the UI.
         frame.pack();
         frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         frame.setVisible(true);
     }
 

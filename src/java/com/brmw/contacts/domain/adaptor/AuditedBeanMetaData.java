@@ -28,12 +28,12 @@ public abstract class AuditedBeanMetaData<T extends AbstractAuditedBean> impleme
         this.registryKey = registryKey;
         this.deleteable = deleteable;
         columnData = new ArrayList<FieldData<T>>();
-        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "id"));
-        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "version"));
-        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.transactionDate"));
-        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.id"));
-        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.transactionDate"));
-        columnData.add(new BaseFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.id"));
+        columnData.add(new BeanFieldData<T>(AbstractAuditedBean.class, "auditedBean", "id"));
+        columnData.add(new BeanFieldData<T>(AbstractAuditedBean.class, "auditedBean", "version"));
+        columnData.add(new BeanFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.transactionDate"));
+        columnData.add(new BeanFieldData<T>(AbstractAuditedBean.class, "auditedBean", "created.id"));
+        columnData.add(new BeanFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.transactionDate"));
+        columnData.add(new BeanFieldData<T>(AbstractAuditedBean.class, "auditedBean", "updated.id"));
     }
 
     protected Boolean getIncludeDebugInfo() {

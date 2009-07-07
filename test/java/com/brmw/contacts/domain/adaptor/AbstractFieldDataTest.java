@@ -12,7 +12,7 @@ import com.brmw.contacts.ResourceFactory;
 import com.brmw.contacts.domain.AbstractAuditedBean;
 import com.brmw.contacts.domain.Audit;
 import com.brmw.contacts.domain.Medium;
-import com.brmw.contacts.domain.adaptor.BaseFieldData;
+import com.brmw.contacts.domain.adaptor.BeanFieldData;
 
 public class AbstractFieldDataTest extends TestCase {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -24,7 +24,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testSimpleField() {
-        BaseFieldData<Medium> fieldData = new BaseFieldData<Medium>(Medium.class, "test", "name");
+        BeanFieldData<Medium> fieldData = new BeanFieldData<Medium>(Medium.class, "test", "name");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
@@ -41,7 +41,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testBaseClassLongField() {
-        BaseFieldData<Medium> fieldData = new BaseFieldData<Medium>(AbstractAuditedBean.class, "test", "id");
+        BeanFieldData<Medium> fieldData = new BeanFieldData<Medium>(AbstractAuditedBean.class, "test", "id");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
@@ -60,7 +60,7 @@ public class AbstractFieldDataTest extends TestCase {
     }
 
     public void testBaseClassNestedField() throws ParseException {
-        BaseFieldData<Medium> fieldData = new BaseFieldData<Medium>(AbstractAuditedBean.class, "test", "created.transactionDate");
+        BeanFieldData<Medium> fieldData = new BeanFieldData<Medium>(AbstractAuditedBean.class, "test", "created.transactionDate");
         fieldData.setFieldEditable(true);
 
         assertNotNull(fieldData);
@@ -87,10 +87,10 @@ public class AbstractFieldDataTest extends TestCase {
         protected Object[][] getContents() {
             return new Object[][] { 
                     { "resource.key", "resource.value" },
-                    { "test.col.name.text", "name" },
-                    { "test.col.id.text", "Identifier" },
+                    { "test.field.name.text", "name" },
+                    { "test.field.id.text", "Identifier" },
                     
-                    { "test.col.created.transactionDate.text", "Test Created Date" },
+                    { "test.field.created.transactionDate.text", "Test Created Date" },
 
             };
         }

@@ -31,7 +31,7 @@
 		<property name="role" type="string" />
 		<property name="notes" type="string" length="1000" />
 
-		<set name="locators" table="locator" inverse="true" cascade="all-delete-orphan">
+		<set name="locators" table="locator" inverse="true" cascade="all-delete-orphan" lazy="false">
 			<key column="personId" />
 			<one-to-many class="Locator" />
 		</set>

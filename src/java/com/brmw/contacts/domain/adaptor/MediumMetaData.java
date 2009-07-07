@@ -18,9 +18,9 @@ public class MediumMetaData extends AuditedBeanMetaData<Medium> {
     public MediumMetaData() {
         super(REGISTRY_KEY, true);
         mediumColumnData = new ArrayList<FieldData<Medium>>();
-        mediumColumnData.add(new BaseFieldData<Medium>(Medium.class, getTableName(), "name", true));
-        mediumColumnData.add(new BaseFieldData<Medium>(Medium.class, getTableName(), "type", true));
-        mediumColumnData.add(new BaseFieldData<Medium>(Medium.class, getTableName(), "notes", true));
+        mediumColumnData.add(new BeanFieldData<Medium>(Medium.class, getTableName(), "name", true));
+        mediumColumnData.add(new BeanFieldData<Medium>(Medium.class, getTableName(), "type", true));
+        mediumColumnData.add(new BeanFieldData<Medium>(Medium.class, getTableName(), "notes", true));
     }
 
     @Override

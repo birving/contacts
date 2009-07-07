@@ -28,6 +28,6 @@
 		<many-to-one name="person" column="personID" class="Person"
 			not-null="true" foreign-key="fkLocatorPerson" />
 		<many-to-one name="medium" column="mediumID" class="Medium"
-			not-null="true" foreign-key="fkLocatorMedium" />
+			not-null="true" foreign-key="fkLocatorMedium" lazy="false"/>
 	</class>
 </hibernate-mapping>
