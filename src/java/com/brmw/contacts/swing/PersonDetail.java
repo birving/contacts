@@ -2,11 +2,9 @@ package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.util.Collection;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;
@@ -20,7 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import com.brmw.contacts.domain.Locator;
 import com.brmw.contacts.domain.Person;
+import com.brmw.contacts.domain.adaptor.LocatorMetaData;
+import com.brmw.contacts.mvp.PresenterFirstRegistry;
 
 /**
  * This class builds the Swing display for details of a Person.
@@ -62,11 +63,11 @@ public class PersonDetail {
 
         createNameSection(innerContainer, BorderLayout.PAGE_START);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-                                   createLocatorPanel(), createCommunicationPanel());
+        JSplitPane splitPane =
+                new JSplitPane(JSplitPane.VERTICAL_SPLIT, createLocatorPanel(), createCommunicationPanel());
         splitPane.setDividerLocation(0.5);
         splitPane.setResizeWeight(0.5);
-//        splitPane.setContinuousLayout(true);
+        // splitPane.setContinuousLayout(true);
         splitPane.setOneTouchExpandable(true);
 
         innerContainer.add(splitPane, BorderLayout.CENTER);
@@ -121,7 +122,7 @@ public class PersonDetail {
         notesField.setWrapStyleWord(true);
 
         JScrollPane notesPane = new JScrollPane(notesField);
-//        notesPane.setBorder(BorderFactory.createTitledBorder(notesText));
+        // notesPane.setBorder(BorderFactory.createTitledBorder(notesText));
         notesPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         layout.setHorizontalGroup(layout.createSequentialGroup()
@@ -157,16 +158,28 @@ public class PersonDetail {
                                                     .addComponent(companyField)))
                 // .addComponent(notesPane));
                 .addGroup(layout.createParallelGroup().addComponent(notesLabel).addComponent(notesPane)));
-
     }
 
     private JComponent createLocatorPanel() {
+        Collection<Locator> locators = person.getLocators();
         JPanel locatorPanel = new JPanel();
-        String borderTitle = resourceFactory.getString(pageName + ".locator.header.text");
+        String borderTitle = resourceFactory.getString(pageName + ".locators.header.text");
         TitledBorder border = BorderFactory.createTitledBorder(borderTitle);
         locatorPanel.setBorder(border);
+
+        CollectionTableDisplay<Locator> locatorDisplay =
+                new CollectionTableDisplay<Locator>(locators, new LocatorMetaData(pageName + ".")) {
+                    @Override
+                    protected void registerSaveButton(AbstractButton button) {
+                        PresenterFirstRegistry.getInstance().registerMediaUpdateButton(button);
+                    }
+                };
+        locatorDisplay.setContainer(locatorPanel);
+        locatorDisplay.display();
+
         return locatorPanel;
     }
+
     private JComponent createCommunicationPanel() {
         JPanel communicationsPanel = new JPanel();
         String borderTitle = resourceFactory.getString(pageName + ".communications.header.text");

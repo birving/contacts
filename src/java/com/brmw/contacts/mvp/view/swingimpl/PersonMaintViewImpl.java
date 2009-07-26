@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.domain.Person;
-import com.brmw.contacts.domain.adaptor.PersonListMetaData;
 import com.brmw.contacts.mvp.view.PersonMaintView;
 import com.brmw.contacts.swing.PersonDetail;
 

@@ -1,11 +1,14 @@
 ============================================== Stories ============================================== 
+015. User requests display of details of one person (name, companyInfo, role, notes, list of locators, list of communications).
+     User is presented with details of only Person in database, or user is presented with a list of all Person entries if more than one.  
+016. User selects one entry from list of Person entries; Details for that Person are displayed on screen.
+
 011. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until data is consistent ; also need some indication of missing data. 
 010. User adds duplicate data to GUI table (for Medium or Association Type); duplicate entry is rejected immediately (before clicking Save).
 005. User requests removal of used Medium (or Association type) entry and attempts to save changes to database. Change is rejected.
 
 013. User requests full list of companies (name, webpage, notes) 
 014. User requests full list of positions (employer, identifier, description, status, recruiterCompany, notes)
-015. User requests display of details of one person (name, companyInfo, role, notes, list of locators, list of communications)
 
 ========================================= Story Instructions ========================================= 
 A strength of Presenter First is the simple, concrete nature of the approach. Development proceeds as follows:
