@@ -54,14 +54,14 @@ public class MainMenu {
          */
         JMenuItem findPersonMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindPerson"));
         PresenterFirstRegistry.getInstance().registerPersonListButton(findPersonMenuItem);
-//        findPersonMenuItem.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JOptionPane.showMessageDialog(
-//                                              null,
-//                                              "Find Person by search not yet implemented. So far its just 'get all persons'.");
-//            }
-//        });
+        // findPersonMenuItem.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // JOptionPane.showMessageDialog(
+        // null,
+        // "Find Person by search not yet implemented. So far its just 'get all persons'.");
+        // }
+        // });
 
         JMenuItem findCompanyMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindCompany"));
         // PresenterFirstRegistry.getInstance().registerCompanyMaintButton(findCompanyMenuItem);
