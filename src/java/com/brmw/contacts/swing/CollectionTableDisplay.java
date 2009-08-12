@@ -35,10 +35,12 @@ public class CollectionTableDisplay<T extends AbstractBean> {
     private JButton saveButton;
     private JButton revertButton;
     private SwingResourceFactory resourceFactory = SwingResourceFactory.getInstance();
+    private JTable table;
 
     public CollectionTableDisplay(Collection<T> data, TableMetaData<T> metaData) {
         this.metaData = metaData;
         this.collectionTableModel = new CollectionTableModel<T>(data, metaData);
+        this.table = new JTable(collectionTableModel);
         ComponentRegistry.getInstance().register(metaData.getTableName(), this);
     }
 
@@ -95,9 +97,10 @@ public class CollectionTableDisplay<T extends AbstractBean> {
 
         createTableHeader(container);
 
-        final JTable table = createTable(container);
+        // final JTable table =
+        createTable(container);
 
-        createButtonPanel(container, table);
+        createButtonPanel(container);
 
         container.validate();
         container.setVisible(true);
@@ -112,8 +115,8 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         container.add(tableLabel, BorderLayout.NORTH);
     }
 
-    private JTable createTable(Container container) {
-        final JTable table = new JTable(collectionTableModel);
+    private void createTable(Container container) {
+        // final JTable table = new JTable(collectionTableModel);
         table.setFillsViewportHeight(true);
 
         if (metaData.isDeleteable()) {
@@ -135,10 +138,10 @@ public class CollectionTableDisplay<T extends AbstractBean> {
 
         JScrollPane scrollPane = new JScrollPane(table);
         container.add(scrollPane, BorderLayout.CENTER);
-        return table;
+        // return table;
     }
 
-    private void createButtonPanel(Container container, final JTable table) {
+    private void createButtonPanel(Container container/* , final JTable table */) {
         JPanel buttonPanel = new JPanel(new BorderLayout());
         container.add(buttonPanel, BorderLayout.SOUTH);
         JPanel leftBtnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -234,4 +237,9 @@ public class CollectionTableDisplay<T extends AbstractBean> {
             button.setEnabled(enabled);
         }
     }
+
+    // private void doStuffWithSelectionMode() {
+    // ListSelectionModel lsm = table.getSelectionModel();
+    // lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    // }
 }

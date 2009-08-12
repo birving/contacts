@@ -1,6 +1,4 @@
 ============================================== Stories ============================================== 
-015. User requests display of details of one person (name, companyInfo, role, notes, list of locators, list of communications).
-     User is presented with details of only Person in database, or user is presented with a list of all Person entries if more than one.  
 016. User selects one entry from list of Person entries; Details for that Person are displayed on screen.
 
 011. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until data is consistent ; also need some indication of missing data. 
@@ -41,6 +39,7 @@ A strength of Presenter First is the simple, concrete nature of the approach. De
 008. User requests addition of new company association type entry and saves changes to database. 
 009. User requests removal of unused company association type entry and saves changes to database.
 012. User requests full list of Person entries. (name, company, email, phone, notes)
+015. User requests full list of person entries (name, company, role, email, phone, notes). List is displayed on screen.
 =====
 
   

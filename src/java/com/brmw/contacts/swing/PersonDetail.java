@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -77,10 +76,10 @@ public class PersonDetail {
         personContainer.setVisible(true);
     }
 
-    private JTable createTable(JComponent container2) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    // private JTable createTable(JComponent container2) {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
 
     private void createHeader(JComponent container, Object constraint) {
         String headerText = resourceFactory.getString(pageName + ".header.text");
@@ -188,7 +187,7 @@ public class PersonDetail {
         return communicationsPanel;
     }
 
-    private void createButtonPanel(JComponent container2, JTable table) {
-        // TODO Auto-generated method stub
-    }
+    // private void createButtonPanel(JComponent container2, JTable table) {
+    // // TODO Auto-generated method stub
+    // }
 }
