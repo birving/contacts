@@ -1,11 +1,11 @@
 package com.brmw.contacts.mvp.presenter;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingWorker;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class PersonMaintPresenter {
     private static final Logger logger = LoggerFactory.getLogger(PersonMaintPresenter.class);
     private PersonMaintView personMaintView;
     private PersonMaintModel personMaintModel;
-    private SwingWorkerPlugin<Collection<Person>, Object> workerPlugin;
+    private SwingWorkerPlugin<Person, Object> workerPlugin;
 
     public PersonMaintPresenter(PersonMaintView personMaintView, PersonMaintModel personMaintModel) {
         this.personMaintView = personMaintView;
@@ -39,8 +39,9 @@ public class PersonMaintPresenter {
      */
     private void handlePersonMaintRequest() {
         logger.debug("Calling PersonMaintPresenter.handlePersonMaintRequest()");
-        SwingWorker<Collection<Person>, Object> swingWorker =
-                new PlugableSwingWorker<Collection<Person>, Object>(workerPlugin);
+        Person person = personMaintView.getSelected();
+        workerPlugin.setInitialValue(person);
+        SwingWorker<Person, Object> swingWorker = new PlugableSwingWorker<Person, Object>(workerPlugin);
         swingWorker.execute();
     }
 
@@ -49,38 +50,48 @@ public class PersonMaintPresenter {
      */
     private void addListeners() {
         // Button to go to Media Maintenance screen
-        personMaintView.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        personMaintView.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                ListSelectionModel model = (ListSelectionModel) e.getSource();
+                logger.info("ListenerSource: " + model.getClass().getName());
+                logger.info("Index range: " + e.getFirstIndex() +" : "+ e.getLastIndex());
+                logger.info("ValueIsAdjusting: " + e.getValueIsAdjusting());
+                int selectedIndex = model.getLeadSelectionIndex();
+                logger.info("Selected index: " + selectedIndex);
                 handlePersonMaintRequest();
             }
         });
     }
 
-    protected SwingWorkerPlugin<Collection<Person>, Object> getWorkerPlugin() {
+    protected SwingWorkerPlugin<Person, Object> getWorkerPlugin() {
         return workerPlugin;
     }
 
-    protected void setWorkerPlugin(SwingWorkerPlugin<Collection<Person>, Object> workerPlugin) {
+    protected void setWorkerPlugin(SwingWorkerPlugin<Person, Object> workerPlugin) {
         this.workerPlugin = workerPlugin;
     }
 
-    private class WorkerPlugin extends AbstractSwingWorkerPlugin<Collection<Person>, Object> {
+    private class WorkerPlugin extends AbstractSwingWorkerPlugin<Person, Object> {
         @Override
-        public Collection<Person> doInBackground() throws Exception {
+        public Person doInBackground() throws Exception {
             logger.debug("doInBackground() - running in Worker Thread");
-            return personMaintModel.getAllPersons();
+            Person person = getInitialValue();
+            return personMaintModel.getPerson(person.getId());
         }
 
         @Override
         public void done() {
             try {
                 logger.debug("done() - running in Event Dispatch Thread");
-                personMaintView.displayPersons(get());
+                personMaintView.displayPerson(get());
             } catch (InterruptedException e) {
-                // TODO determine if this can every happen in normal operation, then throw custom Exception, or ignore explicitly
-                throw new RuntimeException("THIS SHOULD NOT HAPPEN!?!? PersonMaintView.displayPersons() was interupted!", e);
+                // TODO determine if this can every happen in normal operation,
+                // then throw custom Exception, or ignore explicitly
+                throw new RuntimeException(
+                        "THIS SHOULD NOT HAPPEN!?!? PersonMaintView.displayPersons() was interupted!", e);
             } catch (ExecutionException e) {
-                // TODO throw custom Exception 
+                // TODO throw custom Exception
                 throw new RuntimeException("PersonMaintView.displayPersons() apparently failed!", e);
             }
         }

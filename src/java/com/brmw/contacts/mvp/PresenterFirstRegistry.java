@@ -1,7 +1,9 @@
 package com.brmw.contacts.mvp;
 
 import javax.swing.AbstractButton;
+import javax.swing.ListSelectionModel;
 
+import com.brmw.contacts.domain.Person;
 import com.brmw.contacts.mvp.model.impl.AssociationTypeMaintModelImpl;
 import com.brmw.contacts.mvp.model.impl.AssociationTypeUpdateModelImpl;
 import com.brmw.contacts.mvp.model.impl.MediaMaintModelImpl;
@@ -20,6 +22,7 @@ import com.brmw.contacts.mvp.view.swingimpl.MediaMaintViewImpl;
 import com.brmw.contacts.mvp.view.swingimpl.MediaUpdateViewImpl;
 import com.brmw.contacts.mvp.view.swingimpl.PersonListViewImpl;
 import com.brmw.contacts.mvp.view.swingimpl.PersonMaintViewImpl;
+import com.brmw.contacts.swing.SelectableList;
 
 /**
  * This class wires together the Model-View-Presenter triads. The code in the
@@ -84,9 +87,10 @@ public class PresenterFirstRegistry {
     }
 
     /**
-     * Create MVP triad for person maintenance button (JButton or JMenuItem)
+     * Create MVP triad for person maintenance listSelectionModel (from JTable)
+     * @param selectableList TODO
      */
-    public void registerPersonMaintButton(AbstractButton button) {
-        new PersonMaintPresenter(new PersonMaintViewImpl(button), new PersonMaintModelImpl());
+    public void registerPersonMaintButton(ListSelectionModel listSelectionModel, SelectableList<Person> selectableList) {
+        new PersonMaintPresenter(new PersonMaintViewImpl(listSelectionModel, selectableList), new PersonMaintModelImpl());
     }
 }

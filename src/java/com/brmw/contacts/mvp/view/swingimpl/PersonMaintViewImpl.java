@@ -1,8 +1,6 @@
 package com.brmw.contacts.mvp.view.swingimpl;
 
-import java.util.Collection;
-
-import javax.swing.AbstractButton;
+import javax.swing.ListSelectionModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,23 +8,20 @@ import org.slf4j.LoggerFactory;
 import com.brmw.contacts.domain.Person;
 import com.brmw.contacts.mvp.view.PersonMaintView;
 import com.brmw.contacts.swing.PersonDetail;
+import com.brmw.contacts.swing.SelectableList;
 
-public class PersonMaintViewImpl extends AbstractButtonView implements PersonMaintView {
+public class PersonMaintViewImpl extends AbstractListSelectionView<Person> implements PersonMaintView {
     private static final Logger logger = LoggerFactory.getLogger(PersonMaintViewImpl.class);
 
-    public PersonMaintViewImpl(AbstractButton button) {
-        super(button);
+    public PersonMaintViewImpl(ListSelectionModel listSelectionModel, SelectableList<Person> selectableList) {
+        super(listSelectionModel, selectableList);
     }
 
     @Override
-    public void displayPersons(Collection<Person> people) {
-        logger.debug("Running PersonMaintViewImpl.displayPersons();");
-//        CollectionTableDisplay<Person> personDisplay = new CollectionTableDisplay<Person>(people, new PersonListMetaData());
-//        personDisplay.display();
-        for (Person person: people) {
-            PersonDetail personDetail = new PersonDetail();
-            personDetail.setPerson(person);
-            personDetail.display();
-        }
+    public void displayPerson(Person person) {
+        logger.debug("Running PersonMaintViewImpl.displayPerson();");
+        PersonDetail personDetail = new PersonDetail();
+        personDetail.setPerson(person);
+        personDetail.display();
     }
 }

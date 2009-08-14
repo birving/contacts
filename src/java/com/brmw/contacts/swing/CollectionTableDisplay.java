@@ -28,7 +28,7 @@ import com.brmw.contacts.domain.adaptor.TableMetaData;
  * This class builds the Swing display for a JTable and associated buttons for
  * type T.
  */
-public class CollectionTableDisplay<T extends AbstractBean> {
+public class CollectionTableDisplay<T extends AbstractBean> implements SelectableList<T> {
     private Container container;
     private CollectionTableModel<T> collectionTableModel;
     private TableMetaData<T> metaData;
@@ -42,6 +42,14 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         this.collectionTableModel = new CollectionTableModel<T>(data, metaData);
         this.table = new JTable(collectionTableModel);
         ComponentRegistry.getInstance().register(metaData.getTableName(), this);
+        initialize();
+    }
+
+    /**
+     * Override this method to add any extra initialization
+     */
+    protected void initialize() {
+        // Do nothing
     }
 
     public Container getContainer() {
@@ -50,6 +58,10 @@ public class CollectionTableDisplay<T extends AbstractBean> {
 
     public void setContainer(Container container) {
         this.container = container;
+    }
+
+    protected JTable getTable() {
+        return table;
     }
 
     /**
@@ -238,8 +250,9 @@ public class CollectionTableDisplay<T extends AbstractBean> {
         }
     }
 
-    // private void doStuffWithSelectionMode() {
-    // ListSelectionModel lsm = table.getSelectionModel();
-    // lsm.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    // }
+    @Override
+    public T getSelected(int index) {
+        int modelIndex = table.convertRowIndexToModel(index);
+        return collectionTableModel.getTableData().get(modelIndex);
+    }
 }

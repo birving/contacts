@@ -1,11 +1,9 @@
 package com.brmw.contacts.mvp.view;
 
-import java.util.Collection;
-
 import com.brmw.contacts.domain.Person;
 
-public interface PersonMaintView extends ButtonView {
+public interface PersonMaintView extends ListSelectionView<Person> {
 
-    public void displayPersons(Collection<Person> collection);
+    public void displayPerson(Person person);
 
 }
