@@ -69,8 +69,8 @@ public class TestDataLoader {
         }
 
         Person person1 = new Person();
-        person1.setFirstName("Jim");
-        person1.setLastName("Smith");
+        person1.setDisplayName("Jim Smith");
+        person1.setUniqueName("Smith, Jim");
 
         Locator locator1 = new Locator();
         locator1.setMedium(medium1);

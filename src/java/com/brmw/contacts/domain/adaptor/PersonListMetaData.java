@@ -19,8 +19,8 @@ public class PersonListMetaData extends AuditedBeanMetaData<Person> {
     public PersonListMetaData() {
         super(REGISTRY_KEY, true);
         personColumnData = new ArrayList<FieldData<Person>>();
-        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "firstName"));
-        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "lastName"));
+        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "displayName"));
+//        personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "uniqueName"));
         personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "company"));
         personColumnData.add(new BeanFieldData<Person>(Person.class, getTableName(), "role"));
 

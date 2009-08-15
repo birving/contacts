@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.brmw.contacts.ContactsState;
+import com.brmw.contacts.domain.Person;
 import com.brmw.contacts.mvp.PresenterFirstRegistry;
 
 public class MainMenu {
@@ -62,6 +63,17 @@ public class MainMenu {
         // "Find Person by search not yet implemented. So far its just 'get all persons'.");
         // }
         // });
+
+        JMenuItem newPersonMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.NewPerson"));
+        newPersonMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                logger.debug("Creating new Person and opening in PersonDetail view");
+                PersonDetail personDetail = new PersonDetail();
+                personDetail.setPerson(new Person());
+                personDetail.display();
+            }
+        });
 
         JMenuItem findCompanyMenuItem = contactsMenu.add(resourceFactory.createMenuItem("Contacts.FindCompany"));
         // PresenterFirstRegistry.getInstance().registerCompanyMaintButton(findCompanyMenuItem);

@@ -16,10 +16,11 @@
 			</generator>
 		</id>
 		<natural-id>
-			<property name="lastName" type="string" />
-			<property name="firstName" type="string" />
+			<property name="uniqueName" type="string" />
 		</natural-id>
 		<version name="version" column="version" type="long" />
+
+        <property name="displayName" type="string" />
 
 		<many-to-one name="created" column="createdID" class="Audit"
 			foreign-key="fkPersonCreated" update="false" />

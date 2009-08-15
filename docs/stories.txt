@@ -1,4 +1,6 @@
 ============================================== Stories ============================================== 
+018. User enters full name and proposed uniqueName options.
+
 017. User requests a new contact person be created by the application. A person detail screen is displayed on screen in which details can be entered.   
 011. User adds or edits data with null (or blank) value (for Medium or Association Type). Save button should not be enabled until data is consistent ; also need some indication of missing data. 
 010. User adds duplicate data to GUI table (for Medium or Association Type); duplicate entry is rejected immediately (before clicking Save).

@@ -101,9 +101,13 @@ public class PersonDetail {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
-        String fullNameText = resourceFactory.getString(pageName + ".field.fullName.text") + ":";
-        JLabel fullNameLabel = new JLabel(fullNameText, SwingConstants.LEADING);
-        JTextField fullNameField = new JTextField(person.getFirstName() + " " + person.getLastName(), 15);
+        String displayNameText = resourceFactory.getString(pageName + ".field.displayName.text") + ":";
+        JLabel displayNameLabel = new JLabel(displayNameText, SwingConstants.LEADING);
+        JTextField displayNameField = new JTextField(person.getDisplayName(), 15);
+
+        String uniqueNameText = resourceFactory.getString(pageName + ".field.uniqueName.text") + ":";
+        JLabel uniqueNameLabel = new JLabel(uniqueNameText, SwingConstants.LEADING);
+        JTextField uniqueNameField = new JTextField(person.getUniqueName(), 15);
 
         String roleText = resourceFactory.getString(pageName + ".field.role.text") + ":";
         JLabel roleLabel = new JLabel(roleText);
@@ -111,7 +115,8 @@ public class PersonDetail {
 
         String companyText = resourceFactory.getString(pageName + ".field.company.text") + ":";
         JLabel companyLabel = new JLabel(companyText);
-        JTextField companyField = new JTextField(person.getCompany().toString(), 15);
+        JTextField companyField =
+                new JTextField((person.getCompany() == null) ? "" : person.getCompany().toString(), 15);
 
         String notesText = resourceFactory.getString(pageName + ".field.notes.text") + ":";
         JLabel notesLabel = new JLabel(notesText);
@@ -127,13 +132,17 @@ public class PersonDetail {
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(
                           layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                  .addComponent(fullNameLabel)
+                                  .addComponent(displayNameLabel)
+                                  .addComponent(uniqueNameLabel)
                                   .addComponent(roleLabel)
                                   .addComponent(companyLabel))
                 .addGroup(
                           layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                   .addComponent(
-                                                fullNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                displayNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                Short.MAX_VALUE)
+                                  .addComponent(
+                                                uniqueNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
                                                 Short.MAX_VALUE)
                                   .addComponent(roleField)
                                   .addComponent(companyField))
@@ -145,8 +154,12 @@ public class PersonDetail {
                           layout.createSequentialGroup()
                                   .addGroup(
                                             layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(fullNameLabel)
-                                                    .addComponent(fullNameField))
+                                                    .addComponent(displayNameLabel)
+                                                    .addComponent(displayNameField))
+                                  .addGroup(
+                                            layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(uniqueNameLabel)
+                                                    .addComponent(uniqueNameField))
                                   .addGroup(
                                             layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                     .addComponent(roleLabel)

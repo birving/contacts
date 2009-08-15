@@ -41,12 +41,12 @@ public class PersonMaintPresenterTest extends MockObjectTestCase {
     public void testPersonMaint() {
 
         final Person selectedPerson = new Person();
-        selectedPerson.setFirstName("Joe");
-        selectedPerson.setLastName("Schmoe");
+        selectedPerson.setDisplayName("Joe Schmoe");
+        selectedPerson.setUniqueName("Schmoe, Joe");
 
         final Person persistedPerson = new Person();
-        persistedPerson.setFirstName("Mark");
-        persistedPerson.setLastName("Mywords");
+        persistedPerson.setDisplayName("Mark Mywords");
+        persistedPerson.setUniqueName("Mywords, Mark");
 
         // Expectations
         checking(new Expectations() {

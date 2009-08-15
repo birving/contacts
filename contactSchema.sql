@@ -139,12 +139,12 @@ CREATE
         created INT NOT NULL,
         updated INT NOT NULL,
         companyID INT,
-        lastName VARCHAR(50) NOT NULL,
-        firstName VARCHAR(50) NOT NULL,
+        uniqueName VARCHAR(50) NOT NULL,
+        displayName VARCHAR(50) NOT NULL,
         position VARCHAR(100),
         notes VARCHAR(1000),
         PRIMARY KEY (personID),
-        INDEX name_index (lastName, firstName),
+        INDEX name_index (uniqueName),
         INDEX company_index (companyID)
     )
 
@@ -182,11 +182,10 @@ CREATE
 
 -- Views
 CREATE VIEW v_person as 
-SELECT p.firstName, p.lastName, p.position, c.name as company, c.webpage, m.name as medium, l.value, p.notes
+SELECT p.displayName, p.uniqueName, p.position, c.name as company, c.webpage, m.name as medium, l.value, p.notes
 FROM company c
     right outer join person p on p.companyID = c.companyID 
     left outer join locator l on p.personID = l.personID
     left outer join medium m on l.mediumID = m.mediumID
-order by p.lastName, p.firstname, m.type, m.name
-
+order by p.uniqueName
 

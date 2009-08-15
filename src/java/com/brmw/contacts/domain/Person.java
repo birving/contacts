@@ -12,28 +12,28 @@ import java.util.Set;
  *         This class represents a person with whom there may be contact.
  */
 public class Person extends AbstractAuditedBean {
-    private String lastName; // Natural identifier
-    private String firstName; // Natural identifier
+    private String uniqueName;    // Must be unique; will be used for sort
+    private String displayName; // As the app should display it.
     private Company company;
     private String role;
     private Set<Locator> locators = new HashSet<Locator>();
     private Set<Communication> communications = new HashSet<Communication>();
     private String notes;
 
-    public String getLastName() {
-        return lastName;
+    public String getUniqueName() {
+        return uniqueName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUniqueName(String uniqueName) {
+        this.uniqueName = uniqueName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public Company getCompany() {
@@ -90,11 +90,11 @@ public class Person extends AbstractAuditedBean {
     @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();
-        if (firstName != null) {
-            buf.append(firstName).append(" ");
+        if (displayName != null) {
+            buf.append(displayName).append(" ");
         }
-        if (lastName != null) {
-            buf.append(lastName);
+        if (uniqueName != null) {
+            buf.append(uniqueName);
         }
         return buf.toString();
     }
@@ -103,8 +103,8 @@ public class Person extends AbstractAuditedBean {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
+        result = prime * result + ((uniqueName == null) ? 0 : uniqueName.hashCode());
         return result;
     }
 
@@ -117,15 +117,15 @@ public class Person extends AbstractAuditedBean {
         if (getClass() != obj.getClass())
             return false;
         Person other = (Person) obj;
-        if (firstName == null) {
-            if (other.firstName != null)
+        if (displayName == null) {
+            if (other.displayName != null)
                 return false;
-        } else if (!firstName.equals(other.firstName))
+        } else if (!displayName.equals(other.displayName))
             return false;
-        if (lastName == null) {
-            if (other.lastName != null)
+        if (uniqueName == null) {
+            if (other.uniqueName != null)
                 return false;
-        } else if (!lastName.equals(other.lastName))
+        } else if (!uniqueName.equals(other.uniqueName))
             return false;
         return true;
     }
