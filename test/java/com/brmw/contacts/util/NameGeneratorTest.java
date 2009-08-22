@@ -26,21 +26,21 @@ public class NameGeneratorTest extends TestCase {
         String displayName = "John Smith";
         List<String> names = nameGenerator.generateVariants(displayName, null);
         assertEquals("Should be exactly two variants", 2, names.size());
-        assertEquals("Smith, John", names.get(0));
-        assertEquals("John Smith", names.get(1));
+        assertEquals("John Smith", names.get(0));
+        assertEquals("Smith, John", names.get(1));
     }
 
     public void testTwoNamesExtraSpaces() {
         String displayName = "John  Smith  ";
         List<String> names = nameGenerator.generateVariants(displayName, null);
         assertEquals("Should be exactly two variants, spaces should be normalized", 2, names.size());
-        assertEquals("Smith, John", names.get(0));
-        assertEquals("John Smith", names.get(1));
+        assertEquals("John Smith", names.get(0));
+        assertEquals("Smith, John", names.get(1));
     }
 
     public void testThreeNames() {
         String displayName = "John  Samuel  Smith  ";
-        assertContains(displayName, "Smith, John", "John Samuel Smith", "Smith, John Samuel");
+        assertContains(displayName, "John Samuel Smith", "Smith, John Samuel", "Samuel Smith, John");
     }
 
     // Try some sample names to verify that the preferred option is present ...
@@ -69,7 +69,7 @@ public class NameGeneratorTest extends TestCase {
     }
 
     public void testJohnJGSmith() {
-        assertContains("John Jacob Jingleheimer Schmidt", "Schmidt, John Jacob Jingleheimer");
+        assertContains("John Jacob Jingleheimer Schmidt", "Schmidt, John Jacob Jingleheimer", "Jingleheimer Schmidt, John Jacob");
     }
 
     private void assertContains(String displayName, String... shouldContain) {

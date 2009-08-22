@@ -16,28 +16,23 @@ import java.util.Set;
 public class NameGenerator {
     private static final String SPACE = " ";
     private static final String COMMA = ", ";
-    // Some common prefixes and suffixes can be accommodated
-    private static final List<String> PREFIXES = Arrays.asList("DR.", "DR", "MR.", "MR", "MRS.", "MRS", "MS.", "MS");
-    private static final List<String> SUFFIXES = Arrays.asList("JR.", "JR", "II", "III", "PHD.", "PHD");
+    // Prefixes can be ignored since the algorithm is not affected by them.
+    // PREFIXES = Arrays.asList("DR.", "MR.", "MRS.", "MS.", "MS");
+    // Some common suffixes can be accommodated - Add more if needed.
+    private static final List<String> SUFFIXES = Arrays.asList("JR.", "II", "III", "PHD.", "DDS.");
 
     public List<String> generateVariants(String displayName, String currentUniqueName) {
 
         // Normalize white space: no tabs, leading, trailing, multiples, etc.
-        displayName = displayName.replaceAll("\\s+", " ").trim();
+        displayName = (displayName == null) ? "" : displayName.replaceAll("\\s+", " ").trim();
 
         Set<String> variants = new LinkedHashSet<String>();
 
-        String prefix = "";
         String suffix = "";
         StringBuilder builder = new StringBuilder(255);
 
         // Split on white space
         List<String> part = new ArrayList<String>(Arrays.asList(displayName.split(",? ")));
-
-        if (PREFIXES.contains(part.get(0).toUpperCase()) || PREFIXES.contains((part.get(0) + ".").toUpperCase())) {
-            prefix = part.get(0) + SPACE;
-            part.remove(0);
-        }
 
         int last = part.size() - 1;
         if (SUFFIXES.contains(part.get(last).toUpperCase()) || SUFFIXES.contains((part.get(last) + ".").toUpperCase())) {
@@ -46,14 +41,13 @@ public class NameGenerator {
             last -= 1;
         }
 
-        if (part.size() > 1) {
-            builder.append(part.get(last)).append(COMMA).append(prefix).append(part.get(0)).append(suffix);
-            variants.add(builder.toString());
-        }
+        // First option - Include normalized display name
+        variants.add(displayName);
 
-        if (part.size() > 2) {
+        // Second option (default) - Last, First [Middle ...] [Suffix]
+        if (part.size() >= 2) {
             builder.setLength(0);
-            builder.append(part.get(last)).append(COMMA).append(prefix);
+            builder.append(part.get(last)).append(COMMA);
             String sep = "";
             for (int i = 0; i < last; i++) {
                 builder.append(sep).append(part.get(i));
@@ -61,14 +55,13 @@ public class NameGenerator {
             }
             builder.append(suffix);
             variants.add(builder.toString());
+        }
 
+        // Third option - Two Last, First [Middle...] [Suffix]
+        if (part.size() >= 3) {
             builder.setLength(0);
-            builder.append(part.get(last - 1))
-                    .append(SPACE)
-                    .append(part.get(last))
-                    .append(COMMA)
-                    .append(prefix);
-            sep = "";
+            builder.append(part.get(last - 1)).append(SPACE).append(part.get(last)).append(COMMA);
+            String sep = "";
             for (int i = 0; i < last - 1; i++) {
                 builder.append(sep).append(part.get(i));
                 sep = SPACE;
@@ -76,9 +69,6 @@ public class NameGenerator {
             builder.append(suffix);
             variants.add(builder.toString());
         }
-
-        // Include normalized display name if not already there)
-        variants.add(displayName);
 
         ArrayList<String> variantList = new ArrayList<String>(variants);
 
@@ -89,5 +79,23 @@ public class NameGenerator {
         }
 
         return variantList;
+    }
+
+    public class Variant {
+        private String name;
+        private int type;
+
+        public Variant(CharSequence name, int type) {
+            this.name = name.toString();
+            this.type = type;
+        }
+
+        public String toString() {
+            return name;
+        }
+
+        public int getType() {
+            return type;
+        }
     }
 }

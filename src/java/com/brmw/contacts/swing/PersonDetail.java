@@ -2,11 +2,15 @@ package com.brmw.contacts.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,11 +20,16 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 import com.brmw.contacts.domain.Locator;
 import com.brmw.contacts.domain.Person;
 import com.brmw.contacts.domain.adaptor.LocatorMetaData;
 import com.brmw.contacts.mvp.PresenterFirstRegistry;
+import com.brmw.contacts.util.NameGenerator;
 
 /**
  * This class builds the Swing display for details of a Person.
@@ -30,6 +39,9 @@ public class PersonDetail {
     private String pageName = "personDetail";
     private Person person;
     private SwingResourceFactory resourceFactory = SwingResourceFactory.getInstance();
+    // private JTextField uniqueNameField;
+    private JComboBox uniqueNameField;
+    private NameGenerator nameGenerator = new NameGenerator();
 
     public Container getPersonContainer() {
         return personContainer;
@@ -90,6 +102,22 @@ public class PersonDetail {
         container.add(tableLabel, constraint);
     }
 
+    private void updateUniqueFromDisplay(DocumentEvent event) {
+        // if (person.getUniqueName() == null ||
+        // person.getUniqueName().isEmpty()) {
+        Document doc = event.getDocument();
+        String text = null;
+        try {
+            text = (doc.getLength() == 0) ? "" : doc.getText(0, doc.getLength());
+        } catch (BadLocationException e1) {
+            // This should never happen
+            throw new IllegalStateException("Unable to get text from text field", e1);
+        }
+        List<String> names = nameGenerator.generateVariants(text, null);
+        uniqueNameField.setSelectedItem(names.get(0));
+        // }
+    }
+
     private void createNameSection(JComponent container, Object constraint) {
 
         JPanel panel = new JPanel();
@@ -107,7 +135,40 @@ public class PersonDetail {
 
         String uniqueNameText = resourceFactory.getString(pageName + ".field.uniqueName.text") + ":";
         JLabel uniqueNameLabel = new JLabel(uniqueNameText, SwingConstants.LEADING);
-        JTextField uniqueNameField = new JTextField(person.getUniqueName(), 15);
+        // uniqueNameField = new JTextField(person.getUniqueName(), 15);
+
+        List<String> names = nameGenerator.generateVariants(person.getDisplayName(), person.getUniqueName());
+        uniqueNameField = new JComboBox(names.toArray());
+        uniqueNameField.setEditable(true);
+        uniqueNameField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String uniqueName = uniqueNameField.getSelectedItem().toString();
+                person.setUniqueName(uniqueName);
+                // int index = uniqueNameField.getSelectedIndex();
+                // if (index < 0) {
+                // uniqueNameField.insertItemAt(uniqueName, 0);
+                // }
+
+                // List<String> names =
+                // nameGenerator.generateVariants(person.getDisplayName(),
+                // person.getUniqueName());
+                // uniqueNameField.removeAllItems();
+                // uniqueNameField.addItem(anObject);
+            }
+        });
+
+        displayNameField.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { // ignore
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                updateUniqueFromDisplay(e);
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                updateUniqueFromDisplay(e);
+            }
+        });
 
         String roleText = resourceFactory.getString(pageName + ".field.role.text") + ":";
         JLabel roleLabel = new JLabel(roleText);
