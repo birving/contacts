@@ -14,8 +14,8 @@ Martin Fowler's take:
     http://www.martinfowler.com/eaaDev/SupervisingPresenter.html
 
 
-The classes representing the View should no nothing about the Model or Presenter.
-Likewise, the classes representing the Model should no nothing about the View or Presenter.
+The classes representing the View should know nothing about the Model or Presenter.
+Likewise, the classes representing the Model should know nothing about the View or Presenter.
 Only the Presenter classes need to know about the others.
 
 Each visible piece of the GUI is represented by a 'triad' of Model-Presenter-View.  
